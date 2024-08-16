@@ -1,0 +1,9 @@
+:PROPERTIES:
+:ID:       C93D6E32-27C7-472E-A6F1-3682401E663C
+:END:
+#+title: Rate Limiting
+#+filetags: Programming
+Token-Bucket algorithm
+
+- There's a bucket of tokens that fills periodically and tokens decrease when used
+- These correspond to the number of tokens the user gets access to

@@ -1,0 +1,15 @@
+:PROPERTIES:
+:ID:       7524007E-CEA0-47B0-9E14-E20702536585
+:END:
+#+title: Awk
+#+filetags: Programming
+
+Awk operates on records (lines) and fields (words)
+It reads files one line by line and splits the lines into words
+
+Pattern:
+stuff to operate on {action [field]}
+
+#+BEGIN_SRC sh
+awk '{print $0}' file1 file2
+#+END_SRC

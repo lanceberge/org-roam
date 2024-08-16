@@ -1,0 +1,14 @@
+:PROPERTIES:
+:ID:       57A96B55-3DDB-4CAA-BF86-DED39E8C19BD
+:END:
+#+title: Web Protocols
+#+filetags: Programming
+[[id:8881844B-3FE5-4FA9-9676-9B808375EB00][Web Dev]]
+
+- HTTP - Unidirectional
+- HTTPS - Uses SSL to encrypt requests and responses
+- Web Socket - Bidirectional between client and server
+
+  Stateful - The connection stays alive until terminated by either client or server
+
+  Ex. The frontend pulls data from the backend, and if the backend is updated then it can communicate to the frontend

@@ -1,0 +1,7 @@
+:PROPERTIES:
+:ID:       641EC4DA-BA86-41C7-A64A-A4AC34F31B67
+:END:
+#+title: Regex
+#+filetags: Programming
+
+^a - match not a

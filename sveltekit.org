@@ -1,0 +1,146 @@
+:PROPERTIES:
+:ID:       D846457A-1522-4ADA-999B-35095AA0AB4A
+:END:
+#+title: SvelteKit
+
+event.locals - stores data available during the lifcycle of a request
+[[id:8881844B-3FE5-4FA9-9676-9B808375EB00][Web Dev]]
+* Routes
+
++layout.svelte    - each page in the dir uses this ui
++layout.server.ts - loads data for each root
+
+$lib - code in src/lib. This is meant for code shared by multiple routes
+#+BEGIN_SRC js
+import { message } from '$lib/message.js'
+#+END_SRC
+
+
+You can use a param [slug] as a route. Then, this route will exist for any input
+
+* Hooks
+
+- [[https://learn.svelte.dev/tutorial/handle][Hooks]]
+- Hooks intercept the behavior of roots
+- Ex. the handle function. It receives an =event= object and a =resolve= function, then returns a response object
+- =event.locals= - an artbritrary object you can pass between your hooks and the routes
+- You can modify the html using =transformPageChunk=
+
+#+BEGIN_SRC javascript
+// hooks.server.ts
+event.locals.something = "whatever I want"
+
+// +page.server.ts
+export const load: PageServerLoad = async({ locals }) => {
+    console.log(locals.something)
+}
+#+END_SRC
+* Forms
+
++page.svelte
+
+#+BEGIN_SRC html
+<form method="POST" action="?/create=">
+  <label>
+    add a todo:
+    <input
+      name="description"
+      autocomplete="off"
+      required <!-- mark it as required -->
+      />
+  </label>
+</form>
+#+END_SRC
+
+in +page.server.ts. The data sent by the form gets passed through the actions
+
+#+BEGIN_SRC js
+export const actions = {
+  // Named action - we name it create and it matches up with the "?/create" form
+  create: async ({ cookies, request }) => { // unpacking the cookies and request from a RequestEvent object
+    const data = await request.formData();
+    db.createTodo(cookies.get("userid"), data.get("description"));
+  },
+};
+#+END_SRC
+
+** Validation
+
+#+BEGIN_SRC html
+{#if form?.error}
+  <p class="error">{form.error}</p>
+{/if}
+#+END_SRC
+
+#+BEGIN_SRC js
+import { fail } from '@sveltejs/kit';
+
+export const actions = {
+  create: async ({ cookies, request }) => {
+    const data = await request.formData();
+
+    try {
+      db.createTodo(cookies.get("userid"), data.get("description"));
+    } catch (error) {
+      return fail(422, {
+        description: data.get("description"),
+        error: error.message,
+      });
+    }
+  },
+};
+#+END_SRC
+
+** use:enhance
+
+Add to a form for browser-native behavior
+
+- This will update the DOM instead of reloading it
+
+* SEO
+
+svelte:head
+
+* Stores
+
+#+BEGIN_SRC html
+<script>
+  import { page } from '$app/stores';
+</script>
+#+END_SRC
+
+provides page.url, params, route, status, error, data (combines the return of all load functions), form
+
+#  LocalWords:  artbritrary
+
+* Auth Protocol
+
+[[https://www.youtube.com/watch?v=K1Tya6ovVOI][Huntabyte Vide]]
+
+Login button -> actions in =+page.server.ts=
+- This sets a cookie
+
+in hooks.server.ts
+
+- We have an =authenticateUser= function that returns the user's auth level and sets it in =event.locals=
+- Then in the page's load function, it redirects users if not auth
+
+#+BEGIN_SRC javascript
+if (!locals.user) {
+    throw redirect(303, "/")
+}
+#+END_SRC
+
+or: better way
+
+#+BEGIN_SRC javascript
+// hooks.server.ts
+export const handle: Handle = async ({ event, resolve}) => {
+    event.locals.user = authenticateUser(event)
+    if (event.url.pathname.startsWith('/protected')) {
+        if (!event.locals.user) {
+            throw redirect(303, "/");
+        }
+    }
+}
+#+END_SRC

@@ -1,0 +1,8 @@
+:PROPERTIES:
+:ID:       65458E44-E268-4A98-BDA1-A9C83CC831ED
+:END:
+#+title: Designing Data Intensive Applications
+#+filetags: Programming
+[[id:8C8AADB8-324A-4DF4-9A15-E7AED2E08711][Database]]
+[[id:dd3046a5-9c7c-4f1e-a1a4-47d96afd3a08][Database Replication]]
+[[id:CEF16D2A-5EC9-44EA-A26D-2DDCDD104F62][NoSQL]]

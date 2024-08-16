@@ -1,0 +1,81 @@
+:PROPERTIES:
+:ID:       CEF16D2A-5EC9-44EA-A26D-2DDCDD104F62
+:END:
+#+title: NoSQL
+
+Either key-value store, document store, or graph db
+
+Joins are usually done in application code
+
+NoSQL Typically denormalizes data, lacks true ACID, and favors eventual consistency
+
+* Key-Value Store
+
+- Simple O(1) reads & writes and is the basis for document stores and sometimes graph [[id:8C8AADB8-324A-4DF4-9A15-E7AED2E08711][Database]]s
+
+* Document Store
+
+- Has JSON or binary underlying a document
+
+DynamoDB for example supports key-value and document
+
+* Wide Column Store
+
+Enables super columns that have multiple columns in themselves
+
+Ex: Companies and address,website super-columns
+
+| Companies |               |           |     |
+| Address   |               | Website   |     |
+| City      | San Francisco | Subdomain | WWW |
+
+* Graph Database
+
+- Good for complex relationships with many foreign keys or many-to-many relationships
+
+* SQL vs. NoSQL
+
+SQL:
+
+ - Structured, strict, relational data
+ - Complex joins
+ - Fast index lookups
+ - Established communities and tooling
+ - Good support for many-to-many and many-to-one relations
+   - Just have everything in tables and the query optimizer will decide which indexes to use
+       Rather than following complicated paths with a document DB
+   - Queries run by the database will likely be more efficient than emulating joins with application code
+
+
+NoSQL:
+
+ - Flexible schema
+ - Can provide better locality
+ - Good for hot tables
+ - Can be better for writes
+
+** Best Use Cases of NoSQL
+
+   - A tree like structure where the whole tree is loaded as once (use a document model)
+
+** Use Cases of Relational
+
+   - many-to-many relationships
+
+* Object-Relational Mismatch
+
+  OOP languages mean that we need to translate data to relational models,
+  whereas NoSQL supports it by default
+
+  JSON provides better locality than multi-table schema
+    (ex. a table for positions, industries, regions, education) for a LinkedIn profile
+
+  Using ids instead of plain text strings:
+    You can give users a dropdown of options to avoid ambiguity and enable ease of updating
+    Using ids is useful if you ever update the info
+
+** Normalization
+
+   - Sometimes, normalizing data leads to many-to-one relationships (many people living in one area)
+
+     This leads to multiple queries to emulate a join

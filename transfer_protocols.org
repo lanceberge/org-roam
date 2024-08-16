@@ -1,0 +1,19 @@
+:PROPERTIES:
+:ID:       78573C75-A04A-450F-98B8-A650B7AC286A
+:END:
+#+title: Transfer Protocols
+* HTTP
+* TCP
+
+- All packets are guaranteed to be received in order using a handshake
+  | Checksum fields and sequence numbers for each packet
+
+- If the checksum fails, data will need to be resent
+- Web servers can keep many connections open, but you'll want connection pooling if
+    you have too many connections with a server
+
+* UDP
+
+- UDP has no checksum, enabling lower latency
+- Packets are not guaranteed to be received in order
+- This is best for live games, video chat, video streaming

@@ -1,0 +1,65 @@
+:PROPERTIES:
+:ID:       dd3046a5-9c7c-4f1e-a1a4-47d96afd3a08
+:END:
+#+title: Database Replication
+#+filetags: Programming
+[[id:8C8AADB8-324A-4DF4-9A15-E7AED2E08711][Database]]
+
+- Lets you keep data geographically close to users
+- Allow for failover
+- Horizontally scale read queries
+
+* Leader-Follower (Master-Slave)
+
+- One Replica is the Leader - all writes go through the leader
+  - This sends each write to the followers
+
+** Synchronous vs Asynchronous
+
+- Synchronous: The leader waits for the follower's response that it received the data
+
+  This is disadvantageous if the follower crashes, the leader has to block all writes until the ok is received
+  But it's advantageous that the followers are guaranteed to be up to date with the leader
+
+Semi-Synchronous: One of the followers will be synchronous, and the others will be async
+
+ - If the synchronous follower gets slow, one of the async followers will be made synchronous.
+ - Thus, an up-to-date copy of the data will be available on at least two nodes
+
+*** Fully Asynchronous
+
+- If the leader fails, any writes that haven't yet gone to followers will be lost
+  - But the advantage is that it'll be much faster
+
+** Setting up New Followers
+
+- Take consistent snapshots of the leader's [[id:8C8AADB8-324A-4DF4-9A15-E7AED2E08711][Database]]
+- Copy the snapshot to the new follower
+- The follower connects to the leader and requests new data changes ([[id:40493a16-91dd-4a94-bb8a-59c358284beb][PostgreSQL]] log sequence number)
+
+** Handling Node Outages
+
+Follower Failure
+
+- The follower that crashes will know it's last transaction before the fault, thus will connect to the leader and take new writes
+
+Leader Failure - Failover
+
+- Need to: Promote a follower, configure clients to send their writes to the new leader, inform followers of the new leader
+
+1. Identify that the leader failed - if it doesn't respond for 30s
+2. Choose a new leader - the most up to date replica
+
+*** Failover
+
+- Async - usually discard writes
+
+* Replication Log Strategies
+
+Statement-Based - store the leader's write statements (SQL queries)
+  - This breaks down if nondeterministic functions such as NOW() or RAND() are used
+  - Auto-incrementing columns thta get out of date
+  - Triggers and stored procedures can have side effects and lead to nondeterministic behavior
+
+  The leader can replace nondeterministic function calls with a fixed return value when the
+    statement is logged

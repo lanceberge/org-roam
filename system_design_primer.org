@@ -1,0 +1,177 @@
+:PROPERTIES:
+:ID:       195A9D78-086C-4CDB-B4CA-8451D250A45B
+:END:
+#+title: System Design Primer
+#+filetags: Programming Drill
+[[id:28368C54-E2A6-4E7A-9CB3-43CEA3F82BA7][System Design Interview]]
+[[https://github.com/donnemartin/system-design-primer?tab=readme-ov-file][Article Link]]
+
+* [[id:8C8AADB8-324A-4DF4-9A15-E7AED2E08711][Database]]
+
+- Don't use MySQL. Use Mongo (outdated) and do joins in the application code
+
+ ACID
+
+ - Atomicity   - each transaction is all or nothing
+ - Consistency - the database stays valid between transactions
+ - Isolation   - concurrent transactions has the same results as serial
+ - Durability  - once a transaction completes, it remins complete
+
+** Replication
+
+Master-Slave
+
+- The master serves reads, the slaves only serve writes
+
+Master-Master
+
+Both serve reads and writes and coordinate on writes
+
+Disadvantages:
+
+- Requires a load balancer
+- Either violates ACID (loosely consistent) or requires slow synchronization logic
+
+** Federation (Functional Partitioning)
+
+- Splitting up the database by function - ex. forums, users, products
+
+Disadvantages
+
+- Complex joins
+- Complex queries over multiple dbs
+
+** Sharding
+
+- Split the data over multiple dbs
+
+Disadvantages
+
+- Complex queries
+- Complex joins
+
+** Denormalization
+
+- Improve reads, hinder writes
+
+Redundant copies of data are written in multiple tables to avoid expensive writes
+
+This strategy works in conjunction with federation and sharding
+
+** SQL Tuning
+
+- Using CHAR instead of VARCHAR for fixed-length fields
+- INT for large numbers up to 2^32
+- DECIMAL for currency
+- Set the NOT NULL constraint wherever possible
+- Use good indices
+- Denormalize data that will be frequently joined
+- Partition hot spots
+
+** Indices
+
+- Represented as self-balancing B-trees
+
+* Caching
+
+- Whenever your application tries to read data, it should first look through the cache
+
+Two Approaches:
+
+1. Cache the result of database queries
+2. (Recommended) Cache objects
+
+   - Store the complete class in the db, or
+   - Store the arrays, etc. in the db
+
+Cache:
+- User sessions
+- Blog articles
+- user-friend relationships
+
+* Asynchronism
+
+- Have worker nodes that constantly check from a message queue
+- Once it's done, they send a completion message
+
+  Anything time-consuming, do it async
+
+* Latency vs. Throughput
+
+- Latency - the time to perform an action
+- Throughput - the number actions / time. Ex. 120 cars per day
+
+* Availability vs. Consistency
+
+A system can only support two of the following:
+
+- Consistency - Every read receives the most recent write
+- Availability - Every request receives a response
+- Partition Tolerance
+
+** Consistency Patterns
+
+- Weak Consistency     - Reads may or may not see it
+- Eventual consistency - Reads will eventually see the write
+- Strong Consistency   - Reads will see it
+
+** Availability Patterns
+
+Fail-over - Switching reliably between backup systems
+
+- Active-passive - Heartbeats are sent between systems. If it's interrupted, the passive server takes over
+    - Aka master-slave failover
+
+- Active-Active - Both servers manage traffic
+
+* Delivery of Information
+
+DNS - Translates a URL to an IP address
+
+  - These can come under DDOS attack
+  - More laggy than CDN
+
+CDN - A global network of proxy servers. These server content to users closer to their locations
+
+- Rewrite your URL to point to the CDN
+
+  - Push CDNs - Receive new content when changes occur on the server
+  - Pull CDNs - Grab new content from the server when the user requests it
+    - This is a slower request
+
+* Load Balancer
+
+- Distributes user requests among clusters of servers
+- Servers contain no session info, this should be in Redis or db
+
+* Reverse Proxy
+
+- Centralizes client requests. This sits between the client requests and the web server
+
+Lets you have more, limit connection per client, blacklist IPs
+
+Nginx is an example of [a] reverse proxy server
+
+- Make your servers portable
+- Compress server responses
+
+** Load Balancer vs. Reverse Proxy
+
+- Load balancer is good for horizontal scaling with multiple servers
+- Reverse proxies are good with one server
+
+* Platform Layer
+
+- Sits between the web servers and the [[id:8C8AADB8-324A-4DF4-9A15-E7AED2E08711][Database]]
+
+* [[id:CEF16D2A-5EC9-44EA-A26D-2DDCDD104F62][NoSQL]]
+* [[id:9F7C6AC3-B771-4E33-BDE2-724B31DBC93C][Cache]]
+* [[id:09759588-48B9-4E9C-BB1B-6974068E29CD][Asynchronism]]
+* RPC
+
+A client causes a procedure to execute on a remote server. RPC abstracts the method call to look exactly like
+  what it would be on the client
+
+RPC sends data using a binary codec implementation (protobuf, thrift, avro)
+
+* [[id:0901C8A4-6423-4944-BCEF-ADCCA854B5BD][REST]]

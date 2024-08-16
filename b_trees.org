@@ -1,0 +1,19 @@
+:PROPERTIES:
+:ID:       237AAE85-C261-4743-861D-2B9A2908D1FB
+:END:
+#+title: B-Trees
+#+filetags: Programming
+#+startup: inlineimages
+
+A balanced tree structure where each node can have multiple children
+- Useful for [[id:8C8AADB8-324A-4DF4-9A15-E7AED2E08711][Database]] systems since disk I/O is proportional to the tree height
+- Each node contains multiple data points, ex. each node could have 4 values
+  - Then each child would contain 4 values that sit between the values of the root
+
+#+attr_html: :width 800px
+[[file:img/b-tree.png]]
+
+* Insertion
+
+  - Once you insert, if the node is too big (>4 in this example), split it up into two nodes
+    and push the extra node to the parent. If the parent is too big, repeat

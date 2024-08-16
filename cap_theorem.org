@@ -1,0 +1,16 @@
+:PROPERTIES:
+:ID:       24E68804-DE23-40C2-8C95-AD473D7DDD73
+:END:
+#+title: CAP Theorem
+#+filetags: :Drill:Programming:
+[[id:5A1C593C-55D4-4760-B85A-A7112FB017A9][System Design]]
+
+* CAP Theorem :drill:
+  :PROPERTIES:
+  :ID:       4A2ED9C8-1227-49AF-94A2-9DA49A1FD268
+  :END:
+
+[Consistency]         - [All clients see the same data no matter what]
+[Availability]        - [Any client gets data no matter what server it connects to]
+[Partition Tolerance] - [A partition is a breakdown in the connection between two nodes
+                      - Partition Tolerance means the system works anyways]

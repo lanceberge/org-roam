@@ -1,0 +1,7 @@
+:PROPERTIES:
+:ID:       FF38E5CB-4988-495A-988A-C70D4FFE4114
+:END:
+#+title: Node.js
+#+filetags: Programming
+
+- Place all reusable modules into a dedicated directory (ex. libraries) and make them packages (they have a package.json file)

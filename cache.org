@@ -1,0 +1,31 @@
+:PROPERTIES:
+:ID:       9F7C6AC3-B771-4E33-BDE2-724B31DBC93C
+:END:
+#+title: Cache
+#+filetags: Programming
+
+[[id:5A1C593C-55D4-4760-B85A-A7112FB017A9][System Design]]
+
+- Good for data that's read frequently but modified infrequently
+- It's a good practice to add an expiration policy for when to remove data from the cache
+- LRU - evict the least-recently-used data
+- [[id:8C8AADB8-324A-4DF4-9A15-E7AED2E08711][Database]]s frequently have some sort of caching. You can tweak this for more specific use cases
+
+Caching Queries
+
+ - This approach is tough with complex queries
+ - If one piece of data changes, you need to find and modify all queries that might include the cached data
+
+ Caching Objects
+
+  - Cache web pages, user sessions
+  - Cache objects with cache.set(key, json.dumps(object))
+
+** Write-Through
+
+- The cache always sits between the db and the client - for reads and writes
+- Writes go to the cache, the cache writes to db
+
+Disadvantages
+
+ - The db could lose data if the cache goes down prior to writes

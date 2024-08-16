@@ -1,0 +1,21 @@
+:PROPERTIES:
+:ID:       09759588-48B9-4E9C-BB1B-6974068E29CD
+:END:
+#+title: Asynchronism
+#+category: Asynchronism
+#+filetags: Project Asynchronism
+
+[[id:5A1C593C-55D4-4760-B85A-A7112FB017A9][System Design]]
+
+* Message Queues
+
+- If an operation is slow synchronously, you can use a message queue to send requests to a consumer
+
+Consumer
+
+- A server that listens for messages then performs tasks
+
+** Disadvantages
+
+Queuing incurs additional delays, which might not be worth it if the operation can be performed
+  quickly in serial

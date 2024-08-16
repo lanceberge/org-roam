@@ -1,0 +1,48 @@
+:PROPERTIES:
+:ID:       71A13AED-947E-47F0-A447-50F3BBD50FE8
+:END:
+#+title: Sed
+#+category: Sed
+#+filetags: Programming Sed
+
+[[id:641EC4DA-BA86-41C7-A64A-A4AC34F31B67][Regex]]
+
+- Does substitutions only once per line by default
+- Escape slashes with _
+
+#+BEGIN_SRC sh
+sed 's_/usr/local/bin_/common/bin_' <old >new
+
+# Or use colons
+sed 's:/usr/local/bin:/common/bin:' <old >new
+#+END_SRC
+
+
+Saving Matched Stuff with &
+
+#+BEGIN_SRC sh
+echo "123 abc" | sed 's/[0-9]*/& &/'
+#+END_SRC
+
+#+RESULTS:
+: 123 123 abc
+
+& is the value of whatever the regex is (excludes abc)
+
+
+Add /2 at the end (along /g) to only match the second occurrence
+* Capture Groups
+
+escape parenthesis with backslashes to create capture groups
+
+.* is necessary to match any number of any character
+
+#+BEGIN_SRC sh
+echo "abc asdf" | sed 's/\([a-z]*\)*/\1/'
+#+END_SRC
+
+#+RESULTS:
+: abc asdf
+* Flags
+
+  -i.new - modify the file in place and save it to file.new

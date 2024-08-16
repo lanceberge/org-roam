@@ -1,0 +1,54 @@
+:PROPERTIES:
+:ID:       8C8AADB8-324A-4DF4-9A15-E7AED2E08711
+:END:
+#+title: Database
+
+* Implementation of Databases
+
+Logs - an append only data file that represents the db (not logs of statements for example)
+
+The data would be encoded as binary with a string length then the raw bytes
+
+* Indexes - Understanding a Basic Database Implementation
+
+Indexes enable efficient reads, slow down writes
+
+Hash function - maps a key to a byte offset in a data file
+
+ - Problems: We want sequential saving - ex. keys kitty01 and kitty02 should be close by
+
+In order to avoid running out of disk space, we break the log file into segments then perform
+  compaction - throwing away duplicate logs
+
+But, because compaction makes the segments smaller, we iterate through and throw away duplicates
+ - Thus, we end up with new segment files
+
+** Deleting Records
+
+- Have a tombstone
+
+** Append-Only vs. Overwriting
+
+- Overwriting leads to issues if there's a crash mid-overwrite (the data gets merged)
+- Sequential writes on disk are much faster than random access
+
+* Normalization
+
+  - The principle of keep dating uniform - ex using IDs instead of strings
+
+* Denormalization
+
+  - You can have redundant data in multiple tables to avoid complex joins
+
+* SSTables
+
+  Update our segment files so that each key only appears once in each segment file,
+  and the keys are in sorted order
+
+  Now, when we merge segments, we look at each segment and copy the lowest key into the
+  output merged segment (similar to mergesort)
+
+  Now,if we have a key "handiwork", and we don't know it's location (we don't have that index stored),
+  we can search between handbag and handsome. So we can store a sparse in-memory index
+
+  Also, our read requests can compress the data they scan over before writing to disk

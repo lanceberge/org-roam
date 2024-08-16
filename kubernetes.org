@@ -1,0 +1,23 @@
+:PROPERTIES:
+:ID:       36bx9boy-3b57-48c0-afb7-91ee8bfea755
+:END:
+#+title: Kubernetes
+
+* Deployment process
+
+Start by finding pods that match the label selector:
+
+Compare this to the desired pod count and delete or excess
+
+* Deployments
+
+- Stateless, persistent
+
+* Stateful Sets
+
+- Stateful, persistent
+- -0 suffix
+
+* Jobs
+
+- Run to completion apps

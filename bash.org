@@ -1,0 +1,8 @@
+:PROPERTIES:
+:ID:       1A75E3FC-225D-4A0B-8CFF-E2B2C8FDDABD
+:END:
+#+title: Bash
+#+filetags: Programming
+[[https://github.com/onceupon/Bash-Oneliner][Bash Oneliner]]
+[[id:71A13AED-947E-47F0-A447-50F3BBD50FE8][Sed]]
+[[id:7524007E-CEA0-47B0-9E14-E20702536585][Awk]]
