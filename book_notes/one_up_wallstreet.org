@@ -1,0 +1,309 @@
+* Introduction
+** General Advice
+
+- Don't listen to professionals
+- Ignore hot tips, recommendations from brokerages, etc.
+- Don't invest in what you don't understand
+- The price of the stock is its least important measure
+- Know where future growth is coming from
+- You don't need to make money on every stock you pick: a few big winners offset a few losers
+- "Stocks are most likely to be accepted as prudent at the moment they're not"
+  - Optimism is highest when stocks are about to crash and lowest when they're about to rebound
+
+** Market cap and P/E ratio
+
+- Market cap :: shares outstanding $\times$ stock price
+  - Invest in a company aiming for its market cap to rise (a tenbagger has 10x increase in its market cap)
+
+** Notes on "internet" stocks
+
+- To safely buy in:
+  - buy companies that indirectly benefit from the web
+  - "free internet play" :: companies with real earnings and reasonable stock prices with internet ventures
+  - buy companies that can use the internet to cut costs/ streamline operations
+
+** Definitions
+
+- Shares Outstanding :: The number of shares owned (restricted and unrestricted)
+- P/E Ratio          :: a 500 P/E ratio means at current earnings, a company needs 5 centuries to make back the investment
+- Float              :: shares owned by investors (unrestricted only)
+- Market Corrections :: Declines of 10% or more (ever couple of years)
+- Bear markets       :: Declines of 20% or more (every 6 years)
+
+** Why the average investor has an advantage over experts
+
+- As a customer, you know which new developments can be big winners based on what you'd buy
+
+** Taxes
+
+- Dividends are taxed as unearned income, in addition to corporate profits being taxed
+- Long-term capital gains are taxed at half the rate of ordinary income taxes
+
+** Preparing to Invest
+
+- Stocks fluctuate an 50% in an average year - a $50 stock will likely hit $60 and $40 in that year
+- Ignore gut feelings
+- Stand by stocks as long as the fundamentals haven't changed
+
+* Picking Winners
+
+- If you're buying a company for some specific venture, make sure you know the fraction of the company that venture is
+  - Ex. don't buy PG for pampers unless you know what percentage of their revenue is from pampers
+- Big stocks move less, thus should be long term holds
+
+** Six Categories of Companies
+
+- Slow Growers :: Usually large and old companies, typically pay generous and regular dividends
+- Stalwarts    :: 10-12% annual growth, large companies; keep a few in the portfolio to be recession proof
+- Fast Growers :: Agressive new enterprises, 20-25% annual growth
+               :: Good when they're not in fast-growing industries
+               :: Look for new companies with good balance sheets and profits, then sell when they stop growing
+- Cyclicals    :: Rise and fall regularly
+               :: Flourish at the end of recessions
+- Turnarounds  :: Beaten down, typically prosper as the overall market does
+               :: benefit from government bailouts
+               :: restructuring; i.e. getting rid of some diworeseification
+               :: good companies but bankrupt
+- Asset Plays  :: Sitting on something valuable that you know but Wall Street has overlooked
+
+- To determine which category a stock fits in make sure you understand the basic business
+  - The simpler the better usually
+
+** Signs of a Good Stock
+
+- Good fundamentals regardless of how the stock is currently doing
+- Out of favor/overlooked by traditional fund managers - sounds dull or ridiculous
+- They do something dull/disagreeable/depressing
+- Spinoffs of companies
+- No institutional ownership or analysts following it
+- Nongrowth industry with little competition
+- A niche - i.e. drug companies, newspapers, chemical companies
+  - public confidence in it - i.e. tylenol
+  - Patents/government authorization provides a niche because only companies with that authorization can do what they do
+- People have to repeatedly purchase it
+- They benefit from technology
+- Insiders are buying - Employees and executives in the company are heavy owners
+  - This means shareholders become the priority to the business rather than salaries
+  - Sources: Vicker's weekly insider report, the insiders, barron's, WSJ, investor daily
+  - Insider selling isn't necessarily a bad sign
+- The company is buying back shares
+- They don't have to rely on spending to make profits (cash in doesn't depend entirely on cash out)
+- They can set the price at whatever they want and retain customers
+
+** Stocks to Avoid
+
+- The current hottest stock in the hottest industry; the one with the most favorable publicity
+- Ones with too much competition or where competition could easily begin to exist
+- The next /amazon, disney, etc./
+- Diworseification :: companies that spend their money in random acquisitions instead of buying back shares or raising dividends
+  - It's usually not worse if the company establishes the success of each of its ventures before pursuing another
+  - Diversifying companies are fine if their holdings have synergy (a restaurant company should acquire restaurants, not airlines)
+    - Share buybacks with cash are still better
+- The whisper stock
+  - Wait for earnings for these companies
+- Companies with most of their earnings from a single customer (middlemen)
+- Stocks with exciting names
+- Companies with very nice headquarters
+- They dilute earnings by issuing new shares
+
+** Earnings
+
+- A quick way to tell if a stock is overpriced is to compare the price line with the earnings line
+  - Buy when the price is well below earnings and sell when it's well above
+
+- Future earnings come from: Reduced costs, raised prices, expanding into new markets, selling more product in the old markets, or refactor/close a losing operation
+
+*** P/E Ratio
+
+- The number of years it will take the company to earn back the amount of your investment assuming earnings stay constant
+
+** Dividends
+
+- Stocks that don't pay dividends tend to spend the money on /diworseification/
+- Stocks that do tend to be less volatile
+
+** 2 Minute Monologue
+
+- Reasons you're interested in it, what has to happen for it to succeed, pitfalls in its path
+
+** Hidden Assets
+
+- Def :: Assets not listed on the balance sheet
+  - i.e. patents, tax breaks
+  - Parent companies typically have lots of hidden assets
+
+** The Final Checklist
+*** General
+
+- P/E ratio, trailing P/E, how it compares to the industry
+- Institutional ownership :: lower = better
+- If insiders are buying
+- Is the company buying back shares :: Shares outstanding are decreasing
+- The record of earnings growth; are they consistent or not (may not be important for an asset play)
+- Balance sheet (debt-equity ratio)
+- Net cash per share - essentially the stocks floor
+
+*** Slow Growers
+
+- Dividends :: Have they consistently been raised, have they always been paid
+  - What percentage of earnings are being paid as dividends - a low percentage is a cushion in hard times
+
+*** Stalwarts
+
+- Big and unlikely to go out of business
+- P/E ratio for price
+- Check for diworseifications
+- Long-term growth rate and if it has kept up previous momentum
+- Check how it did in previous recessions and market drops
+
+*** Cyclicals
+
+- Watch inventories and supply-demand relationship
+  - Look for new entrants/developments in the market (usually bad)
+
+*** Fast Growers
+
+- Investigate the fraction of the business that comes from whatever new product is supposed to make it a fast grower
+- Growth rate in earnings in recent years (20-25% range ideal, 50% typically signifies that it's in a "hot" industry)
+- That the company still has room to grow
+- If it's selling at p/e ratio or near the growth rate
+- If expansion is speeding up or slowing down
+- Few institutions own the stock and few analysts have heard of it
+
+*** Turnarounds
+
+- Can the company survive a raid from its creditors
+- Cash/debt ratio
+- Debt structure and how long it can survive in the red while fixing its problems
+- How is the company turning around? :: Getting rid of unprofitable divisions, cutting costs, increasing prices, etc.
+
+*** Asset plays
+
+- What's the value of the assets? Are there hidden assets?
+- How much debt is there to detract from these assets
+- Is the company taking on new debt, making the assets less valuable?
+
+** Overall
+
+- Understand the nature of companies and the reasons for holding them
+- Categorize stocks to get better expectations from them
+- Big companies move less than small companies
+- Look for companies that have proved their concept can be replicated and are already profitable
+- Avoid 50-100% growth rates (per year)
+- Avoid hot stocks in hot industries
+- Distrust diverseifications
+- Invest in simple, dull companies
+- Invest in moderate growers (20-25%) in nongrowth industries
+- Look for companies with niches
+- Seek When buying turnarounds/depressed stocks, find ones with good financial positions and little debt
+- Follow a story line for a company
+- Trust companies with high personal investment from management (insider ownership)
+- Insider buying is a good thing, especially when several insiders buy at once
+
+* The Long-Term View
+** Designing a Portfolio
+
+- Sticking to a strategy is the best way to maximize long-term gains
+- It's best to own as many stocks as there are situations where:
+  - You've got an edge
+  - Discovered a prospect that passes all tests of research
+- The more stocks you own the more likely you find a tenbagger
+- The more stocks you own the more flexibility you have to rotate funds between them
+  - e.g. replace a stalwart with another, or just sell some of it
+- Lynch owns half of his assets in 100 stocks, two thirds in 200, and the rest in 500 (essentially in 3 ranks)
+- Find opportunities in turnarounds/fast growth companies
+- If something bolsters his confidence he promotes it
+- Balance stocks of the different categories:
+- Don't buy overpriced stocks
+- Stay invested in stocks long-term, and rotate stocks based on the fundamental situations
+- Avoid hearing opinions on stocks that lead to bias
+
+| Category     | sell when...                                                                                                                                        |
+|--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| Slow Growers | the fundamentals have deteriorated or 30-50% gain (lost market share, no new R&D), diworseifications (or announcements of further), bad cash-debt   |
+|              |                                                                                                                                                     |
+| Stalwarts    | - p/e strays too far from trailing or industry average, price goes above earnings line, new products with mixed results & little future endeavors,  |
+|              | - p/e strays too far from trailing or industry average, price goes above earnings line, new products with mixed results & little future endeavors,  |
+|              | - no insiders bought shares in the last year, a major division is slumping, the growth rate is slowing                                              |
+|              |                                                                                                                                                     |
+| Asset plays  | - once someone shows up and makes it apparent that there are assets - i.e. a top investor                                                           |
+|              | - they issue more shares to finance diversification, institutional ownership rises too high                                                         |
+|              |                                                                                                                                                     |
+| Cyclicals    | - end of the cycle, when something has started to go wrong (raising costs), your reason for buying has ended, inventories are building up           |
+|              | - falling commodity prices, building new plants instead of modernizing old plants for cheap                                                         |
+|              |                                                                                                                                                     |
+| Turnarounds  | - after it's turned around, debt is rising quite a bit, inventory is rising, inflated p/e relative to earnings growth, sells mostly to one customer |
+|              |                                                                                                                                                     |
+| Fast growth  | - at the end of the second phase of rapid growth, if it's high rated by Wall Street analysts, p/e ratio surpasses projected earnings growth         |
+
+- For fast growers, cyclicals, and turnarounds:
+  - Keep as long as earnings are growing and expansion is continuing (check the story every few months as if you were hearing it for the first time)
+  - Replace with new fast-growers if the price is way up and the story starts to sound dubious
+    - The fast-grower you replace it with should have a declined or stagnant price with a better story
+- Never sell unless the fundamentals/story change
+- Load up during price drops
+  - Abolish the idea of selling during price drops
+- Market usually drops October-December
+  - TODO stock up cash for the end of the year
+
+** The Most Dangerous Things People Say About a Stock
+
+- It can't go lower than this
+- You can always tell when it's hit rock bottom
+  - Don't buy a stock just because it's gone down far
+- It can't go higher than this
+  - If the story and fundamentals are good and it isn't overpriced - it can and probably will
+- Eventually they always come back
+- When it goes to $10, I'll sell
+          - Sell when you wouldn't buy more of the company
+- It's taking too long for anything to happen - this is actually favorable
+
+** Summary of this Section
+
+- Buy during market declines
+- You can't predict the direction of the market
+- Compounding 20-30% gains in stalwarts is quite profitable
+- Long-term, stocks catch up to their fundamentals
+- Stalwarts with heavy institutional ownership and much Wall Street coverage and are overpriced will decline
+- Don't buy mediocre stocks because they're cheap
+- Don't sell outstanding fast growers because they seem overpriced
+- Continually monitor the story of a stock
+- Prune and rotate stocks based on fundamentals - when stocks are out of line with reality, swap them for better alternatives
+- Add/subtract to your bets in stocks when they seem favorable/unfavorable
+
+* DD for a Stock
+
+- Earnings
+  - What are they, how does the company get them
+- Future endeavors
+  - How will the company get and expand future earnings?
+  - Where is the market/niche?
+  - How will future endeavors be financed?
+- Debt
+  - The type of debt
+    - bank debt (due on demand, is typically due soon or "on call" - due at the first sign of trouble)
+    - funded debt (not as bad, can't be called in as long as the borrower continues to pay the interest)
+- Cash (net cash = cash - long-term debt)
+  - Cash per share
+  - Cash / share beyond debt - The stock's price is basically the price - this number
+- What is the company doing with their cash: share buybacks, diversifying, etc.
+  - If the shares outstanding are going down, they're buying back shares (in 10-year summary on annual report/balance sheet)
+- Holdings/assets - other companies, etc.
+  - debt/equity ratio (normal is 75% to 25%)
+- P/E Ratio: the industry average and historical levels
+  - Growth rate (a 15 P/E ratio should mean 15% growth per year)
+    - Calculate the growth rate with the percent increase in earnings from one year to the next
+    - Or do (long-term growth rate + dividend yield) / p/e ratio (1 is poor, 1.5 is ok, 2 or above are good)
+- Insider activity
+- Which of the six categories they're in
+- Competition/potential competition
+- Pitfalls/potential obstacles
+- Institutional ownership (less = better)
+- Try the product in-person for yourself
+- Annual reports
+- The percentage of income that come from a specific venture if you're interested in buying the stock for that venture
+- Cash flow: worry about free cash flow
+  - Higher cash flow per share is better
+- Inventory - inventory growing faster than sales is a bad sign
+
+- Call the investor relations office

@@ -1,0 +1,62 @@
+* The Basics
+
+- don't listen to anyone but yourself
+- concentrated portfolio - achieve peace-of-mind diversification through different asset classes (bonds, real-estate, etc.)
+- pick your spots well, i.e. circle of competence, swing at one of 20 pitches. If something is too complicated, move on
+- margin of safety - since upside is hard to predict, focus on margin of safety and trust that the gains will come based on your research
+- Risk = chance of permanent loss. So focus on preventing downside and let the upside take care of itself
+
+** Eliminating nonmarket risk
+
+- 6 or 8 stocks in different industries
+
+| # stocks | % eliminated |
+|        2 |          46% |
+|        4 |           72 |
+|        8 |           81 |
+|       16 |           93 |
+|       32 |           96 |
+
+* Spinoffs
+
+- Demonstrates that the company wants to provide value to shareholders
+- Pay attention to how insiders trade the spinoff
+- Management receives a stock-option plan granting them the rights to buy spinoffs at the initial market price
+  - So they will often want the price of the spinoff, set by the market, to be as low as possible
+  - So check out the SEC filings about when the management's stock option's prices will be set, if they are silent before then, it's a good sign
+- It's a good sign if the spinoff is intentionally confusing and seemingly meant to dissuade institutional and retail investors
+
+** Trading the Parent
+
+- The parent companies can often be good value plays
+  - They will either spin off a bad or unpredictable sector, in which case it's clearly beneficial for the parent copmany to spin it off
+  - Or the spinoff is a good business, which still demonstrates that the company wants to focus more on their core product and cares about the shareholders
+- In general, institutions that are interested in the parent company after the spinoff will buy the stock after the spinoff. This way, they don't have to sell the spinoff's shares, and they don't risk the spinoff falling through
+  - So buy the parent before the spinoff and
+- Try to value the parent based on the estimated value of the spinoff, i.e. if the stock is $30, the spinoff is likely to be $4 per share, then see if you like the stock at $26
+
+** Trading the Spinoff
+
+- Funds will have to sell them based on size or restrictions (i.e. funds that can only own S&P 500 companies), then the price gets deflated
+  - Institutions don't like stocks trading under $10
+
+** Partial Spinoffs
+
+- When a company only spins off a portion of a division and retains the rest
+- This is done to generate cash, or to highlight the value of a division to the market
+  - It also allows for the managers of that division to be compensated based on the partial spinoff's performance
+- Don't buy when they're sold through an IPO, because they wont be artificially deflated like with regular spinoffs
+- You can use the value of the partial spinoffs to calculate the value of the main business - then decide if it's undervalued
+
+** TODO Reread Rights Offering (reread the case study at the end)
+
+- The copmany distributes shareholders the right to buy a spinoff
+- Has a potential advantage over regular spinoffs -- it limits initial buyers of the spinoff to shareholders of the parent company
+- One good sign of a bargain offering price is the inclusion of oversubscription privliges in a rights offering
+  - This is the right to buy additional spinoff shares if the rights offering is not fully subscribed
+  - Insiders will include this to be able to buy more of the spinoff at a bargain price
+* Risk Arbritage
+
+- Purchasing a stock after a merger is announced
+- A company decides to buy another company's stock for more per share than it trades at
+- A difficult investment strategy for individuals

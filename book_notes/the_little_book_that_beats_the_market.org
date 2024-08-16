@@ -1,0 +1,11 @@
+https://www.magicformulainvesting.com/Screening/StockScreening
+
+* Formula
+
+- Buy 5-7 of the top-ranked companies, investing 20-33% of your portfolio into them
+  - Repeat every few months until you have invested all of the money
+  - (7 stocks every 3 months or 5 stocks every 2 months)
+- Sell each stock after holding for 1 year, sell losers before 1-year period, winners after
+  - Replace the companies with an equal number of new selections, use new contributions for this too
+- Commit for 3-5 years
+- You can also use Return on Assets or P/E to screen, but ignore <5 P/E and companies with earnings announced last week
