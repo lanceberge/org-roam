@@ -1,0 +1,76 @@
+:PROPERTIES:
+:ID:       4E083629-D5AB-4D26-9CBE-CEF1B143E77F
+:END:
+#+title: JavaScript
+#+filetags: Programming
+
+* querySelector
+
+ create a variable for fields in the html
+
+#+BEGIN_SRC html
+input type="submit" value="Submit guess" class="guessSubmit" />
+#+END_SRC
+
+#+BEGIN_SRC js
+const guessSubmit = document.querySelector(".guessSubmit");
+#+END_SRC
+
+* Event Listeners
+
+#+BEGIN_SRC js
+guessSubmit.addEventListener("click", checkGuess);
+#+END_SRC
+
+* Updating Text
+
+#+BEGIN_SRC js
+const output = document.querySelector('.output');
+const para = document.createElement('p');
+para.textContent = "Paragraph";
++END_SRC
+#+END_SRC
+
+* Objects
+
+#+BEGIN_SRC js
+bird = {species: 'Bird'}
+#+END_SRC
+
+* Lambdas
+
+#+BEGIN_SRC javascript
+const filtered = cats.filter((cat) => cat.startsWith("L"));
+#+END_SRC
+
+* Local Storage
+
+#+BEGIN_SRC javascript
+localStorage.setItem("name", myName);
+const name = localStorage.getItem("name");
+localStorage.removeItem("name");
+
+// clear all
+localStorage.clear()
+#+END_SRC
+* Javascript vs. React
+*** Data Storage
+
+- Javascript stores variables in the DOM - the representation of HTML nodes.
+- React stores variables in Javascript objects, which can be updated as they change on the page
+
+so React will be better for pages with constantly changing user inputs
+
+* Promises
+
+#+BEGIN_SRC js
+doSomething()
+  .then((result) => doSomethingElse(result))
+  .then((newResult) => doThirdThing(newResult)) // newResult is the result of doSomethingElse
+  .then((finalResult) => {
+    console.log(`Got the final result: ${finalResult}`);
+  })
+  .catch(failureCallback);
+#+END_SRC
+
+as a good general rule of thumb, always return the contents of a promise

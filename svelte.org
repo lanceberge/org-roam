@@ -1,0 +1,117 @@
+:PROPERTIES:
+:ID:       0A527EEB-FA35-4AD8-A01A-FE1725F544B2
+:END:
+#+title: Svelte
+#+filetags: Programming
+
+This works when var names and attribute names are the same
+
+#+BEGIN_SRC html
+<img src={src}>
+<img {src}
+#+END_SRC
+
+Styles are scoped to the component
+
+Strings that contain html:
+
+#+BEGIN_SRC html
+<script>
+        let string = `this string contains some <strong>HTML!!!</strong>`;
+</script>
+
+<p>{@html string}</p>
+
+#+END_SRC
+
+#+BEGIN_SRC html
+<button on:click={increment}>
+        Clicked {count}
+        {count === 1 ? 'time' : 'times'}
+</button>
+
+<script>
+function increment() {
+        count += 1;
+}
+</script>
+#+END_SRC
+
+* Reactive Values
+
+#+BEGIN_SRC js
+let count = 0;
+$: doubled = count * 2 // every time count changes, doubled recomputes
+
+// it can also be functions, or in front of if statements
+$: console.log(`the count is ${count}`);
+#+END_SRC
+
+Reactivity is triggered by assignment. So methods like `numbers.push()` don't cause updates. But this does:
+
+#+BEGIN_SRC js
+numbes = [...numbers, newNumber]
+#+END_SRC
+
+* Logic
+
+#+BEGIN_SRC html
+{#if count > 10}
+    <p>{count} is greater than 10</p>
+{:else if count < 5}
+    <p>{count} is less than 5</p>
+{:else}
+    <p>{count} is between 0 and 10</p>
+{/if}
+
+{#each colors as color, i}
+        <button
+                aria-current={selected === color}
+                aria-label={color}
+                style="background: {color}"
+                on:click={() => selected = color}
+        >{i + 1}</button>
+{/each}
+
+#+END_SRC
+
+Specifying a key for the iteration. Update when thing.id changes
+
+#+BEGIN_SRC html
+{#each things as thing (thing.id)}
+        <Thing name={thing.name}/>
+{/each}
+#+END_SRC
+
+** Async
+
+#+BEGIN_SRC html
+{#await promise then number}
+        <p>The number is {number}</p>
+{/await}
+#+END_SRC
+
+* Props
+
+- Pass data into a component
+
+* Handling Events
+
+#+BEGIN_SRC html
+<!-- modifier - only run it once -->
+<div on:pointermove|once={handleMove}>
+
+<div
+on:pointermove={(e) => {
+        m = { x: e.clientX, y: e.clientY };
+}}
+>
+#+END_SRC
+
+** Event forwarding
+
+- The intermediate components (deeply nested components) must forward the event to the outer components
+
+* SvelteKit
+
+- /src/routes - all of the routes. A layout.svelte file will define a common UI for all of them
