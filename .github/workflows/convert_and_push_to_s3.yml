@@ -30,7 +30,7 @@ jobs:
       - name: Get Modified Files
         id: files_list
         run: |
-          ALL_MODIFIED_FILES=$(git diff --name-status ${{ github.event.before }} ${{ github.event.after }})
+          ALL_MODIFIED_FILES=$(git diff --name-status ${{ github.event.commits[0].id }} ${{ github.event.commits[-1].id }})
           echo $ALL_MODIFIED_FILES
           ALL_RENAMED_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^R' )
 
@@ -80,7 +80,7 @@ jobs:
                       file="$HTML_FILE"
               fi
 
-              aws s3 cp "$file" "$AWS_S3_BUCKET/$file"
+              aws s3 mv "$file" "$AWS_S3_BUCKET/$file"
 
           find "." -type f -name "*.html" -print0 | xargs -0 rm
 
