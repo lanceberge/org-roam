@@ -1,0 +1,35 @@
+name: Convert to HTML and Push to S3
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  convert_to_html:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get Modified Files
+        id: files_list
+        run: |
+          MODIFIED_FILES=$(git diff --name-only HEAD^ HEAD)
+          ORG_FILES=$(echo "$MODIFIED_FILES" | grep -E '\.org$' | tr '\n' ' ')
+          NON_ORG_FILES=$(echo "$MODIFIED_FILES" | grep -v -E '\.org$' | tr '\n' ' ')
+          echo "ORG_FILES=$ORG_FILES" >> $GITHUB_ENV
+          echo "NON_ORG_FILES=$NON_ORG_FILES" >> $GITHUB_ENV
+
+      - name: Convert to HTML
+        uses: docker://pandoc/core:2.9
+        if: env.ORG_FILES !=''
+        run: |
+          for file in ${{ env.ORG_FILES }}; do
+              pandoc "$file" -o "${file%.org}.html"
+          done
+      
+  # push_to_s3:
