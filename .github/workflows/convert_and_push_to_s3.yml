@@ -17,9 +17,6 @@ jobs:
       modified_files: ${{ steps.files_list.outputs.modified_files }}
       deleted_files: ${{ steps.files_list.outputs.deleted_files }}
 
-    env:
-      AWS_S3_BUCKET: "s3://braindump-bucket"
-
 
     steps:
       - uses: actions/checkout@v4
@@ -76,6 +73,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: get_modified_files
 
+    env:
+      AWS_S3_BUCKET: "s3://braindump-bucket"
+
+
     steps:
       - name: Configure AWS credentials
         if: ${{ needs.get_modified_files.outputs.modified_files != '' }}
@@ -98,7 +99,7 @@ jobs:
         run: |
           echo "Running convert and push"
           for file in ${{ needs.get_modified_files.outputs.modified_files }}; do
-              echo "File:"
+              echo "Converting File:"
               echo "$file"
               if [[ "$file" == *.org ]]; then
                       HTML_FILE=${file%.org}.html
