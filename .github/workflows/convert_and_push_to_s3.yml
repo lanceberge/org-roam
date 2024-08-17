@@ -124,7 +124,7 @@ jobs:
       - name: Delete Files
         if: ${{ needs.get_modified_files.outputs.deleted_files != '' }}
         run: |
-          for file in ${{ needs.get_modified_files.outputs.deleted_files }}
+          for file in ${{ needs.get_modified_files.outputs.deleted_files }}; do
               aws s3 rm "$file" "$AWS_S3_BUCKET/$file"
           done
 
