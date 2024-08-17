@@ -13,8 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      AWS_S3_BUCKET:
-        "s3://braindump-bucket"
+      AWS_S3_BUCKET: "s3://braindump-bucket"
 
     steps:
       - uses: actions/checkout@v4
@@ -47,18 +46,16 @@ jobs:
               ## TODO handle pandoc failing
               pandoc "$file" -o "$HTML_FILE"
 
-              DIRNAME=$(dirname "$HTML_FILE")
-              BASENAME=$(basename "$HTML_FILE")
-
-              if [ "$DIRNAME" = "." ]; then
-                  DEST_PATH="$AWS_S3_BUCKET"
-
-              else
-                  DEST_PATH="$AWS_S3_BUCKET/$DIRNAME"
-              fi
-
-              aws s3 cp "$BASENAME" "$DEST_PATH"
+              aws s3 cp "$file" "$AWS_S3_BUCKET/$HTML_FILE"
               rm "$HTML_FILE"
+          done
+
+
+      - name: Push Non-Org Files
+        if: env.NON_ORG_FILES != ''
+        run: |
+          for file in ${{ env.NON_ORG_FILES }}; do
+              aws s3 cp "$file" "$AWS_S3_BUCKET/$file"
           done
 
 # TODO if the file was renamed or deleted, delete from s3
