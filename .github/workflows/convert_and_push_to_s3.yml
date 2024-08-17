@@ -26,20 +26,20 @@ jobs:
           aws-region: 'us-east-2'
 
 
-      - name: Install Pandoc
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y pandoc
-
-
       - name: Get Modified Files
         id: files_list
         run: |
-          MODIFIED_FILES=$(git diff --name-only HEAD^ HEAD)
+          MODIFIED_FILES=$(git diff --name-only HEAD~1 HEAD)
           ORG_FILES=$(echo "$MODIFIED_FILES" | grep -E '\.org$' | tr '\n' ' ')
           NON_ORG_FILES=$(echo "$MODIFIED_FILES" | grep -v -E '\.org$' | tr '\n' ' ')
           echo "ORG_FILES=$ORG_FILES" >> $GITHUB_ENV
           echo "NON_ORG_FILES=$NON_ORG_FILES" >> $GITHUB_ENV
+
+
+      - name: Install Pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
 
 
       - name: Convert and Push
