@@ -87,6 +87,7 @@ jobs:
           aws-region: 'us-east-2'
 
 
+        ## TODO only if there's .org files
       - name: Install Pandoc
         if: ${{ needs.get_modified_files.outputs.modified_files != '' }}
         run: |
@@ -107,7 +108,7 @@ jobs:
                       file="$HTML_FILE"
               fi
 
-              cmd="aws s3 mv $file $AWS_S3_BUCKET/$file"
+              cmd="aws s3 cp $file $AWS_S3_BUCKET/$file"
               echo "Running: $cmd"
               eval $cmd
           done
