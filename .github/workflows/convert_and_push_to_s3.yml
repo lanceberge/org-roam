@@ -83,7 +83,6 @@ jobs:
           fetch-depth: 0
 
 
-    steps:
       - name: Configure AWS credentials
         if: ${{ needs.get_modified_files.outputs.modified_files != '' }}
         uses: aws-actions/configure-aws-credentials@v4
