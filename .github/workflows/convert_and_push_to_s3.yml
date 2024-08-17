@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      modified_files: ${{ steps.set_env.outputs.modified_files }}
-      deleted_files: ${{ steps.set_env.outputs.deleted_files }}
+      modified_files: ${{ steps.files_list.outputs.modified_files }}
+      deleted_files: ${{ steps.files_list.outputs.deleted_files }}
 
     env:
       AWS_S3_BUCKET: "s3://braindump-bucket"
@@ -64,12 +64,12 @@ jobs:
           MODIFIED_FILES=$(echo "$MODIFIED_ONLY_FILES" "$RENAMED_MODIFIED_FILES" "$ADDED_FILES" | tr '\n' ' ')
           echo "Modified Files:"
           echo "$MODIFIED_FILES"
-          echo "MODIFIED_FILES=$MODIFIED_FILES" >> $GITHUB_ENV
+          echo "modified_files=$MODIFIED_FILES" >> $GITHUB_ENV
 
           DELETED_ONLY_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^D' | cut -f2 || true)
           DELETED_FILES=$(echo "$DELETED_ONLY_FILES" "$RENAMED_DELETED_FILES" | tr '\n' ' ')
 
-          echo "DELETED_FILES=$DELETED_FILES" >> $GITHUB_ENV
+          echo "deleted_files=$DELETED_FILES" >> $GITHUB_ENV
 
 
   write_to_s3:
@@ -78,6 +78,7 @@ jobs:
 
     steps:
       - name: Configure AWS credentials
+        if: needs.get_modified_files.outputs.modified_files != ''
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
