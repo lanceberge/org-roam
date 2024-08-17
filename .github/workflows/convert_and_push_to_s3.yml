@@ -35,7 +35,7 @@ jobs:
           ALL_MODIFIED_FILES=$(git diff --name-status "$first_commit" "$last_commit")
           echo "$ALL_MODIFIED_FILES"
           ALL_RENAMED_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^R' )
-          ADDED_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^A' )
+          ADDED_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^A' | cut -f2)
 
           # We will delete all files that were renamed and convert/write all
           # of the files that they got renamed to
@@ -45,12 +45,14 @@ jobs:
           RENAMED_MODIFIED_FILES=$(echo "$ALL_RENAMED_FILES" | cut -f3)
           MODIFIED_ONLY_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^M' | cut -f2)
           MODIFIED_FILES=$(echo "$MODIFIED_ONLY_FILES" "$RENAMED_MODIFIED_FILES" "$ADDED_FILES" | tr '\n' ' ')
+          echo "Modified Files:"
           echo "$MODIFIED_FILES"
           echo "MODIFIED_FILES=$MODIFIED_FILES >> $GITHUB_ENV
 
           RENAMED_DELETED_FILES=$(echo "$ALL_RENAMED_FILES" | cut -f2)
           DELETED_ONLY_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^D' | cut -f2)
           DELETED_FILES=$(echo "$DELETED_ONLY_FILES" "$RENAMED_DELETED_FILES" | tr '\n' ' ')
+          echo "Deleted Files:"
           echo "$DELETED_FILES"
           echo "DELETED_FILES=$DELETED_FILES" >> $GITHUB_ENV
 
