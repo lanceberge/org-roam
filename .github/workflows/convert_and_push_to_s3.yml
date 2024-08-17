@@ -118,7 +118,7 @@ jobs:
               eval $cmd
           done
 
-          find "." -type f -name "*.html" -print0 | xargs -0 rm
+          find "." -type f -name "*.html" -exec rm {} +
 
 
       - name: Delete Files
