@@ -33,8 +33,8 @@ jobs:
           first_commit='${{ github.event.before }}'
           last_commit='${{ github.event.after }}'
           ALL_MODIFIED_FILES=$(git diff --name-status "$first_commit" "$last_commit")
-          echo $ALL_MODIFIED_FILES
           ALL_RENAMED_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^R' )
+          ADDED_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^A' )
 
           # We will delete all files that were renamed and convert/write all
           # of the files that they got renamed to
@@ -43,7 +43,7 @@ jobs:
           ## otherwise do aws s3 mv
           RENAMED_MODIFIED_FILES=$(echo "$ALL_RENAMED_FILES" | cut -f3)
           MODIFIED_ONLY_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^M' | cut -f2)
-          MODIFIED_FILES=$(echo "$MODIFIED_ONLY_FILES" "$RENAMED_MODIFIED_FILES" | tr '\n' ' ')
+          MODIFIED_FILES=$(echo "$MODIFIED_ONLY_FILES" "$RENAMED_MODIFIED_FILES" "$ADDED_FILES" | tr '\n' ' ')
           echo "MODIFIED_FILES=$MODIFIED_FILES >> $GITHUB_ENV
 
           RENAMED_DELETED_FILES=$(echo "$ALL_RENAMED_FILES" | cut -f2)
