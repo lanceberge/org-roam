@@ -52,10 +52,10 @@ jobs:
 
           if [[ -n "$ALL_RENAMED_FILES" ]]; then
               RENAMED_MODIFIED_FILES=$(echo "$ALL_RENAMED_FILES" | cut -f3)
-              MODIFIED_ONLY_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^M' | cut -f2)
               RENAMED_DELETED_FILES=$(echo "$ALL_RENAMED_FILES" | cut -f2)
           fi
 
+          MODIFIED_ONLY_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^M' | cut -f2 || true)
           ADDED_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^A' | cut -f2 || true)
 
           MODIFIED_FILES=$(echo "$MODIFIED_ONLY_FILES" "$RENAMED_MODIFIED_FILES" "$ADDED_FILES" | tr '\n' ' ')
