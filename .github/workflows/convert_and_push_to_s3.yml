@@ -15,8 +15,12 @@ jobs:
     env:
       AWS_S3_BUCKET: "s3://braindump-bucket"
 
+
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -29,7 +33,7 @@ jobs:
       - name: Get Modified Files
         id: files_list
         run: |
-          MODIFIED_FILES=$(git diff --name-only HEAD~1 HEAD)
+          MODIFIED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
           ORG_FILES=$(echo "$MODIFIED_FILES" | grep -E '\.org$' | tr '\n' ' ')
           NON_ORG_FILES=$(echo "$MODIFIED_FILES" | grep -v -E '\.org$' | tr '\n' ' ')
           echo "ORG_FILES=$ORG_FILES" >> $GITHUB_ENV
