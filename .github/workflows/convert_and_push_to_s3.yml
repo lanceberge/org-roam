@@ -8,9 +8,14 @@ on:
 
   workflow_dispatch:
 
+
 jobs:
-  convert_to_html:
+  get_modified_files:
     runs-on: ubuntu-latest
+
+    outputs:
+      modified_files: ${{ steps.set_env.outputs.modified_files }}
+      deleted_files: ${{ steps.set_env.outputs.deleted_files }}
 
     env:
       AWS_S3_BUCKET: "s3://braindump-bucket"
@@ -22,6 +27,34 @@ jobs:
           fetch-depth: 0
 
 
+      - name: Get Modified Files
+        id: files_list
+        run: |
+          ALL_MODIFIED_FILES=$(git diff --name-status ${{ github.event.before }} ${{ github.event.after }})
+          echo $ALL_MODIFIED_FILES
+          ALL_RENAMED_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^R' )
+
+          # We will delete all files that were renamed and convert/write all
+          # of the files that they got renamed to
+
+          ## TODO optimization - only convert if there's a diff for the modified file
+          ## otherwise do aws s3 mv
+          RENAMED_MODIFIED_FILES=$(echo "$ALL_RENAMED_FILES" | cut -f3)
+          MODIFIED_ONLY_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^M' | cut -f2)
+          MODIFIED_FILES=$(echo "$MODIFIED_ONLY_FILES" "$RENAMED_MODIFIED_FILES" | tr '\n' ' ')
+          echo "MODIFIED_FILES=$MODIFIED_FILES >> $GITHUB_ENV
+
+          RENAMED_DELETED_FILES=$(echo "$ALL_RENAMED_FILES" | cut -f2)
+          DELETED_ONLY_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^D' | cut -f2)
+          DELETED_FILES=$(echo "$DELETED_ONLY_FILES" "$RENAMED_DELETED_FILES" | tr '\n' ' ')
+          echo "DELETED_FILES=$DELETED_FILES" >> $GITHUB_ENV
+
+
+  write_to_s3:
+    runs-on: ubuntu_latest
+    needs: get_modified_files
+
+    steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -30,43 +63,33 @@ jobs:
           aws-region: 'us-east-2'
 
 
-      - name: Get Modified Files
-        id: files_list
-        run: |
-          MODIFIED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
-          ORG_FILES=$(echo "$MODIFIED_FILES" | grep -E '\.org$' | tr '\n' ' ')
-          NON_ORG_FILES=$(echo "$MODIFIED_FILES" | grep -v -E '\.org$' | tr '\n' ' ')
-          echo "ORG_FILES=$ORG_FILES" >> $GITHUB_ENV
-          echo "NON_ORG_FILES=$NON_ORG_FILES" >> $GITHUB_ENV
-
-
       - name: Install Pandoc
+        if: needs.get_modified_files.outputs.modified_files != ''
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc
 
 
       - name: Convert and Push
-        if: env.ORG_FILES != ''
+        if: needs.get_modified_files.outputs.modified_files != ''
         run: |
-          for file in ${{ env.ORG_FILES }}; do
-              HTML_FILE="${file%.org}.html"
+          for file in ${{ needs.get_modified_files.outputs.modified_files }}
+              if [[ "$file" == *.org ]]; then
+                      HTML_FILE=${file%.org}.html
+                      pandoc "$file" -o "$HTML_FILE"
+                      file="$HTML_FILE"
+              fi
 
-              ## TODO handle pandoc failing
-              pandoc "$file" -o "$HTML_FILE"
-
-              cmd="aws s3 cp $file $AWS_S3_BUCKET/$HTML_FILE"
-              echo "Evaluating: $cmd"
-              eval "$cmd"
-              rm "$HTML_FILE"
-          done
-
-
-      - name: Push Non-Org Files
-        if: env.NON_ORG_FILES != ''
-        run: |
-          for file in ${{ env.NON_ORG_FILES }}; do
               aws s3 cp "$file" "$AWS_S3_BUCKET/$file"
+
+          find "." -type f -name "*.html" -print0 | xargs -0 rm
+
+
+      - name: Delete Files
+        if: needs.get_modified_files.outputs.deleted_files != ''
+        run: |
+          for file in ${{ needs.get_modified_files.outputs.deleted_files }}
+              aws s3 rm "$file" "$AWS_S3_BUCKET/$file"
           done
 
-# TODO if the file was renamed or deleted, delete from s3
+# TODO set up a way to ignore files
