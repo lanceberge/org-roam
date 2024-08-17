@@ -12,8 +12,20 @@ jobs:
   convert_to_html:
     runs-on: ubuntu-latest
 
+    env:
+      AWS_S3_BUCKET:
+        "s3://braindump-bucket"
+
     steps:
       - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: 'us-east-2'
+
 
       - name: Get Modified Files
         id: files_list
@@ -24,12 +36,29 @@ jobs:
           echo "ORG_FILES=$ORG_FILES" >> $GITHUB_ENV
           echo "NON_ORG_FILES=$NON_ORG_FILES" >> $GITHUB_ENV
 
-      - name: Convert to HTML
+
+      - name: Convert and Push
         uses: docker://pandoc/core:2.9
-        if: env.ORG_FILES !=''
+        if: env.ORG_FILES != ''
         run: |
           for file in ${{ env.ORG_FILES }}; do
-              pandoc "$file" -o "${file%.org}.html"
+              HTML_FILE="${file%.org}.html"
+
+              ## TODO handle pandoc failing
+              pandoc "$file" -o "$HTML_FILE"
+
+              DIRNAME=$(dirname "$HTML_FILE")
+              BASENAME=$(basename "$HTML_FILE")
+
+              if [ "$DIRNAME" = "." ]; then
+                  DEST_PATH="$AWS_S3_BUCKET"
+
+              else
+                  DEST_PATH="$AWS_S3_BUCKET/$DIRNAME"
+              fi
+
+              aws s3 cp "$BASENAME" "$DEST_PATH"
+              rm "$HTML_FILE"
           done
-      
-  # push_to_s3:
+
+# TODO if the file was renamed or deleted, delete from s3
