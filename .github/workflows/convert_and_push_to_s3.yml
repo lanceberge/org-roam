@@ -30,7 +30,9 @@ jobs:
       - name: Get Modified Files
         id: files_list
         run: |
-          ALL_MODIFIED_FILES=$(git diff --name-status ${{ github.event.commits[0].id }} ${{ github.event.commits[-1].id }})
+          first_commit='${{ github.event.before }}'
+          last_commit='${{ github.event.after }}'
+          ALL_MODIFIED_FILES=$(git diff --name-status "$first_commit" "$last_commit")
           echo $ALL_MODIFIED_FILES
           ALL_RENAMED_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^R' )
 
