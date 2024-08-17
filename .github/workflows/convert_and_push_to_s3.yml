@@ -33,6 +33,12 @@ jobs:
           first_commit='${{ github.event.before }}'
           last_commit='${{ github.event.after }}'
           ALL_MODIFIED_FILES=$(git diff --name-status "$first_commit" "$last_commit")
+          if [ -z "$ALL_MODIFIED_FILES" ]; then
+              echo "No modified files. Exiting."
+              exit 0
+          fi
+
+          echo "All Modified files:"
           echo "$ALL_MODIFIED_FILES"
           ALL_RENAMED_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^R' )
           ADDED_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^A' | cut -f2)
