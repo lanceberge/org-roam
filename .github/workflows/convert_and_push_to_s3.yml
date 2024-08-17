@@ -68,7 +68,7 @@ jobs:
 
 
   write_to_s3:
-    runs-on: ubuntu_latest
+    runs-on: ubuntu-latest
     needs: get_modified_files
 
     steps:
@@ -98,6 +98,8 @@ jobs:
               fi
 
               aws s3 mv "$file" "$AWS_S3_BUCKET/$file"
+          done
+
 
           find "." -type f -name "*.html" -print0 | xargs -0 rm
 
