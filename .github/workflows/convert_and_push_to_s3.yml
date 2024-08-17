@@ -40,7 +40,6 @@ jobs:
 
           echo "All Modified files:"
           echo "$ALL_MODIFIED_FILES"
-          ALL_RENAMED_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^R')
 
           # We will delete all files that were renamed and convert/write all
           # of the files that they got renamed to
@@ -48,6 +47,7 @@ jobs:
           ## TODO optimization - only convert if there's a diff for the modified file
           ## otherwise do aws s3 mv
           echo "1"
+          ALL_RENAMED_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^R' )
           RENAMED_MODIFIED_FILES=$(echo "$ALL_RENAMED_FILES" | cut -f3)
           echo "2"
           MODIFIED_ONLY_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^M' | cut -f2)
