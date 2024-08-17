@@ -106,7 +106,7 @@ jobs:
                       file="$HTML_FILE"
               fi
 
-              cmd=aws s3 mv "$file" "$AWS_S3_BUCKET/$file"
+              cmd="aws s3 mv $file $AWS_S3_BUCKET/$file"
               echo "Running: $cmd"
               eval $cmd
           done
