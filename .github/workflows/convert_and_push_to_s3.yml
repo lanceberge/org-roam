@@ -40,7 +40,7 @@ jobs:
 
           echo "All Modified files:"
           echo "$ALL_MODIFIED_FILES"
-          ALL_RENAMED_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^R' )
+          ALL_RENAMED_FILES=$(echo "$ALL_MODIFIED_FILES" | grep -E '^R')
 
           # We will delete all files that were renamed and convert/write all
           # of the files that they got renamed to
