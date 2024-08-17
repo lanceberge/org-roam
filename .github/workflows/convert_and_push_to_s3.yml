@@ -26,6 +26,12 @@ jobs:
           aws-region: 'us-east-2'
 
 
+      - name: Install Pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+
+
       - name: Get Modified Files
         id: files_list
         run: |
@@ -37,7 +43,6 @@ jobs:
 
 
       - name: Convert and Push
-        uses: docker://pandoc/core:2.9
         if: env.ORG_FILES != ''
         run: |
           for file in ${{ env.ORG_FILES }}; do
@@ -46,7 +51,9 @@ jobs:
               ## TODO handle pandoc failing
               pandoc "$file" -o "$HTML_FILE"
 
-              aws s3 cp "$file" "$AWS_S3_BUCKET/$HTML_FILE"
+              cmd="aws s3 cp $file $AWS_S3_BUCKET/$HTML_FILE"
+              echo "Evaluating: $cmd"
+              eval "$cmd"
               rm "$HTML_FILE"
           done
 
