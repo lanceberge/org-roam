@@ -96,7 +96,7 @@ jobs:
       - name: Convert and Push
         if: needs.get_modified_files.outputs.modified_files != ''
         run: |
-          for file in ${{ needs.get_modified_files.outputs.modified_files }}
+          for file in ${{ needs.get_modified_files.outputs.modified_files }}; do
               if [[ "$file" == *.org ]]; then
                       HTML_FILE=${file%.org}.html
                       pandoc "$file" -o "$HTML_FILE"
