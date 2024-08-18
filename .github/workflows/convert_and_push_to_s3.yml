@@ -92,6 +92,14 @@ jobs:
           aws-region: 'us-east-2'
 
 
+        ## TODO only if there's .org files
+      - name: Install Pandoc
+        if: ${{ needs.get_modified_files.outputs.modified_files != '' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+
+
       - name: Convert and Push
         if: ${{ needs.get_modified_files.outputs.modified_files != '' }}
         run: |
@@ -101,8 +109,7 @@ jobs:
               echo "$file"
               if [[ "$file" == *.org ]]; then
                       HTML_FILE=${file%.org}.html
-                      docker run --rm -v "${{ github.workspace }}:/workspace" -w /workspace pandoc/latex:2.9 \
-                                  pandoc "$file" -o "$HTML_FILE"
+                      pandoc "$file" -o "$HTML_FILE"
                       file="$HTML_FILE"
               fi
 
