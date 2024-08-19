@@ -1,0 +1,7 @@
+:PROPERTIES:
+:ID:       4ce28ed1-c010-4326-952e-6e22f2766ffa
+:END:
+#+title: Productivity Principles
+
+- If you feel a temptation to get distracted, wait 5 mins. This will rewire the connection between stimulus and reward
+- Work deeply, with full focus and in large chunks of time
