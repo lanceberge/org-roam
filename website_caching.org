@@ -1,0 +1,22 @@
+:PROPERTIES:
+:ID:       99B7E9FF-306B-4728-B08A-089DB18126DD
+:END:
+#+title: Website Caching
+#+filetags: Programming
+
+[[id:8881844B-3FE5-4FA9-9676-9B808375EB00][Web Dev]]
+
+* Static Site Generation
+
+  - The whole site will be generated all at once
+  - Then you can save it on the CDN
+  - But this is bad if the site changes a lot
+
+* SSR
+
+  - The pages are rendered by the server only when you need to render them
+  - You can then save it on the CDN
+
+* CDN
+
+  - Save the pages and distribute them across the world
