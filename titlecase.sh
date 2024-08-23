@@ -10,5 +10,5 @@ find . -type f | while read -r file; do
 
     title_case_name=$(to_title_case "$base")
 
-    mv "$file" "$dir/$title_case_name"
+    git mv "$file" "$dir/$title_case_name"
 done
