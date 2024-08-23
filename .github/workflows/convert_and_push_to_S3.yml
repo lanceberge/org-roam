@@ -125,6 +125,10 @@ jobs:
         if: ${{ needs.get_modified_files.outputs.deleted_files != '' }}
         run: |
           for file in ${{ needs.get_modified_files.outputs.deleted_files }}; do
+              if [[ "$file" == *.org ]]; then
+                      file=${file%.org}.html
+              fi
+
               aws s3 rm "$AWS_S3_BUCKET/$file"
           done
 
