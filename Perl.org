@@ -1,0 +1,10 @@
+:PROPERTIES:
+:ID:       571E799A-B1D7-4808-A2B6-E8CBD0378FFC
+:END:
+#+title: Perl
+#+filetags: Programming
+
+#+BEGIN_SRC perl :results output
+$color = "red";
+print "Your favorite color is " . $color . "\n";
+#+END_SRC
