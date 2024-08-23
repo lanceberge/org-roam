@@ -7,6 +7,7 @@
 
 - Lets you keep data geographically close to users
 - Allow for failover
+- Lets you process more queries than a single machine could handle
 - Horizontally scale read queries
 
 * Leader-Follower (Master-Slave)
@@ -63,3 +64,44 @@ Statement-Based - store the leader's write statements (SQL queries)
 
   The leader can replace nondeterministic function calls with a fixed return value when the
     statement is logged
+
+** WAL Shipping
+
+   - Log is append-only
+   - When the followers process the log, they create the same data structure as the leader
+     - This makes failover and rolling upgrades easy since the leader will never need to recreate the [[id:237AAE85-C261-4743-861D-2B9A2908D1FB][B-Trees]]
+   - Used by [[id:40493a16-91dd-4a94-bb8a-59c358284beb][PostgreSQL]]
+
+** Logical Log
+
+   - The replication log is in a different format than the leader's
+   - Aims to contain as little information as possible to replicate
+
+   Because it's decoupled from internals, it can more easily be backwards compatible
+
+** Trigger-Based Replication
+
+   - Lets application code run when a database is updated
+     - This approach has high overhead to other replication methods
+
+* Handling Reads - Replication Lag
+
+  -
+
+** Read-After-Write Consistency
+
+   - After a user writes data, they need to be able to refresh and see it uploaded
+   - 1st technique - When reading something the user may have modified, read it from the leader
+     - Always read the user's own profile from the leader
+   - 2 - Allocate a time-period after writes to read from the leader
+
+** Monotonic Reads
+
+   - A user's query goes to a replica forward in time, then another query to a replica that's lagging
+     - So they see data moving back in time
+
+   Monotonic Reads guarantee that this won't happen - it's a stronger guarantee than eventual consistency
+
+   /Consistent Prefix Reads/ - Readers will see writes in the order they came in
+
+   1. Always make sure a user's reads come from the same replica
