@@ -1,0 +1,34 @@
+:PROPERTIES:
+:ID:       ECDA3B80-9669-4548-B400-1917351F46F0
+:END:
+#+title: Docker
+#+category: Docker
+- Virtualizes the OS and dependencies
+  - Making components of the application modular and versioned
+
+* Namespaces
+
+  Used so that the containers practically have different OS's
+
+  VMs share hardware, containers share the OS
+
+* CLI
+
+  #+BEGIN_SRC sh
+# detached - background
+# port 8080 on mine, 80 in the container
+docker run -d -p 8080:80
+
+docker stop CONTAINER_ID
+  #+END_SRC
+
+* State
+
+  Containers are stateless
+
+  Persistent state comes from storage volumes
+
+  #+BEGIN_SRC sh
+docker volume create <name>
+docker volume inspect <name>
+  #+END_SRC

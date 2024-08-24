@@ -1,0 +1,29 @@
+:PROPERTIES:
+:ID:       806988E9-62F2-4108-87B5-E51554FE3454
+:END:
+#+title: GTD Framework
+#+category: GTD Framework
+
+[[id:4ce28ed1-c010-4326-952e-6e22f2766ffa][Productivity Principles]]
+https://hamberg.no/gtd/#what-is-gtd
+
+* In list - Everything coming in
+
+  - If it's not actionable, throw it away
+
+* Next Actions
+
+  - Specific action items for the in list
+
+* Waiting For
+* Projects
+
+  - Where you store next actions for anything that has multiple action items
+
+* Some day/maybe
+
+  - Contexts where it can be done so you can GTD in any environment
+
+* Weekly Review
+
+  - Keep everything up to date weekly
