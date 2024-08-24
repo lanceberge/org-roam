@@ -3,6 +3,9 @@
 :END:
 #+title: Docker
 #+category: Docker
+
+[[https://docs.docker.com/get-started/workshop/08_using_compose/][Guide]]
+
 - Virtualizes the OS and dependencies
   - Making components of the application modular and versioned
 
@@ -20,6 +23,9 @@
 docker run -d -p 8080:80
 
 docker stop CONTAINER_ID
+
+# Show all containers
+docker ps -a
   #+END_SRC
 
 * State
@@ -32,3 +38,39 @@ docker stop CONTAINER_ID
 docker volume create <name>
 docker volume inspect <name>
   #+END_SRC
+
+** Volumes
+
+   mount to the =/var/lib/ghost/content= volume
+   #+BEGIN_SRC sh
+   docker run -d -e NODE_ENV=development -e url=http://localhost:3001 -p 3001:2368 -v ghost-vol:/var/lib/ghost/content ghost
+
+   docker volume inspect ghost-vol:
+   #+END_SRC
+
+* Networking
+
+  #+BEGIN_SRC sh
+docker run -d --network none
+  #+END_SRC
+
+  #+BEGIN_SRC sh
+docker network create <network_name>
+docker network ls
+
+# run the container, using the network, and mounting the file
+docker run --network caddytest --name caddy1 -p 8001:80 -v $PWD/index1.html:/usr/share/caddy/index.html caddy
+  #+END_SRC
+
+* Layers
+
+  As a container builds, the builder attempts to use layers (build stages) from previous builds
+
+  (ex. if project files are unchanged then COPY . . is cached)
+
+  If a layer isn't cached, then the [[id:9F7C6AC3-B771-4E33-BDE2-724B31DBC93C][Cache]] for all of the following layers is invalidated
+  - So put FROM, WORKDIR first
+
+* Bind Mounts
+
+  - Share data between the host and a container - like a symlink between a container and host

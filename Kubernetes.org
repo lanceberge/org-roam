@@ -3,12 +3,6 @@
 :END:
 #+title: Kubernetes
 
-* Deployment process
-
-Start by finding pods that match the label selector:
-
-Compare this to the desired pod count and delete or excess
-
 * Deployments
 
 - Stateless, persistent
@@ -21,3 +15,37 @@ Compare this to the desired pod count and delete or excess
 * Jobs
 
 - Run to completion apps
+
+* CLI
+
+  #+BEGIN_SRC sh
+kc get po
+kc port-forward <pod_name> 8080:8080
+
+# open editor and modify a yaml
+kc edit deployment <name>
+
+kc apply -f file.yaml
+  #+END_SRC
+
+* Pods
+
+  - A compute node holding 1 or more [[id:ECDA3B80-9669-4548-B400-1917351F46F0][Docker]] containers
+  - Each pod has it's own internal IP
+
+* Declarative Nature
+
+  - Kubernetes configs are declarative. If you declare two pods then delete one, it'll return
+
+* Configmaps
+
+  Configmaps let us declare environment variables
+
+  #+BEGIN_SRC yaml
+env:
+  - name: API_PORT
+    valueFrom:
+      configMapKeyRef:
+        name: synergychat-api-configmap
+        key: API_PORT
+  #+END_SRC

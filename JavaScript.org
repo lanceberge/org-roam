@@ -30,7 +30,6 @@ guessSubmit.addEventListener("click", checkGuess);
 const output = document.querySelector('.output');
 const para = document.createElement('p');
 para.textContent = "Paragraph";
-+END_SRC
 #+END_SRC
 
 * Objects

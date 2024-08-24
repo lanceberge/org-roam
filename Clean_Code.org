@@ -12,3 +12,7 @@ Immobility -  You cannot reuse parts of the code in other projects because of in
 Opacity    -  The code is hard to understand
 Needless Complexity
 Needless Repetition
+
+* Style
+
+  - Put the caller above the callee
