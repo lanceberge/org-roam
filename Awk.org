@@ -13,3 +13,9 @@ stuff to operate on {action [field]}
 #+BEGIN_SRC sh
 awk '{print $0}' file1 file2
 #+END_SRC
+
+#+BEGIN_SRC bash
+# identify the 7th field
+awk -F, '{print $7}' file.csv
+awk '{ printf "%-30s %-30s %-30s\n", $1, $2, $3}'
+#+END_SRC

@@ -6,3 +6,38 @@
 [[https://github.com/onceupon/Bash-Oneliner][Bash Oneliner]]
 [[id:71A13AED-947E-47F0-A447-50F3BBD50FE8][Sed]]
 [[id:7524007E-CEA0-47B0-9E14-E20702536585][Awk]]
+
+* CSV
+
+  #+BEGIN_SRC sh
+# the second sort identifies the second field (-k 2) and sorts by that
+echo $PATH | cut -d / -f 2 | sort | uniq -c | sort -k 2
+  #+END_SRC
+
+* xargs
+
+Runs a command against each individual output
+#+BEGIN_SRC bash
+# -n 1 -- only one arg
+# -P10 parallelize with 10 threads
+# -I{} use the arg with a placeholder
+# -o save the output to placeholder.csv
+seq 0 1000 10000 | xargs -n 1 -P10 -I{} curl "site.org/file.csv/{}" -o {}.csv
+#+END_SRC
+
+* Basic Commands
+
+  #+BEGIN_SRC sh
+# translate char to another
+tr ':' '\n'
+
+# select fields out of delimiters
+# select the second field (-f) out of the / delimiters
+cut -d / -f 2
+
+# identify the number of unique fields and the count of them
+uniq -c
+
+# find all files in the current directory matching *.csv then run a command on them
+find . -name "*.csv" -exec command
+  #+END_SRC
