@@ -2,6 +2,8 @@
 
   All of my personal notes, organized using [[https://www.orgroam.com/][Org Roam]], an Emacs Org Mode package for note taking
 
+  - Inspired by https://braindump.jethro.dev/
+
 * Create a New AWS Organization and Account
 
   Check root
