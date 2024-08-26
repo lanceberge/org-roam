@@ -1,0 +1,13 @@
+:PROPERTIES:
+:ID:       7069E2EA-6633-4DD0-ADE3-F8F4203AFBD2
+:END:
+#+title: elisp
+#+category: elisp
+
+=car= - the first element in a list
+=cdr= - the rest of the list
+
+* Equality
+
+  - =eq= Check pointer
+  - =equal= Check Value
