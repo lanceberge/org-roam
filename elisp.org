@@ -71,6 +71,10 @@ https://alphapapa.github.io/emacs-package-dev-handbook/
   SPC - step through
   =edebug-goto-here= Continue to here
 
+  - n - step
+  - G - goto here
+  - c - continue
+
 * Logic
 
   - =cl-loop= is the most efficient
