@@ -35,7 +35,6 @@ https://alphapapa.github.io/emacs-package-dev-handbook/
 (alist-get 'one some-alist) ;; 1
 
 (map-put some-alist 'four 4)
-
   #+END_SRC
 
 * Lists
@@ -59,7 +58,10 @@ https://alphapapa.github.io/emacs-package-dev-handbook/
 
 * Debugger
 
+  M-x =debug on entry=
   M-x =toggle-debug-on-error=
+
+  place =(debug)= in your code to go into =debug= mode - good for viewing locals
 
   - v - expand local vars from that stack frame
   - n, p - navigate stack frames
@@ -70,11 +72,33 @@ https://alphapapa.github.io/emacs-package-dev-handbook/
 
   SPC - step through
   =edebug-goto-here= Continue to here
+  Kill the \*backtrace\* buffer - it can stop the debugger from running
 
+  - i - step in
   - n - step
-  - G - goto here
+  - H - goto here
   - c - continue
+  - d - view locals
+  - e - eval
+
+** Backtrace Buffer
+
+   - d - step through
 
 * Logic
 
   - =cl-loop= is the most efficient
+
+* Lispy
+
+  - Barf - < - send the paren forward
+  - w - move up (swap with paren above it)
+  - s - move down
+  - c - clone
+  - e - eval
+  - xf - lambda to defun
+  - xl - defun to lambda
+  - q - avy-paren
+  - Q - avy-char
+  - a - avy-symbol
+  - H - ace-symbol-replace
