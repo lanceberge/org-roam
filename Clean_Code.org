@@ -16,3 +16,15 @@ Needless Repetition
 * Style
 
   - Put the caller above the callee
+
+* Law of Demeter
+
+  - Modules shouldn't know about the internals of the classes they use
+
+* Procedural vs. OOP
+
+  Procedural - a class ex. =DBHandler= that operates on a data structurel
+
+  - This can be favorable for data structures that aren't meant to be modified
+
+  OOP - Is better for evolving data types

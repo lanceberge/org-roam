@@ -1,0 +1,11 @@
+:PROPERTIES:
+:ID:       f94ab66a-5e9d-4f9c-a5ea-ecdcf331d995
+:END:
+#+title: Conda
+#+category: Conda
+
+=conda create= - create an isolated conda environment
+
+    #+BEGIN_SRC bash
+conda remove --name thr311 --all -y
+    #+END_SRC
