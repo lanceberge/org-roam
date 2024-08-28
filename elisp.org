@@ -4,6 +4,8 @@
 #+title: elisp
 #+category: elisp
 
+https://alphapapa.github.io/emacs-package-dev-handbook/
+
 =car= - the first element in a list
 =cdr= - the rest of the list
 
@@ -11,3 +13,64 @@
 
   - =eq= Check pointer
   - =equal= Check Value
+
+* Cons
+
+  #+BEGIN_SRC emacs-lisp
+(setcar cons-name 2)
+
+;; Append lists
+(append '(1 2 3) 4)
+  #+END_SRC
+
+* Alists
+
+  Alists are a list of cons cells - i.e. a HashMap
+
+  #+BEGIN_SRC emacs-lisp :results none
+(setq some-alist '((one . 1)
+                   (two . 2)
+                   (three . 3)))
+
+(alist-get 'one some-alist) ;; 1
+
+(map-put some-alist 'four 4)
+
+  #+END_SRC
+
+* Lists
+
+  #+BEGIN_SRC emacs-lisp :results none
+;; Set idx 5 of the list
+(setf (alist) 5)
+
+(alist-get 'one some-alist)
+  #+END_SRC
+
+* Plists
+
+  Key/Value pairs with a flat list
+
+  #+BEGIN_SRC emacs-lisp :results none
+(plist-get '(one 1 two 2) 'one)
+  #+END_SRC
+
+** Plist vs. Alist
+
+* Debugger
+
+  M-x =toggle-debug-on-error=
+
+  - v - expand local vars from that stack frame
+  - n, p - navigate stack frames
+  - + - pretty print
+
+
+  Edebug
+
+  SPC - step through
+  =edebug-goto-here= Continue to here
+
+* Logic
+
+  - =cl-loop= is the most efficient
