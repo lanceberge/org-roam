@@ -29,8 +29,8 @@ https://alphapapa.github.io/emacs-package-dev-handbook/
 
   #+BEGIN_SRC emacs-lisp :results none
 (setq some-alist '((one . 1)
-                   (two . 2)
-                   (three . 3)))
+		   (two . 2)
+		   (three . 3)))
 
 (alist-get 'one some-alist) ;; 1
 
@@ -88,11 +88,14 @@ https://alphapapa.github.io/emacs-package-dev-handbook/
 * Logic
 
   - =cl-loop= is the most efficient
+  - unless - runs if the var is nil
+  - =(progn)= - run a sequence of functions and return the last
 
 * Lispy
 
   - Barf - < - send the paren forward
   - w - move up (swap with paren above it)
+  - d - goto pair
   - s - move down
   - c - clone
   - e - eval
