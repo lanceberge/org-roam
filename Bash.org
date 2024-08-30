@@ -7,6 +7,18 @@
 [[id:71A13AED-947E-47F0-A447-50F3BBD50FE8][Sed]]
 [[id:7524007E-CEA0-47B0-9E14-E20702536585][Awk]]
 
+* Find
+
+  #+BEGIN_SRC sh
+for file in $(find . -name "*.txt"); do
+    # Do something
+done
+
+## Or
+find . -name "*.csv" -exec command
+  #+END_SRC
+
+
 * CSV
 
   #+BEGIN_SRC sh
@@ -37,7 +49,4 @@ cut -d / -f 2
 
 # identify the number of unique fields and the count of them
 uniq -c
-
-# find all files in the current directory matching *.csv then run a command on them
-find . -name "*.csv" -exec command
   #+END_SRC
