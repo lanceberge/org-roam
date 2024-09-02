@@ -4,6 +4,7 @@
 #+title: elisp
 #+category: elisp
 
+[[id:B71472DF-3214-44C6-89AF-C9C1FCFF0296][Emacs]]
 https://alphapapa.github.io/emacs-package-dev-handbook/
 
 =car= - the first element in a list
