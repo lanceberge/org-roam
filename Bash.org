@@ -14,10 +14,17 @@ for file in $(find . -name "*.txt"); do
     # Do something
 done
 
-## Or
-find . -name "*.csv" -exec command
-  #+END_SRC
+# Or
+find "$dir" -type f | while read -r FILE; do
+    # Do something
+done
 
+## Or
+# {} is a placeholder for the filename
+# + tells it to include as many paths as possible
+  # Alternatively, use \; to say to use only one file per invocation
+find . -name "*.csv" -exec command {} +
+  #+END_SRC
 
 * CSV
 

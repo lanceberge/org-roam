@@ -74,3 +74,11 @@ docker run --network caddytest --name caddy1 -p 8001:80 -v $PWD/index1.html:/usr
 * Bind Mounts
 
   - Share data between the host and a container - like a symlink between a container and host
+
+* Dockerizing a DB
+
+  #+BEGIN_SRC sh
+# set environment variables, pull and run mysql:latest
+docker network create my-network
+docker run --name my-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -e MYSQL_DATABASE=mydb --network my-network -d mysql:latest
+  #+END_SRC

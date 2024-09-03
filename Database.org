@@ -40,6 +40,15 @@ But, because compaction makes the segments smaller, we iterate through and throw
 
   - You can have redundant data in multiple tables to avoid complex joins
 
+* Normalization
+
+https://www.guru99.com/database-normalization.html
+
+  - Avoid redundancy by dividing the tables into smaller tables with unique values
+  - 1NF - each table should contain a single value
+  - 2NF - no composite keys. We must have primary keys only - ex. an id
+  - 3NF - no functional dependencies (when changing a column mandates that another column changes)
+
 * SSTables
 
   Update our segment files so that each key only appears once in each segment file,
@@ -52,3 +61,10 @@ But, because compaction makes the segments smaller, we iterate through and throw
   we can search between handbag and handsome. So we can store a sparse in-memory index
 
   Also, our read requests can compress the data they scan over before writing to disk
+
+* SQL Tuning
+
+  - Know that small queries are similar in latency to big queries
+    - Anything in application code that does multiple queries should probably
+      be one big query
+  - [[https://planetscale.com/blog/what-is-n-1-query-problem-and-how-to-solve-it][N+1 Query Problem]]

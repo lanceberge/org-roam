@@ -4,18 +4,45 @@
 #+title: Awk
 #+filetags: Programming
 
-Awk operates on records (lines) and fields (words)
+Awk operates on records (lines by default) and fields (words by default)
 It reads files one line by line and splits the lines into words
 
 Pattern:
 stuff to operate on {action [field]}
 
+FS - field separator (space by default)
+RS - Record separator (newline by default)
+
+$1 - the first field
+$2 - second
+
 #+BEGIN_SRC sh
 awk '{print $0}' file1 file2
+
+## Main usage
+# awk [condition] [what to output] <filename>
 #+END_SRC
+
+#+RESULTS:
+| awk: | cannot | open       | file1  | (No     | such       | file | or | directory) |
+| sh:  | 5:     | Syntax     | error: | newline | unexpected |      |    |            |
+| [    | Babel  | evaluation | exited | with    | code       |    2 | ]  |            |
 
 #+BEGIN_SRC bash
 # identify the 7th field
 awk -F, '{print $7}' file.csv
 awk '{ printf "%-30s %-30s %-30s\n", $1, $2, $3}'
 #+END_SRC
+
+* Writing an Awk script
+
+#+BEGIN_SRC awk
+#!/usr/bin/awk -f
+#+END_SRC
+
+* Patterns
+
+  #+BEGIN_SRC sh
+/frodo/ ? /ring/ : /orcs/{print "something"} # ternary
+/frodo/ , /ring/ {print $0} # print all of the lines between frodo and ring
+  #+END_SRC

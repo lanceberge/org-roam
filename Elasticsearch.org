@@ -1,0 +1,12 @@
+:PROPERTIES:
+:ID:       a170dd65-f2d2-43aa-aff0-322f1edc1fc4
+:END:
+#+title: Elasticsearch
+#+filetags: Programming
+
+- Fuzzy matching
+- Good at searching for text in a document db or unstructured data
+- Is essentially a highly-indexed database
+- Ranks results based on how close they are to the query
+- Filtering data
+- Good for unstructured data

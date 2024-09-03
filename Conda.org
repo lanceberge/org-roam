@@ -8,4 +8,7 @@
 
     #+BEGIN_SRC bash
 conda remove --name thr311 --all -y
+conda create -y --name thr311 python=3.11.5 pip=23.3.1 setuptools=68.2.2
+
+conda activate thr311
     #+END_SRC
