@@ -12,7 +12,12 @@ stuff to operate on {action [field]}
 
 FS - field separator (space by default)
 RS - Record separator (newline by default)
+NR - number of input records
+NF - number of input fields for the current record
+OFS - output file separator
+ORS
 
+$0 - the whole record
 $1 - the first field
 $2 - second
 
@@ -21,6 +26,12 @@ awk '{print $0}' file1 file2
 
 ## Main usage
 # awk [condition] [what to output] <filename>
+
+# print lines 3 through 6
+awk 'NR==3, NR==6 {print NR,$0}' employee.txt
+
+# print the number of lines
+awk 'END { print NR }' file
 #+END_SRC
 
 #+RESULTS:

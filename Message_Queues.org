@@ -1,0 +1,8 @@
+:PROPERTIES:
+:ID:       552ed950-c593-41a9-bee4-f93fb972818c
+:END:
+#+title: Message Queues
+#+category: Message Queues
+
+- Exist on disk or in-memory
+- Messages get written
