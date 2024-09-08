@@ -178,7 +178,7 @@ We use Redis to store data, since it's fast and has INCR - increment and EXPIRE
    Partitions of the ring
 
 #+attr_html: :width 600px
-[[file:img/virtual_nodes.png]]
+[[file:img/Virtual_Nodes.png]]
 
 * Design a Key-Value Store
 

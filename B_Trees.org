@@ -11,7 +11,7 @@ A balanced tree structure where each node can have multiple children
   - Then each child would contain 4 values that sit between the values of the root
 
 #+attr_html: :width 800px
-[[file:img/b-tree.png]]
+[[file:img/B-Tree.png]]
 
 * Insertion
 
