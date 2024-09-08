@@ -4,6 +4,8 @@
 #+title: Svelte
 #+filetags: Programming
 
+* Basics
+
 This works when var names and attribute names are the same
 
 #+BEGIN_SRC html
@@ -15,7 +17,7 @@ Styles are scoped to the component
 
 Strings that contain html:
 
-#+BEGIN_SRC html
+#+BEGIN_SRC svelte
 <script>
         let string = `this string contains some <strong>HTML!!!</strong>`;
 </script>
@@ -37,14 +39,27 @@ function increment() {
 </script>
 #+END_SRC
 
+** Rendering Strings as HTML
+
+#+BEGIN_SRC svelte
+<p>{@html string}</p>
+#+END_SRC
 * Reactive Values
 
 #+BEGIN_SRC js
 let count = 0;
-$: doubled = count * 2 // every time count changes, doubled recomputes
+// every time count changes, doubled recomputes
+$: doubled = count * 2;
 
 // it can also be functions, or in front of if statements
+// This gets logged every time the value changes
 $: console.log(`the count is ${count}`);
+
+// or
+$: {
+  console.log(`the count is ${count}`);
+  console.log(`this will also be logged whenever count changes`);
+}
 #+END_SRC
 
 Reactivity is triggered by assignment. So methods like `numbers.push()` don't cause updates. But this does:
@@ -93,7 +108,46 @@ Specifying a key for the iteration. Update when thing.id changes
 
 * Props
 
-- Pass data into a component
+- Pass data into a component or to the children of a component
+
+#+BEGIN_SRC svelte
+Nested.svelte
+<script>
+  export let answer = 'default'
+</script>
+
+<script>
+        import Nested from './Nested.svelte';
+</script>
+
+<Nested answer={42} />
+<Nested /> defaults to 'default'
+
+Passing values into props:
+
+PackageInfo.svelte
+<script>
+  export let name;
+   export let version;
+   export let speed;
+   export let website;
+</script>
+
+<script>
+   import PackageInfo from './PackageInfo.svelte';
+
+   const pkg = {
+     name: 'svelte',
+     speed: 'blazing',
+     version: 4,
+     website: 'https://svelte.dev'
+   };
+</script>
+
+<PackageInfo {...pkg} />
+#+END_SRC
+
+Basically use props for repeated frontend components that optionally have variable inputs
 
 * Handling Events
 
@@ -112,6 +166,12 @@ on:pointermove={(e) => {
 
 - The intermediate components (deeply nested components) must forward the event to the outer components
 
-* SvelteKit
+* Components
 
-- /src/routes - all of the routes. A layout.svelte file will define a common UI for all of them
+#+BEGIN_SRC svelte
+<script>
+  import Nested from './Nested.svelte'
+</script>
+
+<Nested />
+#+END_SRC
