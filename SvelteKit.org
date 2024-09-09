@@ -144,3 +144,12 @@ export const handle: Handle = async ({ event, resolve}) => {
     }
 }
 #+END_SRC
+
+* SSG and Client-Side
+
+  #+BEGIN_SRC svelte
+<script>
+  export const prerender = true // render at build time
+  export const ssr = false //client rendering
+</script>
+  #+END_SRC
