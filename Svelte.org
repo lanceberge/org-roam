@@ -19,7 +19,7 @@ Strings that contain html:
 
 #+BEGIN_SRC svelte
 <script>
-        let string = `this string contains some <strong>HTML!!!</strong>`;
+    let string = `this string contains some <strong>HTML!!!</strong>`;
 </script>
 
 <p>{@html string}</p>
@@ -28,13 +28,13 @@ Strings that contain html:
 
 #+BEGIN_SRC html
 <button on:click={increment}>
-        Clicked {count}
-        {count === 1 ? 'time' : 'times'}
+    Clicked {count}
+    {count === 1 ? 'time' : 'times'}
 </button>
 
 <script>
 function increment() {
-        count += 1;
+    count += 1;
 }
 </script>
 #+END_SRC
@@ -80,12 +80,12 @@ numbes = [...numbers, newNumber]
 {/if}
 
 {#each colors as color, i}
-        <button
-                aria-current={selected === color}
-                aria-label={color}
-                style="background: {color}"
-                on:click={() => selected = color}
-        >{i + 1}</button>
+    <button
+        aria-current={selected === color}
+        aria-label={color}
+        style="background: {color}"
+        on:click={() => selected = color}
+    >{i + 1}</button>
 {/each}
 
 #+END_SRC
@@ -94,7 +94,7 @@ Specifying a key for the iteration. Update when thing.id changes
 
 #+BEGIN_SRC html
 {#each things as thing (thing.id)}
-        <Thing name={thing.name}/>
+    <Thing name={thing.name}/>
 {/each}
 #+END_SRC
 
@@ -102,7 +102,7 @@ Specifying a key for the iteration. Update when thing.id changes
 
 #+BEGIN_SRC html
 {#await promise then number}
-        <p>The number is {number}</p>
+    <p>The number is {number}</p>
 {/await}
 #+END_SRC
 
@@ -117,7 +117,7 @@ Nested.svelte
 </script>
 
 <script>
-        import Nested from './Nested.svelte';
+    import Nested from './Nested.svelte';
 </script>
 
 <Nested answer={42} />
@@ -157,11 +157,31 @@ Basically use props for repeated frontend components that optionally have variab
 
 <div
 on:pointermove={(e) => {
-        m = { x: e.clientX, y: e.clientY };
+    m = { x: e.clientX, y: e.clientY };
 }}
 >
+
 #+END_SRC
 
+#+BEGIN_SRC svelte
+<script>
+    import { getRandomNumber } from './utils.js';
+
+    let promise = getRandomNumber();
+
+    function handleClick() {
+        promise = getRandomNumber();
+    }
+</script>
+
+{#await promise}
+    <p>...waiting</p>
+{:then number}
+    <p>The number is {number}</p>
+{:catch error}
+    <p style="color: red">{error.message}</p>
+{/await}
+#+END_SRC
 ** Event forwarding
 
 - The intermediate components (deeply nested components) must forward the event to the outer components
