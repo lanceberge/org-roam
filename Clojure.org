@@ -1,0 +1,32 @@
+:PROPERTIES:
+:ID:       AD0C80AE-53DF-47F6-A5A2-31036EFFE87E
+:END:
+#+title: Clojure
+#+filetags: Programming
+
+* Functions
+
+Multi-arity functions
+
+#+BEGIN_SRC clojure
+(defn messenger
+  ([]     (messenger "Hello world!"))
+  ([msg]  (println msg)))
+#+END_SRC
+
+anonymous functions
+
+#+BEGIN_SRC clojure
+(fn [message] (println message))
+
+;; Equivalent to: (fn [x] (+ 6 x))
+#(+ 6 %)
+
+;; Equivalent to: (fn [x y & zs] (println x y zs))
+#(println %1 %2 %&)
+
+#+END_SRC
+
+#+BEGIN_SRC clojure
+(apply f '(1 2 3 4))    ;; same as  (f 1 2 3 4)
+#+END_SRC
