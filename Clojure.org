@@ -30,3 +30,11 @@ anonymous functions
 #+BEGIN_SRC clojure
 (apply f '(1 2 3 4))    ;; same as  (f 1 2 3 4)
 #+END_SRC
+
+* Java interoperability
+
+| Instantiation   | new Widget("foo") | (Widget. "foo")  |
+| Instance method | rnd.nextInt()     | (.nextInt rnd)   |
+| Instance field  | object.field      | (.-field object) |
+| Static method   | Math.sqrt(25)     | (Math/sqrt 25)   |
+| Static field    | Math.PI           | Math/PI          |
