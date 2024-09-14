@@ -38,3 +38,8 @@ anonymous functions
 | Instance field  | object.field      | (.-field object) |
 | Static method   | Math.sqrt(25)     | (Math/sqrt 25)   |
 | Static field    | Math.PI           | Math/PI          |
+
+* Data Structures
+
+  - Lists are akin to linked-lists
+  - Vectors are C++ vectors

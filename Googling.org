@@ -1,0 +1,11 @@
+:PROPERTIES:
+:ID:       A0E24753-65D9-49D9-B2B7-55DD14DE1C1D
+:END:
+#+title: Googling
+#+category: Googling
+
+| =-=            | exclude      |
+| =after:2020=   | filter dates |
+| =*=            | regex any    |
+| =filetype:pdf= | filetype     |
+| related:url  | find related |
