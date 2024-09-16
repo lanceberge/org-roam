@@ -6,7 +6,7 @@
 * TCP
 
 - All packets are guaranteed to be received in order using a handshake
-  | Checksum fields and sequence numbers for each packet
+  - Checksum fields and sequence numbers for each packet
 
 - If the checksum fails, data will need to be resent
 - Web servers can keep many connections open, but you'll want connection pooling if

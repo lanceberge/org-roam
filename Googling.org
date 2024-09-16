@@ -8,4 +8,4 @@
 | =after:2020=   | filter dates |
 | =*=            | regex any    |
 | =filetype:pdf= | filetype     |
-| related:url  | find related |
+| =related:url=  | find related |
