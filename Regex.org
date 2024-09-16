@@ -4,4 +4,4 @@
 #+title: Regex
 #+filetags: Programming
 
-^a - match not a
+=^a= - match not a
