@@ -8,8 +8,6 @@
 
 * [[id:8C8AADB8-324A-4DF4-9A15-E7AED2E08711][Database]]
 
-- Don't use MySQL. Use Mongo (outdated) and do joins in the application code
-
  ACID
  - Atomicity   - each transaction is all or nothing
  - Consistency - the database stays valid between transactions
