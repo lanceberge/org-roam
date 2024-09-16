@@ -1,10 +1,10 @@
-* Braindump
+# Braindump
 
-  All of my personal notes, organized using [[https://www.orgroam.com/][Org Roam]], an Emacs Org Mode package for note taking
+  All of my personal notes, organized using [Org Roam](https://www.orgroam.com/), an Emacs Org Mode package for note taking
 
   - Inspired by https://braindump.jethro.dev/
 
-* Create a New AWS Organization and Account
+# Create a New AWS Organization and Account
 
   Check root
    Click Actions -> Crete new Organizational Unit
@@ -19,16 +19,16 @@
     Create an S3 Bucket
 
 
-* New SvelteKit Proj
+# New SvelteKit Proj
 
-  #+BEGIN_SRC sh
-   npm create svelte@latest personal_site
-   npm run build
-  #+END_SRC
+```bash
+npm create svelte@latest personal_site
+npm run build
+```
 
 https://github.com/org-roam/org-roam/blob/0b9fcbc97b65b349826e63bad89ca121a08fd2be/org-roam-node.el#L170C1-L207C28
 
-#+BEGIN_SRC emacs-lisp :results none
+```emacs-lisp
 (cl-defmethod org-roam-node-slug ((node org-roam-node))
     "Return the slug of NODE."
     (let ((title (org-roam-node-title node))
@@ -53,8 +53,7 @@ https://github.com/org-roam/org-roam/blob/0b9fcbc97b65b349826e63bad89ca121a08fd2
                              813 ; U+032D COMBINING CIRCUMFLEX ACCENT BELOW
                              814 ; U+032E COMBINING BREVE BELOW
                              816 ; U+0330 COMBINING TILDE BELOW
-                             817 ; U+0331 COMBINING MACRON BELOW
-                             )))
+                             817 ))) ; U+0331 COMBINING MACRON BELOW
       (cl-flet* ((nonspacing-mark-p (char) (memq char slug-trim-chars))
                  (strip-nonspacing-marks (s) (string-glyph-compose
                                               (apply #'string
@@ -67,11 +66,11 @@ https://github.com/org-roam/org-roam/blob/0b9fcbc97b65b349826e63bad89ca121a08fd2
                         ("_$" . "")))                   ;; remove ending underscore
                (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
           slug))))
-#+END_SRC
+          ```
 
-** Capture Templates
+## Capture Templates
 
- #+BEGIN_SRC emacs-lisp :results none
+```emacs-lisp
   (org-roam-capture-templates
    '(("d" "default" plain "%?"
       :if-new (file+head "${slug}.org"
@@ -80,4 +79,4 @@ https://github.com/org-roam/org-roam/blob/0b9fcbc97b65b349826e63bad89ca121a08fd2
      ("c" "Programming" plain "%?"
       :if-new (file+head "public/${slug}.org"
                          "#+title: ${title}\n#+filetags: Programming\n"))))
- #+END_SRC
+```
