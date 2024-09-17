@@ -13,4 +13,3 @@ Companies with a lot of cash:
 
 - Identify if management owns a lot of stock - a company with a high cash per share can be bad if the shareholders don't get that value
 - Sell when the company makes a big aquisition - they're comitting to not getting shareholders back the cash
-**

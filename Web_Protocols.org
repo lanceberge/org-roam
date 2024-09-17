@@ -9,6 +9,6 @@
 - HTTPS - Uses SSL to encrypt requests and responses
 - Web Socket - Bidirectional between client and server
 
-  Stateful - The connection stays alive until terminated by either client or server
+Stateful - The connection stays alive until terminated by either client or server
 
-  Ex. The frontend pulls data from the backend, and if the backend is updated then it can communicate to the frontend
+Ex. The frontend pulls data from the backend, and if the backend is updated then it can communicate to the frontend

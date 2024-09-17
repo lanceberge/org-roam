@@ -78,4 +78,4 @@ NoSQL:
 
    - Sometimes, normalizing data leads to many-to-one relationships (many people living in one area)
 
-     This leads to multiple queries to emulate a join
+This leads to multiple queries to emulate a join

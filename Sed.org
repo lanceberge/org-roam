@@ -29,13 +29,12 @@ echo "123 abc" | sed 's/[0-9]*/& &/'
 
 & is the value of whatever the regex is (excludes abc)
 
-
 Add /2 at the end (along /g) to only match the second occurrence
 * Capture Groups
 
 escape parenthesis with backslashes to create capture groups
 
-.* is necessary to match any number of any character
+=.*= is necessary to match any number of any character
 
 #+BEGIN_SRC sh
 echo "abc asdf" | sed 's/\([a-z]*\)*/\1/'
@@ -46,3 +45,9 @@ echo "abc asdf" | sed 's/\([a-z]*\)*/\1/'
 * Flags
 
   -i.new - modify the file in place and save it to file.new
+
+* Project-Wide Replacements
+
+#+BEGIN_SRC sh
+git ls-files | xargs sed -i 's/old_text/new_text/g'
+#+END_SRC
