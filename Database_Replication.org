@@ -19,8 +19,8 @@
 
 - Synchronous: The leader waits for the follower's response that it received the data
 
-This is disadvantageous if the follower crashes, the leader has to block all writes until the ok is received
-But it's advantageous that the followers are guaranteed to be up to date with the leader
+  This is disadvantageous if the follower crashes, the leader has to block all writes until the ok is received
+  But it's advantageous that the followers are guaranteed to be up to date with the leader
 
 Semi-Synchronous: One of the followers will be synchronous, and the others will be async
 

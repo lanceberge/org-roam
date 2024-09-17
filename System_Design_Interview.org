@@ -71,7 +71,7 @@ Considerations
 
 - You can split your whole web server operation between geographical regions
 
-Ex. you have copies of your web servers, dbs, and caches over different geographical regions
+  Ex. you have copies of your web servers, dbs, and caches over different geographical regions
 
 Considerations
 
@@ -154,8 +154,8 @@ We use Redis to store data, since it's fast and has INCR - increment and EXPIRE
 
   - A technique to hash requests evenly across servers
 
-Basic Technique: hash(=server_key=) % n
-This fails, however, when servers are added and removed
+    Basic Technique: hash(=server_key=) % n
+    This fails, however, when servers are added and removed
 
   - Instead, let's picture a hash ring, where the hash space from 0 to 2^160 - 1 is connected in a circle
   - Now, we put our servers evenly spaced out on the ring
@@ -206,8 +206,8 @@ This fails, however, when servers are added and removed
    - Weak consistency
    - Eventual consistency - give it time
 
-If we have two writes on different servers that modify the same data:
- - we use a vector clock to determine which came first - this stores server id and version
+   If we have two writes on different servers that modify the same data:
+    - we use a vector clock to determine which came first - this stores server id and version
 
 ** Handling Failures
 
@@ -226,10 +226,10 @@ If we have two writes on different servers that modify the same data:
 
    - A technique for high availability
 
-The system chooses the first W and R available servers for reads and writes
+     The system chooses the first W and R available servers for reads and writes
 
-If a server is down, another will temporarily process requests
-   - When the server comes back, the temporary server will hand off that data
+     If a server is down, another will temporarily process requests
+      - When the server comes back, the temporary server will hand off that data
 
 ** Handling Permanent Failures
 

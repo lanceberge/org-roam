@@ -88,10 +88,10 @@ Cache:
 
 * Asynchronism
 
-  - Have worker nodes that constantly check from a message queue
-  - Once it's done, they send a completion message
+- Have worker nodes that constantly check from a message queue
+- Once it's done, they send a completion message
 
-Anything time-consuming, do it async
+  Anything time-consuming, do it async
 
 * Latency vs. Throughput
 
@@ -130,7 +130,8 @@ DNS - Translates a URL to an IP address
 
 CDN - A global network of proxy servers. These server content to users closer to their locations
 
-  - Rewrite your URL to point to the CDN
+- Rewrite your URL to point to the CDN
+
   - Push CDNs - Receive new content when changes occur on the server
   - Pull CDNs - Grab new content from the server when the user requests it
     - This is a slower request
