@@ -1,0 +1,11 @@
+:PROPERTIES:
+:ID:       25ad074c-0db3-46f3-ac33-36de16f520ce
+:END:
+#+title: Web Assembly
+#+filetags: Programming
+
+- Can run client and server-side
+- Compile any language to web code
+- WASM modules can be large
+- Can't call database from WASM
+- Lets you have a common format for multiple languages
