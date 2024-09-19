@@ -6,12 +6,12 @@
 
 * Code smells
 
-Rigidity   -  The software is difficult to change -  A small change causes a cascade of subsequent changes
-Fragility  -  The software breaks in many places due to a single change
-Immobility -  You cannot reuse parts of the code in other projects because of involved risks and high effort
-Opacity    -  The code is hard to understand
-Needless Complexity
-Needless Repetition
+- Rigidity   -  The software is difficult to change -  A small change causes a cascade of subsequent changes
+- Fragility  -  The software breaks in many places due to a single change
+- Immobility -  You cannot reuse parts of the code in other projects because of involved risks and high effort
+- Opacity    -  The code is hard to understand
+- Needless Complexity
+- Needless Repetition
 
 * Style
 

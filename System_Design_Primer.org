@@ -128,7 +128,7 @@ DNS - Translates a URL to an IP address
   - These can come under DDOS attack
   - More laggy than CDN
 
-CDN - A global network of proxy servers. These server content to users closer to their locations
+    CDN - A global network of proxy servers. These server content to users closer to their locations
 
 - Rewrite your URL to point to the CDN
 
