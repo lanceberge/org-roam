@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       3607BF0F-E4B9-4708-AA7C-1C1B67F38E3C
+:END:
+#+title: Golang
+#+filetags: Programming
+Use =%v= to print values in a default format

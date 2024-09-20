@@ -1,0 +1,17 @@
+:PROPERTIES:
+:ID:       9a88f011-cef5-4d0c-a8b5-df3f7209cb53
+:END:
+#+title: Tailwind
+#+filetags: Programming
+| =mx-auto=         | center                                            |
+| px-x            | horizontal padding                                |
+| =hidden md:block= | hidden on mobile but block on medium screen or up |
+| =overflow-y-auto= | enable vertical scrolling if necessary            |
+| =h-screen=        | span the entire viewport                          |
+| =sticky=          | =relative= until it crosses a threshold             |
+| =rounded=         | round corners                                     |
+| =inset-0=         | make an element fill it's container               |
+| =inset-x-2=       | left:2, right: 2                                  |
+| =h-fit=           | fit height                                        |
+| =max-w-xs=        | set an element's max width                        |
+|                 |                                                   |
