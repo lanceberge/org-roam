@@ -1,0 +1,123 @@
+:PROPERTIES:
+:ID:       226EB8E1-18CB-47D6-96D1-E0735FE3C28A
+:END:
+#+title: SQL
+#+filetags: Programming
+
+* Select
+
+#+BEGIN_SRC sql
+SELECT [DISTINCT]
+    column_names
+    salary * 1.05 AS new_salary -- gives this column the name new_salary
+FROM
+    table
+ORDER BY
+    colum [ASC|DESC] -- defaults to ASC
+LIMIT 1 OFFSET 1 -- can be written as LIMIT 1,1
+WHERE
+    salary BETWEEN 9000 AND 12000 AND
+    department_id IN (8, 9) AND
+    first_name LIKE 'jo%' AND -- % matches anything, _ matches one character
+    salary > ALL (SELECT salary FROM employees WHERE department_id = 8) AND
+    salary < ANY (subquery) -- equivalent to SOME
+    EXISTS(subquery) AND
+    year(date) BETWEEN 1999 AND 2005
+#+END_SRC
+
+* Condition Syntax
+
+= for equality
+
+#+BEGIN_SRC sql
+column_name IS NULL
+#+END_SRC
+
+* Functions
+
+- =YEAR(date)=
+- =CHAR_LENGTH(varchar)= - number of characters
+
+* Table Management
+** Constraints
+
+- =PRIMARY_KEY= - only one exists, non null
+- =UNIQUE,= NOT NULL
+- =CHECK(boolean_expression)=
+
+** Create
+
+#+BEGIN_SRC sql
+CREATE TABLE table_name (
+    column1 [CHAR,VARCHAR(max_length),INT,DATE] [constraints]
+)
+#+END_SRC
+
+** Alter
+
+#+BEGIN_SRC sql
+ALTER TABLE table_name
+ADD new_column data_type constraints [AFTER existing_column]
+[DROP column_name]
+[MODIFY column_name new_constraints]
+ADD CONSTRAINT constraint_name constraint (column_name)
+#+END_SRC
+
+** Delete Table
+
+#+BEGIN_SRC sql
+DROP TABLE [IF EXISTS] table_name
+#+END_SRC
+
+** Delete all Data
+
+#+BEGIN_SRC sql
+TRUNCATE TABLE tabl_name
+#+END_SRC
+
+** Foreign Key
+
+- A linked key between two tables
+
+#+BEGIN_SRC sql
+CREATE TABLE project_milestones (
+    columns
+    FOREIGN KEY (key_name)
+        REFERENCES other_table (key_name)
+);
+#+END_SRC
+* Case
+
+#+BEGIN_SRC sql
+SELECT
+    first_name,
+    last_name,
+    hire_date,
+    CASE (2000 - YEAR(hire_date))
+        WHEN 1 THEN '1 year'
+        WHEN 3 THEN '3 years'
+        WHEN 5 THEN '5 years'
+        WHEN 10 THEN '10 years'
+        WHEN 15 THEN '15 years'
+        WHEN 20 THEN '20 years'
+        WHEN 25 THEN '25 years'
+        WHEN 30 THEN '30 years'
+    END aniversary
+FROM
+    employees
+ORDER BY first_name;
+#+END_SRC
+* Joins
+
+- Inner join - select values in both tables
+- Left join - values in the first table and both
+- Full outer join - all values
+
+Syntax:
+
+#+BEGIN_SRC sql
+SELECT
+  A.n
+FROM A
+INNER JOIN B on B.n = A.n;
+#+END_SRC
