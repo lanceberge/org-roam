@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       D052FDD9-8CD3-4D4B-9C57-D2FE858D9BC6
+:END:
+#+title: C++
+#+filetags: Programming
+=priority_queue= - max heap by default
