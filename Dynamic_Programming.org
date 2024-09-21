@@ -1,0 +1,17 @@
+:PROPERTIES:
+:ID:       F320654F-B9CC-4FDF-854C-A55289873159
+:END:
+#+title: Dynamic Programming
+#+filetags: Programming
+
+- Solve and memoize subproblems first
+
+  Longest Increasing Subsequence
+
+- Visualize
+- Find appropriate subproblems (ex. the LIS starting at each element)
+- Find dependencies in subproblems. Which subproblems does LIS(4) depend on?
+
+  LIS(4) = max(LIS(0), LIS(1), LIS(2), ...)
+
+- Solve subproblems in order
