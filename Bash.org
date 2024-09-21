@@ -58,8 +58,6 @@ cut -d / -f 2
 uniq -c
   #+END_SRC
 
-* Dump
-
 #+BEGIN_SRC sh
 #! /bin/bash
 var=3
