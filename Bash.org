@@ -57,3 +57,54 @@ cut -d / -f 2
 # identify the number of unique fields and the count of them
 uniq -c
   #+END_SRC
+
+* Dump
+
+#+BEGIN_SRC sh
+#! /bin/bash
+var=3
+echo "User: $var"
+
+echo hell{o,yeah}
+
+# Replace a command with its output
+echo $(date)
+
+# Check the number of args
+if [[ $# -lt 2  || $# -eq 4 ]]; then
+fi
+
+for val in list; do
+done
+
+for x; do # defaults to in $@
+done
+#+END_SRC
+
+** Arg parsing
+
+| =$@= | Args                                          |
+| =$#= | number of params                   |
+| =$k= | k-th positional command line param            |
+
+** File-related tests
+
+| =-e= | File exists                    |
+| =-d= | File exists and is a directory |
+| =-r= | file is readable               |
+| =-w= | writeable                      |
+| =-x= | executable                     |
+| =-s= | size > 0                       |
+
+** String-related tests
+
+| -z STRING | length 0 |
+| -n        | > 0      |
+| ==        | equality |
+
+** Functions
+
+#+BEGIN_SRC sh
+function funcname {
+}
+#+END_SRC
