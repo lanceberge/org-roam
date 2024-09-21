@@ -4,3 +4,12 @@
 #+title: Golang
 #+filetags: Programming
 Use =%v= to print values in a default format
+
+* Concurrency
+
+  - =goroutine= - a concurrent function
+  - =channel= - allows goroutines to pass values to another goroutine
+
+#+BEGIN_SRC go
+v, ok = m[key]
+#+END_SRC
