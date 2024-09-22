@@ -221,20 +221,15 @@
 | Category     | sell when...                                                                                                                                        |
 |--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------|
 | Slow Growers | the fundamentals have deteriorated or 30-50% gain (lost market share, no new R&D), diworseifications (or announcements of further), bad cash-debt   |
-|              |                                                                                                                                                     |
-| Stalwarts    | - p/e strays too far from trailing or industry average, price goes above earnings line, new products with mixed results & little future endeavors,  |
-|              | - p/e strays too far from trailing or industry average, price goes above earnings line, new products with mixed results & little future endeavors,  |
-|              | - no insiders bought shares in the last year, a major division is slumping, the growth rate is slowing                                              |
-|              |                                                                                                                                                     |
-| Asset plays  | - once someone shows up and makes it apparent that there are assets - i.e. a top investor                                                           |
-|              | - they issue more shares to finance diversification, institutional ownership rises too high                                                         |
-|              |                                                                                                                                                     |
-| Cyclicals    | - end of the cycle, when something has started to go wrong (raising costs), your reason for buying has ended, inventories are building up           |
-|              | - falling commodity prices, building new plants instead of modernizing old plants for cheap                                                         |
-|              |                                                                                                                                                     |
-| Turnarounds  | - after it's turned around, debt is rising quite a bit, inventory is rising, inflated p/e relative to earnings growth, sells mostly to one customer |
-|              |                                                                                                                                                     |
-| Fast growth  | - at the end of the second phase of rapid growth, if it's high rated by Wall Street analysts, p/e ratio surpasses projected earnings growth         |
+| Stalwarts    | p/e strays too far from trailing or industry average, price goes above earnings line, new products with mixed results & little future endeavors,  |
+|              | p/e strays too far from trailing or industry average, price goes above earnings line, new products with mixed results & little future endeavors,  |
+|              | no insiders bought shares in the last year, a major division is slumping, the growth rate is slowing                                              |
+| Asset plays  | once someone shows up and makes it apparent that there are assets - i.e. a top investor                                                           |
+|              | they issue more shares to finance diversification, institutional ownership rises too high                                                         |
+| Cyclicals    | end of the cycle, when something has started to go wrong (raising costs), your reason for buying has ended, inventories are building up           |
+|              | falling commodity prices, building new plants instead of modernizing old plants for cheap                                                         |
+| Turnarounds  | after it's turned around, debt is rising quite a bit, inventory is rising, inflated p/e relative to earnings growth, sells mostly to one customer |
+| Fast growth  | at the end of the second phase of rapid growth, if it's high rated by Wall Street analysts, p/e ratio surpasses projected earnings growth         |
 
 - For fast growers, cyclicals, and turnarounds:
   - Keep as long as earnings are growing and expansion is continuing (check the story every few months as if you were hearing it for the first time)

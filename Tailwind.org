@@ -14,4 +14,3 @@
 | =inset-x-2=       | left:2, right: 2                                  |
 | =h-fit=           | fit height                                        |
 | =max-w-xs=        | set an element's max width                        |
-|                 |                                                   |
