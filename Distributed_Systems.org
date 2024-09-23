@@ -5,13 +5,9 @@
 #+filetags: Programming
 [[id:195A9D78-086C-4CDB-B4CA-8451D250A45B][System Design Primer]]
 
-- Read Alex Xu book
-
-Do [[https://www.designgurus.io/course/grokking-the-system-design-interview?aff=kJSIoU][Grokking the Coding Interview Course]]
-
 More advanced: [[https://www.designgurus.io/course/grokking-microservices-design-patterns][Microservice Design Patterns Course]]
 
-* Read More About:
+* TODO Read More About:
 
 [[https://www.google.com/search?q=map+reduce+layer&rlz=1C5CHFA_enUS1003US1003&oq=map+reduce+layer&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORiABDIGCAEQIxgnMg0IAhAAGIYDGIAEGIoFMg0IAxAAGIYDGIAEGIoFMgoIBBAAGIAEGKIEMgoIBRAAGIAEGKIEMgoIBhAAGIAEGKIEMgoIBxAAGIAEGKIEMgoICBAAGIAEGKIEMgYICRBFGEDSAQgxOTAzajBqN6gCALACAA&sourceid=chrome&ie=UTF-8][Map Reduce]]
 [[https://www.cloudflare.com/learning/cdn/glossary/reverse-proxy/#:~:text=A%20reverse%20proxy%20is%20a,security%2C%20performance%2C%20and%20reliability.][Reverse Proxy]]
