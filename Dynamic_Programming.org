@@ -14,4 +14,4 @@
 
   LIS(4) = max(LIS(0), LIS(1), LIS(2), ...)
 
-- Solve subproblems in order
+- Recurse and memoize, or build memo table bottom-up

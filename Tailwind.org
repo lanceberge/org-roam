@@ -3,7 +3,7 @@
 :END:
 #+title: Tailwind
 #+filetags: Programming
-| =mx-auto=         | center                                            |
+| =mx-auto=         | center horizontally                               |
 | px-x            | horizontal padding                                |
 | =hidden md:block= | hidden on mobile but block on medium screen or up |
 | =overflow-y-auto= | enable vertical scrolling if necessary            |
@@ -14,3 +14,4 @@
 | =inset-x-2=       | left:2, right: 2                                  |
 | =h-fit=           | fit height                                        |
 | =max-w-xs=        | set an element's max width                        |
+| =container=       | fit the max width                                |
