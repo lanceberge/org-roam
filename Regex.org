@@ -4,4 +4,9 @@
 #+title: Regex
 #+filetags: Programming
 
-=^a= - match not a
+| =^a=   | any char that's not a |
+| =$=    | end of the file       |
+| =a*=   | 0 or more a's         |
+| =a+=   | 1 or more a's         |
+| =[ab]= | match either a or b   |
+| =.=    | match anything        |
