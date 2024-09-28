@@ -225,3 +225,13 @@ For the member account profiles, use the ARN of the cross-account role instead o
 role_arn = arn:aws:iam::PROJECT1_ACCOUNT_ID:role/CrossAccountAccess
 source_profile = master-account
 #+END_SRC
+
+* Fargate
+
+  https://medium.com/@arliber/aws-fargate-from-start-to-finish-for-a-nodejs-app-9a0e5fbf6361
+
+  - Create task definition
+  - Create a cluster
+  - Create a service - runs the task definition in the cluster
+    - Create a custom security group with the port (3000) for [[id:D846457A-1522-4ADA-999B-35095AA0AB4A][SvelteKit]]
+      - Make it available to all: 0.0.0.0/0,::/0
