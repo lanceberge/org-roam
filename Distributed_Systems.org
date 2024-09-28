@@ -1,7 +1,7 @@
 :PROPERTIES:
 :ID:       5A1C593C-55D4-4760-B85A-A7112FB017A9
 :END:
-#+title: System Design
+#+title: Distributed Systems
 #+filetags: Programming
 [[id:195A9D78-086C-4CDB-B4CA-8451D250A45B][System Design Primer]]
 

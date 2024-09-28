@@ -5,7 +5,7 @@
 #+category: Asynchronism
 #+filetags: Project Asynchronism
 
-[[id:5A1C593C-55D4-4760-B85A-A7112FB017A9][System Design]]
+[[id:5A1C593C-55D4-4760-B85A-A7112FB017A9][Distributed Systems]]
 
 * Message Queues
 
