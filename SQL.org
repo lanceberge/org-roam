@@ -121,3 +121,7 @@ SELECT
 FROM A
 INNER JOIN B on B.n = A.n;
 #+END_SRC
+* SQL vs. [[id:CEF16D2A-5EC9-44EA-A26D-2DDCDD104F62][NoSQL]]
+
+  - Aggregation is easier in SQL (ex. COUNT)
+  - Grouping-by requires application logic in [[id:CEF16D2A-5EC9-44EA-A26D-2DDCDD104F62][NoSQL]]

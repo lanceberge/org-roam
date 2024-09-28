@@ -68,6 +68,13 @@ Client-server model
 - AWS Fargate - Serverless computing for containers
 - EKS - run Kubernetes on AWS
 
+*** Pros vs. Cons
+
+    - Serveress auto-scales
+      - Only pay for what you use
+      - Serverless can lead to cold starts
+    - Managed can be more cost-effective for consistent workloads
+
 * AWS Global Architecture
 
 - AWS Regions - there are AWS regions in the busiest locations across the world
@@ -173,3 +180,48 @@ Client-server model
 - AWS Marketplace - independently created AWS services
 
 * Migration and Innovation
+
+* Organizations, IAM
+
+  https://aws.amazon.com/blogs/security/how-to-use-aws-organizations-to-automate-end-to-end-account-creation/
+
+  #+BEGIN_SRC sh
+  aws iam create-user --user-name your-username
+
+# Attach a policy to the user (start with minimal permissions)
+aws iam attach-user-policy --user-name your-username --policy-arn arn:aws:iam::aws:policy/ReadOnlyAccess
+
+# Create a role (run this in each member account)
+aws iam create-role --role-name CrossAccountAccess --assume-role-policy-document file://trust-policy.json
+  #+END_SRC
+
+#+BEGIN_SRC json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::MASTER_ACCOUNT_ID:root"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+#+END_SRC
+
+Configure each account with the AWS CLI
+
+#+BEGIN_SRC sh
+aws configure --profile master-account
+aws configure --profile project1
+aws configure --profile project2
+#+END_SRC
+
+For the member account profiles, use the ARN of the cross-account role instead of access keys:
+
+#+BEGIN_SRC sh
+[profile project1]
+role_arn = arn:aws:iam::PROJECT1_ACCOUNT_ID:role/CrossAccountAccess
+source_profile = master-account
+#+END_SRC
