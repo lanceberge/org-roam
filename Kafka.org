@@ -1,0 +1,15 @@
+:PROPERTIES:
+:ID:       305B9C4F-31FA-49FC-A148-691104EF1D4B
+:END:
+#+title: Kafka
+#+filetags: Programming
+
+[[id:78573C75-A04A-450F-98B8-A650B7AC286A][Transfer Protocols]]
+
+- Kafka uses protocol buffers over TCP
+- Does sequential disk IO wherever possible
+
+* Kafka vs. [[id:3DAEAED2-F8E1-41DD-BC46-585F940A4467][AWS]] SQS
+
+  - SQS uses HTTPS
+  - SQS can use various encodings (JSON, binary, plain text)
