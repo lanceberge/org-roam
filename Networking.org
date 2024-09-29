@@ -1,0 +1,8 @@
+:PROPERTIES:
+:ID:       96FA7E7D-654C-4E0A-97C7-4BFBBA424D0E
+:END:
+#+title: Networking
+#+filetags: Programming
+
+- Sockets - an endpoint that establishes bidirectional communication between a server and clients
+  - It's an IP address, port number, and [[id:78573C75-A04A-450F-98B8-A650B7AC286A][Transfer Protocols]]

@@ -2,18 +2,35 @@
 :ID:       78573C75-A04A-450F-98B8-A650B7AC286A
 :END:
 #+title: Transfer Protocols
+
+[[id:96FA7E7D-654C-4E0A-97C7-4BFBBA424D0E][Networking]]
+
 * HTTP
 * TCP
 
 - All packets are guaranteed to be received in order using a handshake
   - Checksum fields and sequence numbers for each packet
+  - The send function returns the number of bytes send
+
 
 - If the checksum fails, data will need to be resent
 - Web servers can keep many connections open, but you'll want connection pooling if
     you have too many connections with a server
-
 * UDP
 
 - UDP has no checksum, enabling lower latency
 - Packets are not guaranteed to be received in order
 - This is best for live games, video chat, video streaming
+* Web Sockets
+
+- Bidirectional updates with persistent state and persistent connection
+  - Got for live bidirectional updates
+- Web sockets either send all of the data or none
+- Web sockets are non-blocking on the send call
+- The data received from a web socket is always the data sent
+- Web sockets use TCP as the protocol
+
+** In Comparison with HTTP APIs
+
+   - APIs are stateless, require a new connection for each request
+   - APIs are better suited for CRUD
