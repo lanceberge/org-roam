@@ -5,3 +5,36 @@
 [[id:FF38E5CB-4988-495A-988A-C70D4FFE4114][Node.js]]
 [[id:8D975CAF-DD7F-4600-98D5-5B9CFA33069B][HTTP]]
 [[id:78573C75-A04A-450F-98B8-A650B7AC286A][Transfer Protocols]]
+
+* Deployment Strategies
+
+  - Fargate with ACM
+  - EC2 with Nginx - you can have multiple sites on the same instance
+  - Static site on S3 ([[https://medium.com/@kyle.galbraith/how-to-host-a-website-on-s3-without-getting-lost-in-the-sea-e2b82aa6cd38][link]])
+    - Have part of the site on s3
+
+      #+BEGIN_SRC js
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import { Handler } from '@sveltejs/kit';
+
+const proxy = createProxyMiddleware({
+  target: 'http://your-s3-bucket-website-endpoint.s3-website-us-east-1.amazonaws.com',
+  changeOrigin: true,
+  pathRewrite: {
+    '^/route': '/', // Remove the /route prefix when forwarding the request
+  },
+});
+
+export const GET = ({ request }) => {
+  return new Promise((resolve) => {
+    proxy(request, {
+      end: (response) => {
+        resolve(new Response(response.body, {
+          status: response.statusCode,
+          headers: response.headers,
+        }));
+      },
+    });
+  });
+};
+      #+END_SRC
