@@ -8,7 +8,10 @@
 
 * Deployment Strategies
 
-  - Fargate with ACM
+  - Fargate with ACM [[https://medium.com/@arliber/aws-fargate-from-start-to-finish-for-a-nodejs-app-9a0e5fbf6361][link]]
+
+  Request an ACM, add the host (excluding the url to namecheap as a cname record [[https://scribehow.com/shared/Requesting_ssl_cert_from_AWS_ACM_for_your_domain_oror_namecheap__gUapxZ6fTZ-9y7Bu2a1l5w][link]])
+
   - EC2 with Nginx - you can have multiple sites on the same instance
   - Static site on S3 ([[https://medium.com/@kyle.galbraith/how-to-host-a-website-on-s3-without-getting-lost-in-the-sea-e2b82aa6cd38][link]])
     - Have part of the site on s3
