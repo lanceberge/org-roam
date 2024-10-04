@@ -8,7 +8,7 @@
 
 * Deployment Strategies
 
-  - Fargate with ACM [[https://medium.com/@arliber/aws-fargate-from-start-to-finish-for-a-nodejs-app-9a0e5fbf6361][link]]
+  - Fargate with ACM [[https://medium.com/@arliber/aws-fargate-from-start-to-finish-for-a-nodejs-app-9a0e5fbf6361][link]] [[https://www.cloudtechsimplified.com/ci-cd-pipeline-aws-fargate-github-actions-nodejs/][CI/CD]]
 
   Request an ACM, add the host (excluding the url to namecheap as a cname record [[https://scribehow.com/shared/Requesting_ssl_cert_from_AWS_ACM_for_your_domain_oror_namecheap__gUapxZ6fTZ-9y7Bu2a1l5w][link]])
 

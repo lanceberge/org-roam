@@ -230,8 +230,22 @@ source_profile = master-account
 
   https://medium.com/@arliber/aws-fargate-from-start-to-finish-for-a-nodejs-app-9a0e5fbf6361
 
-  - Create task definition
-  - Create a cluster
+  - Create a cluster (networking only)
+  - Create task definition. Set up port mapping for whichever port the app runs on
+  - Create a load balancer
+    - Create a new security group
+      - It should take traffic on port 80
+      - Make sure the security group allows inbound traffic on port 80 from all ips
+    - Target group points to fargate instance
+      - Select IP as the target type
+      - The port should be the application port
   - Create a service - runs the task definition in the cluster
     - Create a custom security group with the port (3000) for [[id:D846457A-1522-4ADA-999B-35095AA0AB4A][SvelteKit]]
       - Make it available to all: 0.0.0.0/0,::/0
+    - Click on the security group of this service and enable it to receive inbound traffic from the LB
+      - All TCP -> the security group of the LB
+
+
+  - Potentially went wrong:
+    - Target group
+    - subnets in the service
