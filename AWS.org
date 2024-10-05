@@ -247,3 +247,15 @@ source_profile = master-account
     - Click on the security group of this service and enable it to receive inbound traffic from the LB
       - TCP - application port -> the security group of the LB
     - Select the ALB and the existing target groups
+
+** TODO use the CLI or terraform next time I do all this
+
+* Route 53
+
+  - Create a hosted zone
+  - Copy over nameservers
+  - Alias -> load balancer
+  - Go to ACM and create a certificate
+  - Create the record in S3
+  - Create a www cname, make sure you have a record for it in ACM
+  - Make sure the load balancer has the new record
