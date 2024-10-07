@@ -14,4 +14,6 @@
 | =inset-x-2=       | left:2, right: 2                                  |
 | =h-fit=           | fit height                                        |
 | =max-w-xs=        | set an element's max width                        |
-| =container=       | fit the max width                                |
+| =container=       | fit the max width                                 |
+| =text-wrap=       | wrap text                                         |
+| =break-words=     | break text at words                               |
