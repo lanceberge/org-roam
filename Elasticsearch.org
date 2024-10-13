@@ -10,3 +10,4 @@
 - Ranks results based on how close they are to the query
 - Filtering data
 - Good for unstructured data
+- Create reverse- indexes on fields in the DB to search for them

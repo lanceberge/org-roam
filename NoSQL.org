@@ -57,6 +57,7 @@ NoSQL:
 ** Best Use Cases of NoSQL
 
    - A tree like structure where the whole tree is loaded as once (use a document model)
+   - You only need to serialize and deserialize data - store it in a document db
 
 ** Use Cases of Relational
 
