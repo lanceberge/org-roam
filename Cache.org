@@ -29,3 +29,21 @@ Caching Queries
 Disadvantages
 
  - The db could lose data if the cache goes down prior to writes
+
+* Hotkey Issue
+
+  - When one key receives a disproportional amount of traffic
+  - To resolve this, we append a random number to the key that we hash
+
+* Redis
+
+  - Set a TTL expiry on data
+  - Or setup LRU eviction
+
+** Redis as a Rate-Limiter
+
+   - Ex. is a service can  handle 5 requests in a minute, then we use Redis with a 60s TTL and increment requests as they come in
+
+** Message Queues in Redis
+
+   - Consumer group - pointer into a stream

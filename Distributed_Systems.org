@@ -20,11 +20,12 @@ More advanced: [[https://www.designgurus.io/course/grokking-microservices-design
 
 ** Database Replication
 
-- It's common to have multiple copies of your db to enable failover
+  - It's common to have multiple copies of your db to enable failover
 
 Master-slave replication
 
-- A master db will only support writes. Slave dbs will get copies of the data from the master and only support reads
+  - A master db will only support writes. Slave dbs will get copies of the data from the master and only support reads
+    - This lets you distribute load for reads to serve more reads in parallel
   - You usually have more slaves than masters since reads are more common
 
 ** Failures
@@ -261,3 +262,6 @@ We use Redis to store data, since it's fast and has INCR - increment and EXPIRE
   | Dataset Partitioning     | Consistent Hashing |
   | Tunable Consistency      | Quorum Consensus   |
   |                          |                    |
+* Security
+
+  - in the API Gateway - do IP rate limiting
