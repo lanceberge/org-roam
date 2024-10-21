@@ -1,0 +1,9 @@
+:PROPERTIES:
+:ID:       9F2A0D1A-2EA7-450D-AD85-C99818458835
+:END:
+#+title: Load Balancer
+#+filetags: Programming
+
+Round Robin - evenly rotate requrests
+Least-Connections - send requests to the server with the fewest connections
+IP Has - Same IP gets the same server
