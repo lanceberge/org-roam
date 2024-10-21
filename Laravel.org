@@ -1,0 +1,108 @@
+:PROPERTIES:
+:ID:       90B3299A-2B7D-4F04-8948-27EDB31CB05B
+:END:
+#+title: Laravel
+#+filetags: Programming
+
+* Routing
+** Resources
+
+  Create index and store routes
+
+#+BEGIN_SRC php
+Route::resource('chirps', ChirpController::class)
+    ->only(['index', 'store'])
+    ->middleware(['auth', 'verified']);
+#+END_SRC
+
+* Middleware
+
+  - Examples: Rate-[[id:C93D6E32-27C7-472E-A6F1-3682401E663C][Rate Limiting]], logging, caching, CSRF, email-verified users
+  - Define middleware groups in app/Http/Kernel.php
+
+Wrap routes in a middleware group:
+
+#+BEGIN_SRC php
+Route::middleware('guest')->group(function () {
+  Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+
+  Route::post('register', [RegisteredUserController::class, 'store']);
+});
+#+END_SRC
+
+* Controllers
+
+  Naming conventions
+
+ | index  | GET  | get the view at the route                          |
+ | create | GET  | display the form to create a new _                 |
+ | store  | POST | save new resources to the db                       |
+ | show   | GET  | show something (but not a full page, that's index) |
+
+* [[id:8C8AADB8-324A-4DF4-9A15-E7AED2E08711][Database]] Interactions
+
+#+BEGIN_SRC php
+# php artisan tinker
+App\Models\Chirp::all();
+#+END_SRC
+
+** Relationships, Models
+
+   Establishing relationships lets you do things like:
+
+#+BEGIN_SRC php
+$request->user()->chirps()->create($validated);
+
+// app/Models/User.php
+class User extends Authenticatable
+{
+    // Enable mass assignment for this attribute
+    protected $fillable = [
+        'message',
+    ];
+
+    public function chirps(): HasMany
+    {
+        return $this->hasMany(Chirp::class);
+    }
+}
+#+END_SRC
+
+** Migrations
+
+   #+BEGIN_SRC php
+<?php
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('chirps', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('message');
+            $table->timestamps();
+        });
+    }
+};
+   #+END_SRC
+
+* CLI
+
+  #+BEGIN_SRC sh
+  php artisan make:model -mrc Chirp
+  #+END_SRC
+
+* Policies
+
+  - Lets you define rules for controller commands
+
+* Events
+
+  - Add listeners to things that happen
+
+#+BEGIN_SRC sh
+php artisan make:listener SendChirpCreatedNotifications --event=ChirpCreated
+#+END_SRC
+
+https://bootcamp.laravel.com/inertia/notifications-and-events
