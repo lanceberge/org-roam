@@ -1,0 +1,17 @@
+:PROPERTIES:
+:ID:       75693F8E-BAA7-4179-A6B6-2458F21C8F69
+:END:
+#+title: Heap
+#+filetags: Programming
+
+- The children are always larger than the parents
+- Store values in an array
+  - root at idx 0, left node at 1, right child at 2, etc.
+
+* Removal
+
+  - Remove the root. Swap the last leaf to the root. Bubble it down - swap with the smallest leaf until it's larger than it's leaves
+
+* Adding
+
+- Add to the lowest possible leaf then bubble up - swapping until it's <= the parent
