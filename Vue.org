@@ -1,0 +1,24 @@
+:PROPERTIES:
+:ID:       28402195-0346-48A8-AAE8-585D05DE520E
+:END:
+#+title: Vue
+#+filetags: Programming
+
+* Binding
+
+  #+BEGIN_SRC html
+<div v-bind:id="dynamicId">
+
+<!-- or -->
+
+<div :id="dynamicId">
+  #+END_SRC
+
+* Listening to Events
+
+  #+BEGIN_SRC html
+<a v-on:click="doSomething"> ... </a>
+
+<!-- shorthand -->
+<a @click="doSomething"> ... </a>
+  #+END_SRC

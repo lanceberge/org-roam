@@ -11,9 +11,27 @@
 
 #+BEGIN_SRC php
 Route::resource('chirps', ChirpController::class)
-    ->only(['index', 'store'])
+    ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 #+END_SRC
+
+These create routes for the components: ex. 'chirps.destroy'
+** Update example
+
+
+   The dependency injection parses the chirp from the resource route =/chirps/{chirp}= and injects it
+
+   You don't have to call the method. Laravel's routing does that automatically when the parameters match
+
+   #+BEGIN_SRC php
+class ChirpController extends Controller
+{
+  public function update(Request $request, Chirp $chirp): RedirectResponse
+    {
+    }
+}
+   #+END_SRC
+
 
 * Middleware
 
@@ -66,6 +84,15 @@ class User extends Authenticatable
         return $this->hasMany(Chirp::class);
     }
 }
+
+class Chirp extends Model
+{
+ ...
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+}
 #+END_SRC
 
 ** Migrations
@@ -95,7 +122,19 @@ return new class extends Migration
 
 * Policies
 
+  - No policy class => everything is allowed
+  - Policy class => Nothing is allowed except what's specified in the policies
   - Lets you define rules for controller commands
+
+    #+BEGIN_SRC php
+class PostPolicy
+{
+    public function update(User $user, Post $post): bool
+    {
+        return $user->id === $post->user_id;
+    }
+}
+    #+END_SRC
 
 * Events
 
