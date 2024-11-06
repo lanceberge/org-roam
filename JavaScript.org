@@ -54,6 +54,7 @@ localStorage.removeItem("name");
 // clear all
 localStorage.clear()
 #+END_SRC
+
 * Javascript vs. React
 *** Data Storage
 
@@ -75,3 +76,7 @@ doSomething()
 #+END_SRC
 
 as a good general rule of thumb, always return the contents of a promise
+
+* preventDefault
+
+  preventDefault is an event listener stops default behaviors of events. Ex: page reload on form submit

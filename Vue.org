@@ -22,3 +22,183 @@
 <!-- shorthand -->
 <a @click="doSomething"> ... </a>
   #+END_SRC
+
+** Binding Variable HTML ids
+
+ #+BEGIN_SRC html
+<a v-on:[eventName]="doSomething"> ... </a>
+
+<!-- shorthand -->
+<a @[eventName]="doSomething"> ... </a>
+ #+END_SRC
+
+* Reactivity
+
+  #+BEGIN_SRC html
+<button @click="count++">
+  {{ count }}
+</button>
+  #+END_SRC
+
+** Computed/Derived Properties
+
+   - Computed properties only get recomputed when their reactive dependencies change
+
+   #+BEGIN_SRC html
+<script setup>
+import { reactive, computed } from 'vue'
+
+const author = reactive({
+  name: 'John Doe',
+  books: [
+    'Vue 2 - Advanced Guide',
+    'Vue 3 - Basic Guide',
+    'Vue 4 - The Mystery'
+  ]
+})
+
+// a computed ref
+const publishedBooksMessage = computed(() => {
+  return author.books.length > 0 ? 'Yes' : 'No'
+})
+</script>
+
+<template>
+  <p>Has published books:</p>
+  <span>{{ publishedBooksMessage }}</span>
+</template>
+   #+END_SRC
+
+* Conditional Rendering
+
+  =v-if= vs. =v-show=. =v-show= will always be in the dom, just with the display property visible or not
+
+  =v-if= is more expensive to toggle, whereas =v-show= is more expensive to render initially
+
+* Logic
+
+  #+BEGIN_SRC html
+<li v-for="item in items">
+  {{ item.message }}
+</li>
+
+<!-- or -->
+
+<li v-for="{ message } in items">
+  {{ message }}
+</li>
+  #+END_SRC
+
+It's recommended to always use a :key
+
+* Listeners/Modifiers
+
+  #+BEGIN_SRC html
+<!-- the submit event will no longer reload the page -->
+<form @submit.prevent="onSubmit"></form>
+
+<!-- only call `submit` when the `key` is `Enter` -->
+<input @keyup.enter="submit" />
+  #+END_SRC
+
+* Form Input Bindings =v-model=
+
+  #+BEGIN_SRC html
+<!-- instead of -->
+<input
+  :value="text"
+  @input="event => text = event.target.valan doue">
+
+<!-- we can do -->
+<input v-model="text">
+
+<p>Message is: {{ message }}</p>
+<input v-model="message" placeholder="edit me" />
+  #+END_SRC
+
+* Components
+
+  =onMounted()= - runs after the component has finished rendering
+
+** Slots
+
+   #+BEGIN_SRC html
+<!-- The component -->
+<button class="fancy-btn">
+  <slot />
+</button>
+
+<!-- Usage -->
+<FancyButton>
+  Click me! <!-- slot content -->
+</FancyButton>
+   #+END_SRC
+
+
+* Computed Properties (Watchers)
+
+  to watch a variable and call code whenever it changes
+
+#+BEGIN_SRC html
+<script setup>
+import { ref, watch } from 'vue'
+
+const question = ref('')
+const answer = ref('Questions usually contain a question mark. ;-)')
+const loading = ref(false)
+
+// watch works directly on a ref
+watch(question, async (newQuestion, oldQuestion) => {
+  if (newQuestion.includes('?')) {
+    loading.value = true
+    answer.value = 'Thinking...'
+    try {
+      const res = await fetch('https://yesno.wtf/api')
+      answer.value = (await res.json()).answer
+    } catch (error) {
+      answer.value = 'Error! Could not reach the API. ' + error
+    } finally {
+      loading.value = false
+    }
+  }
+})
+</script>
+
+<template>
+  <p>
+    Ask a yes/no question:
+    <input v-model="question" :disabled="loading" />
+  </p>
+  <p>{{ answer }}</p>
+</template>
+  #+END_SRC
+
+* Emitting Messages to Parents
+
+  #+BEGIN_SRC html
+<!-- Checkbox Component -->
+<script setup lang="ts">
+  import { computed } from 'vue'
+
+  const emit = defineEmits(['update:checked'])
+
+  const props = defineProps<{
+    checked: boolean
+    value?: any
+  }>()
+
+  const proxyChecked = computed({
+    get() {
+      return props.checked
+    },
+
+    set(val) {
+      <!-- emit a message called update set to the value of checked -->
+      emit('update:checked', val)
+    },
+  })
+</script>
+
+<!-- Bind the value of the form to -->
+<Checkbox name="remember" v-model:checked="form.remember" />
+  #+END_SRC
