@@ -145,3 +145,62 @@ php artisan make:listener SendChirpCreatedNotifications --event=ChirpCreated
 #+END_SRC
 
 https://bootcamp.laravel.com/inertia/notifications-and-events
+
+* Registering Global Components
+
+  #+BEGIN_SRC js
+// in app.js
+  setup({ el, App, props, plugin }) {
+    createApp({ render: () => h(App, props) })
+      .use(plugin)
+      .commponent("Link", Link)
+      .mount(el)
+  },
+  #+END_SRC
+
+* Default Layouts
+
+  #+BEGIN_SRC javascript
+createInertiaApp({
+  title: title => `${title} - ${appName}`,
+  resolve: name =>
+    let page = require(`.Pages/${name}`).default;
+    page.layout ??= Layout;
+  )
+}
+  #+END_SRC
+
+* [[id:6ADBF0D1-186D-453B-8949-E5572C5563C0][Frontend]]
+
+  #+BEGIN_SRC vue
+<script setup>import { Head } from "@inertiajs/inertia-vue3"</script>
+<template>
+  <title>My App</title>
+</template>
+  #+END_SRC
+
+* Useful Functions
+
+  #+BEGIN_SRC php
+$job = Arr::first($jobs, fn($job) => $job['id'] == $id)
+  #+END_SRC
+
+* Eloquent
+
+#+BEGIN_SRC php
+$jobs = Jobs::all();
+$jobs[0]->salary;
+
+Job::create(['title' => 'Director', 'salary' => '$1,000,000']);
+
+Job::find(7)->delete(); // find id 7 then delete it
+#+END_SRC
+
+** Factories
+
+   Used to seed your DB
+
+   #+BEGIN_SRC bash
+php artisan tinker
+> App\Models\Job::factory()->create()
+   #+END_SRC
