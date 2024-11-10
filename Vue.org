@@ -118,6 +118,46 @@ It's recommended to always use a :key
 <input v-model="message" placeholder="edit me" />
   #+END_SRC
 
+#+BEGIN_SRC vue
+<AssignmentTags
+  v-model:currentTag="currentTag"
+/>
+
+<!-- in AssingmentTags -->
+
+<template>
+  <button
+    @click="$emit('update:currentTag', tag)"
+  >
+
+  </button>
+</template>
+props: {
+  currentTag: String
+}
+#+END_SRC
+
+** Throttling and Debouncing
+
+   Throttle requests to every 500ms (using lodash
+
+   #+BEGIN_SRC vue
+<script setup>
+watch(search, throttle(function (value) {
+  Inertia.get('/users')
+}, 500))
+</script>
+   #+END_SRC
+
+   Debounce - does the request after you've stopped typing for 500ms
+
+   #+BEGIN_SRC vue
+<script setup>
+watch(search, debounce(function (value) {
+  Inertia.get('/users')
+}, 500))
+</script>
+   #+END_SRC
 * Components
 
   =onMounted()= - runs after the component has finished rendering
@@ -182,6 +222,7 @@ watch(question, async (newQuestion, oldQuestion) => {
 <script setup lang="ts">
   import { computed } from 'vue'
 
+  // The update prefix is only used when you want two-way-binding in the parent component to the value of something in the child
   const emit = defineEmits(['update:checked'])
 
   const props = defineProps<{
@@ -195,13 +236,14 @@ watch(question, async (newQuestion, oldQuestion) => {
     },
 
     set(val) {
-      <!-- emit a message called update set to the value of checked -->
+      // emit a message called update set to the value of checked
       emit('update:checked', val)
     },
   })
 </script>
 
-<!-- Bind the value of the form to -->
+<!-- In the parent - bind the value of the form to -->
+<!-- Vue automatically includes the update: prefix when we're using v-model -->
 <Checkbox name="remember" v-model:checked="form.remember" />
   #+END_SRC
 
@@ -210,4 +252,60 @@ watch(question, async (newQuestion, oldQuestion) => {
   #+BEGIN_SRC vue
 <button
   :class="{'bg-gray-200': type === 'gray'}">
+  #+END_SRC
+
+* Inertia Niceties
+
+  Displaying form errors
+
+ #+BEGIN_SRC vue
+<script setup>
+defineProps({
+  errors,
+});
+</script>
+
+<template>
+  <input v-model="form.email" required/>
+  <div v-if="errors.email" v-text="errors.email"></div>
+</template>
+ #+END_SRC
+
+** Forms
+
+   #+BEGIN_SRC vue
+<script setup>
+const loginForm = useForm({
+    email: '',
+    password: ''
+});
+
+const signupForm = useForm({
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: ''
+});
+</script>
+
+<form @submit.prevent="loginForm.post(route('login'))" :disabled="loginForm.processing">
+    <input v-model="loginForm.email">
+    <input v-model="loginForm.password" type="password">
+</form>
+
+<form @submit.prevent="signupForm.post(route('register'))" :disabled="signupForm.processing">
+    <input v-model="signupForm.name">
+    <input v-model="signupForm.email">
+    <input v-model="signupForm.password" type="password">
+    <input v-model="signupForm.password_confirmation" type="password">
+</form>
+   #+END_SRC
+
+* Composables
+
+  The naming convention is to prefix the names with =use=
+
+  #+BEGIN_SRC javascript
+// composables/useFlash.js
+export function useFlash.js
   #+END_SRC
