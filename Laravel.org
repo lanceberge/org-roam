@@ -57,7 +57,12 @@ Route::middleware('guest')->group(function () {
  | store  | POST | save new resources to the db                       |
  | show   | GET  | show something (but not a full page, that's index) |
 
+ POST requests automatically include CSRF protection. So any route that modifies server
+ state should be a POST request
+
 * [[id:8C8AADB8-324A-4DF4-9A15-E7AED2E08711][Database]] Interactions
+
+  Use TablePlus for a database GUI
 
 #+BEGIN_SRC php
 # php artisan tinker
@@ -87,12 +92,13 @@ class User extends Authenticatable
 
 class Chirp extends Model
 {
- ...
+    // Access as a property, not a method. Ex. $chirp->user
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 }
+
 #+END_SRC
 
 ** Migrations
@@ -114,10 +120,37 @@ return new class extends Migration
 };
    #+END_SRC
 
-* CLI
+** Factories
+
+   Used to seed your DB
+
+   #+BEGIN_SRC bash
+php artisan tinker
+> App\Models\Job::factory()->create();
+
+# or
+> App\Model\Job::factrory()->unverified()->create();
+   #+END_SRC
+
+** Eloquent
+
+ #+BEGIN_SRC php
+$jobs = Jobs::all();
+$jobs[0]->salary;
+
+Job::create(['title' => 'Director', 'salary' => '$1,000,000']);
+
+Job::find(7)->delete(); // find id 7 then delete it
+
+Job::first();
+ #+END_SRC
+
+* Artisan
 
   #+BEGIN_SRC sh
-  php artisan make:model -mrc Chirp
+php artisan make:model -mrc Chirp
+
+php artisan migrate:fresh # reset the database
   #+END_SRC
 
 * Policies
@@ -134,6 +167,13 @@ class PostPolicy
         return $user->id === $post->user_id;
     }
 }
+
+// in the route
+Route::get('users/create', function() {
+    Return Inertia::render('Users/Create', [
+        'can' => Auth::user()->can('create', User::class);
+    ]);
+})->middleware('can:create,App\Models\User');
     #+END_SRC
 
 * Events
@@ -184,23 +224,3 @@ createInertiaApp({
   #+BEGIN_SRC php
 $job = Arr::first($jobs, fn($job) => $job['id'] == $id)
   #+END_SRC
-
-* Eloquent
-
-#+BEGIN_SRC php
-$jobs = Jobs::all();
-$jobs[0]->salary;
-
-Job::create(['title' => 'Director', 'salary' => '$1,000,000']);
-
-Job::find(7)->delete(); // find id 7 then delete it
-#+END_SRC
-
-** Factories
-
-   Used to seed your DB
-
-   #+BEGIN_SRC bash
-php artisan tinker
-> App\Models\Job::factory()->create()
-   #+END_SRC
