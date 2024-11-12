@@ -17,3 +17,7 @@
 | =container=       | fit the max width                                 |
 | =text-wrap=       | wrap text                                         |
 | =break-words=     | break text at words                               |
+| =space-y-x=       | apply x margin to all elemnts in a div            |
+| =tracking-x=      | spacing between letters                           |
+| =sm:bg-gray=      | apply bg-gray if the screen is small              |
+| =align-center=    | align vertically                                  |

@@ -158,6 +158,51 @@ watch(search, debounce(function (value) {
 }, 500))
 </script>
    #+END_SRC
+
+** Saving in Local Storage
+
+   #+BEGIN_SRC vue
+<script setup>
+let food = ref(localStorage.getItem("food"));
+
+function write(key, val) {
+  localStorage.setItem(key, val)
+}
+</script>
+
+
+<template>
+  <input type="text" v-model="food" @input="write('food', food)">
+</template>
+
+   #+END_SRC
+
+or as a compostable
+
+#+BEGIN_SRC js
+import { ref, watch } from "vue";
+
+export function useStorage(key) {
+  storedValue = localStorage.getItem(key);
+  let value = ref(storedValue);
+
+  function write() {
+    localStorage.setItem(key, value);
+  }
+
+  watch(value, () => {
+    if (value.value === "") {
+      localStorage.removeItem(key);
+    }
+
+    write(key, value.value);
+  });
+
+  return value;
+}
+#+END_SRC
+
+
 * Components
 
   =onMounted()= - runs after the component has finished rendering
