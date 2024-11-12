@@ -41,3 +41,9 @@ export const GET = ({ request }) => {
   });
 };
       #+END_SRC
+
+* Security
+** CSRF
+
+   Without CSRF protection, other sites can make submissions to your POST routes
+    - Ex. they can make a website that looks like yours with a reset password form.
