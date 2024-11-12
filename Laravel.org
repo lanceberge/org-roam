@@ -30,6 +30,8 @@ class ChirpController extends Controller
     {
     }
 }
+
+Route::patch('/chirps/{chirp}', [ChirpController::class, 'update'])->name('chirp.update');
    #+END_SRC
 
 
@@ -84,7 +86,7 @@ class User extends Authenticatable
         'message',
     ];
 
-    public function chirps(): HasMany
+    public function chirps()
     {
         return $this->hasMany(Chirp::class);
     }
@@ -93,7 +95,7 @@ class User extends Authenticatable
 class Chirp extends Model
 {
     // Access as a property, not a method. Ex. $chirp->user
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
@@ -135,6 +137,7 @@ php artisan tinker
 ** Eloquent
 
  #+BEGIN_SRC php
+// lazy load - can cause the N+1 problem
 $jobs = Jobs::all();
 $jobs[0]->salary;
 
@@ -143,6 +146,10 @@ Job::create(['title' => 'Director', 'salary' => '$1,000,000']);
 Job::find(7)->delete(); // find id 7 then delete it
 
 Job::first();
+
+// ex. if job belongsTo employer
+// latest is essentially an ORDER BY
+Job::with('employer')->latest()->simplePaginate(3);
  #+END_SRC
 
 * Artisan
@@ -223,4 +230,14 @@ createInertiaApp({
 
   #+BEGIN_SRC php
 $job = Arr::first($jobs, fn($job) => $job['id'] == $id)
+  #+END_SRC
+
+* Request Validation
+
+  #+BEGIN_SRC php
+$request->validate([
+    'name' => ['required'],
+    'email' => ['required', 'email', 'unique:users,email'],
+    'password' => ['required', Password::min(6)],
+])
   #+END_SRC
