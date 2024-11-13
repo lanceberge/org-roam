@@ -354,3 +354,31 @@ const signupForm = useForm({
 // composables/useFlash.js
 export function useFlash.js
   #+END_SRC
+
+* Dependency Injection
+
+  #+BEGIN_SRC js
+provide('key', object)
+
+// a few levels deep
+let obj = inject('key')
+  #+END_SRC
+
+* Pinia Stores
+
+  #+BEGIN_SRC js
+export let useTeamStore = defineStore("team", {
+  state: () => ({
+    name: "",
+    sport: 0,
+  }),
+
+  actions: {
+    async init() {
+      let r = await import("file.json");
+
+      this.$state = r.default;
+    },
+  },
+});
+  #+END_SRC
