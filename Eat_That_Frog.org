@@ -1,0 +1,31 @@
+:PROPERTIES:
+:ID:       F235C48F-9B0D-4DF3-AF4E-982230A2A7EC
+:END:
+#+title: Eat That Frog
+#+category: Eat That Frog
+* 1. Set the Table
+
+  - Write down all of your goals
+  - Set deadlines and subdeadlines
+  - Write out everything you'll need to do
+  - Prioritize the list and start working immediately
+
+* 2. Plan Every Day in Advance
+* 3. 80/20 Everything
+* 4. Consider the consequences of not doing the work
+* 5. Creative Procrastination
+
+  - Procrastinate with small but high-impact tasks
+
+* 7. Focus on Key Result Areas
+
+  - Which areas of your job/life/project could you improve on most with the most impact?
+
+* 9. Set up a Frictionless Environment for Work
+* 10. Focus on One Task at a Time
+* 11. Upgrade Your Key Skills
+
+  - Find your single points of failure and improve them
+
+* 19. Block Repetitive Tasks Together
+* 20. Act With Urgency
