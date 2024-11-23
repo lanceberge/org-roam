@@ -290,7 +290,86 @@ watch(question, async (newQuestion, oldQuestion) => {
 <!-- In the parent - bind the value of the form to -->
 <!-- Vue automatically includes the update: prefix when we're using v-model -->
 <Checkbox name="remember" v-model:checked="form.remember" />
+
+<!-- Example 2 -->
+<textarea @keyup="emit('update:modelValue', e.target.value)"/>
   #+END_SRC
+
+** Emitting the Value to the Parent
+
+   In the child:
+   #+BEGIN_SRC vue
+<script setup>
+const emits = defineEmits(['update'])
+const internalValue = ref(42)
+
+// Expose the internal value and allow parent to request it
+const getInternalValue = () => {
+  emits('update', internalValue.value)
+}
+</script>
+
+<template>
+  <div>
+    <p>Internal value: {{ internalValue }}</p>
+    <button @click="getInternalValue">Send to Parent</button>
+  </div>
+</template>
+   #+END_SRC
+
+   In the parent:
+
+   #+BEGIN_SRC vue
+<script setup>
+import { ref } from 'vue'
+import ChildComponent from './ChildComponent.vue'
+
+const receivedValue = ref(0)
+
+const handleUpdate = (value) => {
+  receivedValue.value = value
+}
+</script>
+
+<template>
+  <div>
+    <h2>Parent Component</h2>
+    <p>Received value: {{ receivedValue }}</p>
+    <ChildComponent @update="handleUpdate" />
+  </div>
+</template>
+   #+END_SRC
+
+
+** =v-model= Binding to the Child's State
+
+   In the child
+
+   #+BEGIN_SRC vue
+<script setup>
+const value = defineModel()
+</script>
+
+<template>
+  <div>
+    <input v-model="value" type="number">
+    <p>Child value: {{ value }}</p>
+  </div>
+</template>
+   #+END_SRC
+
+#+BEGIN_SRC vue
+<script setup>
+const parentValue = ref(42)
+</script>
+
+<template>
+  <div>
+    <p>Parent value: {{ parentValue }}</p>
+    <ChildComponent v-model="parentValue" />
+  </div>
+</template>
+#+END_SRC
 
 * Conditional Styling
 
