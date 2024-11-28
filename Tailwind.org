@@ -3,21 +3,34 @@
 :END:
 #+title: Tailwind
 #+filetags: Programming
-| =mx-auto=         | center horizontally                               |
-| px-x            | horizontal padding                                |
-| =hidden md:block= | hidden on mobile but block on medium screen or up |
-| =overflow-y-auto= | enable vertical scrolling if necessary            |
-| =h-screen=        | span the entire viewport                          |
-| =sticky=          | =relative= until it crosses a threshold             |
-| =rounded=         | round corners                                     |
-| =inset-0=         | make an element fill it's container               |
-| =inset-x-2=       | left:2, right: 2                                  |
-| =h-fit=           | fit height                                        |
-| =max-w-xs=        | set an element's max width                        |
-| =container=       | fit the max width                                 |
-| =text-wrap=       | wrap text                                         |
-| =break-words=     | break text at words                               |
-| =space-y-x=       | apply x margin to all elemnts in a div            |
-| =tracking-x=      | spacing between letters                           |
-| =sm:bg-gray=      | apply bg-gray if the screen is small              |
-| =align-center=    | align vertically                                  |
+| =mx-auto=                        | center horizontally                                             |
+| px-x                           | horizontal padding                                              |
+| =hidden md:block=                | hidden on mobile but block on medium screen or up               |
+| =overflow-y-auto=                | enable vertical scrolling if necessary                          |
+| =h-screen=                       | span the entire viewport                                        |
+| =sticky=                         | =relative= until it crosses a threshold                           |
+| =rounded=                        | round corners                                                   |
+| =inset-0=                        | make an element fill it's container                             |
+| =inset-x-2=                      | left:2, right: 2                                                |
+| =h-fit=                          | fit height                                                      |
+| =max-w-xs=                       | set an element's max width                                      |
+| =container=                      | fit the max width                                               |
+| =text-wrap=                      | wrap text                                                       |
+| =break-words=                    | break text at words                                             |
+| =space-y-x=                      | apply x margin to all elemnts in a div                          |
+| =tracking-x=                     | spacing between letters                                         |
+| =sm:bg-gray=                     | apply bg-gray if the screen is small                            |
+| =align-center=                   | align vertically                                                |
+| =border-white/10=                | set the border to white but with opacity of 10%                 |
+| =transition-colors duration-300= | every color change, ex on hover, fades in with a 300ms duration |
+| =mt-auto=                        | push it down all the way to the bottom                         |
+
+* grid
+
+  =gap-8= for padding between them
+  =gap-x-2= works with grid and flex
+
+* group
+
+  =group= apply to a div
+  =group-hover= apply to elements in the div to update them when anything in the group is hovered

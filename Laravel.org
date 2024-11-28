@@ -229,7 +229,9 @@ createInertiaApp({
 * Useful Functions
 
   #+BEGIN_SRC php
-$job = Arr::first($jobs, fn($job) => $job['id'] == $id)
+$job = Arr::first($jobs, fn($job) => $job['id'] == $id);
+
+logger("job: " . $job)
   #+END_SRC
 
 * Request Validation
