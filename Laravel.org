@@ -34,7 +34,6 @@ class ChirpController extends Controller
 Route::patch('/chirps/{chirp}', [ChirpController::class, 'update'])->name('chirp.update');
    #+END_SRC
 
-
 * Middleware
 
   - Examples: Rate-[[id:C93D6E32-27C7-472E-A6F1-3682401E663C][Rate Limiting]], logging, caching, CSRF, email-verified users
@@ -102,6 +101,9 @@ class Chirp extends Model
 }
 
 #+END_SRC
+
+
+- hasOne
 
 ** Migrations
 

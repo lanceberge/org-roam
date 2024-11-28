@@ -1,0 +1,11 @@
+:PROPERTIES:
+:ID:       7C95B952-B49E-422F-A147-D53138BCD277
+:END:
+#+title: Hello Web Design
+#+category: Hello Web Design
+
+- Have lots of whitespace
+- Make your content easily skimmable - bullets, bold certain words, chunk related text
+- People read websites in an F shape
+- Make buttons actionable - ex. Log in to your account
+- Shadows should look like they're coming from above
