@@ -116,6 +116,7 @@ return new class extends Migration
     {
         Schema::create('chirps', function (Blueprint $table) {
             $table->id();
+            // constrained means that user_id has to exist in it's table
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('message');
             $table->timestamps();
@@ -152,6 +153,9 @@ Job::first();
 // ex. if job belongsTo employer
 // latest is essentially an ORDER BY
 Job::with('employer')->latest()->simplePaginate(3);
+
+$tag = Tag::firstOrCreate(['name' => $name]);
+$this->tags()->attach($tag);
  #+END_SRC
 
 * Artisan
@@ -245,3 +249,22 @@ $request->validate([
     'password' => ['required', Password::min(6)],
 ])
   #+END_SRC
+
+* Deployment
+
+  1. Create an AWS account
+  2. Go to name in the top right -> Security Credentials -> get an access key
+  3. Generate one
+
+     #+BEGIN_SRC sh
+aws configure --profile <name>
+aws-profile
+     #+END_SRC
+
+  4. Launch an EC2 instance
+
+     #+BEGIN_SRC sh
+terraform init # in project root
+     #+END_SRC
+
+  6.
