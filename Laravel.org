@@ -32,6 +32,9 @@ class ChirpController extends Controller
 }
 
 Route::patch('/chirps/{chirp}', [ChirpController::class, 'update'])->name('chirp.update');
+
+// The dependency injection will resolve the tag by name instead of id
+Route::get('/tags/{tag:name}');
    #+END_SRC
 
 * Middleware
@@ -156,6 +159,16 @@ Job::with('employer')->latest()->simplePaginate(3);
 
 $tag = Tag::firstOrCreate(['name' => $name]);
 $this->tags()->attach($tag);
+
+Job::where('title', 'LIKE', '%'.request('q').'%');
+
+// Eager load to avoid n+1 problem
+Job:with(['employer', 'tags']);
+
+// You can keep everything on it's own line
+Job::query()
+    ->with()
+    ->where();
  #+END_SRC
 
 * Artisan
@@ -247,7 +260,8 @@ $userAttributes = $request->validate([
     'name' => ['required'],
     'email' => ['required', 'email', 'unique:users,email'], // verify that it's unique on the users table
     'password' => ['required', Password::min(6)],
-])
+    'schedule' => ['required', Rule::in(['Part Time', 'Full Time'])],
+]);
 
 $user = User::create($userAttributes);
 
