@@ -243,11 +243,15 @@ logger("job: " . $job)
 * Request Validation
 
   #+BEGIN_SRC php
-$request->validate([
+$userAttributes = $request->validate([
     'name' => ['required'],
-    'email' => ['required', 'email', 'unique:users,email'],
+    'email' => ['required', 'email', 'unique:users,email'], // verify that it's unique on the users table
     'password' => ['required', Password::min(6)],
 ])
+
+$user = User::create($userAttributes);
+
+Auth::login($user);
   #+END_SRC
 
 * Deployment
