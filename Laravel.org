@@ -283,6 +283,25 @@ aws-profile
 
      #+BEGIN_SRC sh
 terraform init # in project root
+terraform plan
+terraform apply
      #+END_SRC
 
-  6.
+  6. SSH into ec2
+
+     #+BEGIN_SRC sh
+# on ec2
+ssh-keygen -t rsa -b 4096
+cat ~/.ssh/id_rsa.pub # copy it
+
+# on host
+gha
+paste >> tmp
+gh ssh-key add tmp --title <name>
+rm tmp
+
+sudo yum install git -y
+git clone <proj>
+
+./proj/scripts/setup_ec2
+     #+END_SRC
