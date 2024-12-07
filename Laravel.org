@@ -31,9 +31,10 @@ class ChirpController extends Controller
     }
 }
 
+// Expects chirp to be an id
 Route::patch('/chirps/{chirp}', [ChirpController::class, 'update'])->name('chirp.update');
 
-// The dependency injection will resolve the tag by name instead of id
+// Or you can resolve by name instead of id: dependency injection will resolve the tag by name instead of id
 Route::get('/tags/{tag:name}');
    #+END_SRC
 
@@ -102,9 +103,7 @@ class Chirp extends Model
         return $this->belongsTo(User::class);
     }
 }
-
 #+END_SRC
-
 
 - hasOne
 
@@ -212,39 +211,6 @@ php artisan make:listener SendChirpCreatedNotifications --event=ChirpCreated
 
 https://bootcamp.laravel.com/inertia/notifications-and-events
 
-* Registering Global Components
-
-  #+BEGIN_SRC js
-// in app.js
-  setup({ el, App, props, plugin }) {
-    createApp({ render: () => h(App, props) })
-      .use(plugin)
-      .commponent("Link", Link)
-      .mount(el)
-  },
-  #+END_SRC
-
-* Default Layouts
-
-  #+BEGIN_SRC javascript
-createInertiaApp({
-  title: title => `${title} - ${appName}`,
-  resolve: name =>
-    let page = require(`.Pages/${name}`).default;
-    page.layout ??= Layout;
-  )
-}
-  #+END_SRC
-
-* [[id:6ADBF0D1-186D-453B-8949-E5572C5563C0][Frontend]]
-
-  #+BEGIN_SRC vue
-<script setup>import { Head } from "@inertiajs/inertia-vue3"</script>
-<template>
-  <title>My App</title>
-</template>
-  #+END_SRC
-
 * Useful Functions
 
   #+BEGIN_SRC php
@@ -287,9 +253,11 @@ terraform plan
 terraform apply
      #+END_SRC
 
-  6. SSH into ec2
+  5. SSH into ec2
 
      #+BEGIN_SRC sh
+aws configure
+
 # on ec2
 ssh-keygen -t rsa -b 4096
 cat ~/.ssh/id_rsa.pub # copy it
@@ -300,8 +268,37 @@ paste >> tmp
 gh ssh-key add tmp --title <name>
 rm tmp
 
+# back to ec2
 sudo yum install git -y
-git clone <proj>
+git clone git@github.com:lanceberge/<name>.git
 
-./proj/scripts/setup_ec2
+cd <proj>
+./scripts/setup_ec2
      #+END_SRC
+
+  6. Add CI/CD
+
+     =EC2_HOST= secret is in the ssh command
+     Add the full ssh key
+
+  7. Buy the domain namecheap.com
+
+  8. Route 53 -> Create hosted zone with the domain -> create
+
+     Create two A records: /blank/ -> public IP and www -> public IP
+
+     - change the TTL of the nameservers to 60
+
+  10. on namecheap: Account -> Dashboard -> domain list
+
+      Domain -> nameservers -> Custom DNS -> paste in the 4 from Route 53 (remove the periods at the end)
+
+  11. Once the domain propagates
+
+      #+BEGIN_SRC sh
+sudo certbot --nginx -d <domain.com> -d www.<domain.com>
+
+rm nginx/nginx.conf
+sudo mv /etc/nginx/nginx.conf nginx/nginx.conf
+sudo ln -s "/home/ec2-user/$PROJ_NAME/nginx/nginx.conf" /etc/nginx/nginx.conf
+      #+END_SRC
