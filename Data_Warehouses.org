@@ -1,0 +1,28 @@
+:PROPERTIES:
+:ID:       61FB2CEA-7A58-4A69-94E3-0B95693277EA
+:END:
+#+title: Data Warehouses
+#+filetags: Programming
+
+- Separate database from OLTP systems - meant for analytics
+- ETL pipeline from OLTP systems to data warehouse
+
+* Implementation
+
+  - There's a middle fact table that links to other tables. The fact table represents each transaction
+
+** Columnar Storage
+
+   - OLAP queries are based on only a few columns at a time and are frequently range-based
+   - For OLAP, we use columnar storage instead of row-oriented storage that OLTP uses. An entry becomes a column instead of a row
+     - Thus the database because wide and short instead of tall and skinny
+
+** Column-Compression
+
+   - Column layouts are good for column compression because we will have fewer distinct values in columns
+   - We will have slower writes to the data warehouse but faster range-based and WHERE queries
+
+** Materialized View
+
+   - since we don't care as much about write speed and we do care about key analytics, we can also
+     maintain things like averages that update with each write

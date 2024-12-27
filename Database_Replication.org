@@ -103,3 +103,14 @@ Statement-Based - store the leader's write statements (SQL queries)
    /Consistent Prefix Reads/ - Readers will see writes in the order they came in
 
    1. Always make sure a user's reads come from the same replica
+
+* Pros and Cons of Each Strategy
+** Single-Leader
+
+   - Simple to understand
+   - Good consistency guarantees
+
+** Multi-Leader
+
+   - Weak consistency guarantees but high availability
+   - Good for latency spikes

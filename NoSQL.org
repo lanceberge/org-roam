@@ -19,6 +19,8 @@ NoSQL Typically denormalizes data, lacks true ACID, and favors eventual consiste
 
 DynamoDB for example supports key-value and document
 
+good for keys that map to self-contained documents
+
 * Wide Column Store
 
 Enables super columns that have multiple columns in themselves
@@ -32,6 +34,8 @@ Ex: Companies and address,website super-columns
 * Graph Database
 
 - Good for complex relationships with many foreign keys or many-to-many relationships
+- Something like a relational database could only store the ids of nodes for an edge
+  - Graph dbs store actual pointers - either on disk or in-memory to the nodes
 
 * SQL vs. NoSQL
 
@@ -40,12 +44,10 @@ SQL:
  - Structured, strict, relational data
  - Complex joins
  - Fast index lookups
- - Established communities and tooling
  - Good support for many-to-many and many-to-one relations
    - Just have everything in tables and the query optimizer will decide which indexes to use
        Rather than following complicated paths with a document DB
    - Queries run by the database will likely be more efficient than emulating joins with application code
-
 
 NoSQL:
 
