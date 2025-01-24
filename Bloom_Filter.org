@@ -1,0 +1,21 @@
+:PROPERTIES:
+:ID:       09F37790-DB6E-4CD3-9306-08F9CAB13B9A
+:END:
+#+title: Bloom Filter
+#+filetags: Programming
+
+* ELI5
+
+  - Probabilistic - says an element is probably in a set
+    - has some false positives but no false negatives
+    - can 100% verify that a key isn't in a set
+  - It doesn't retrieve the elements, it just says if they're in the set
+
+* How it Works
+
+  - Uses a massive bit array
+  - Uses multiple hash functions - ex. 3
+  - Each value added gets hashed to a value in the bit array 3 times, we update the hashed values in the bit array to 1
+  - On lookups, if all three hash functions map to 1, we know that the value is probably in the set
+    - It's only a probably true because there could be collisions for all three values
+    - But if we encounter any 0, we know that it isn't added

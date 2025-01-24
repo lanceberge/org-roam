@@ -57,10 +57,10 @@ Route::middleware('guest')->group(function () {
 
   Naming conventions
 
- | index  | GET  | get the view at the route                          |
- | create | GET  | display the form to create a new _                 |
- | store  | POST | save new resources to the db                       |
- | show   | GET  | show something (but not a full page, that's index) |
+ | index  | GET  | get the view at the route                          | =/resource=        |
+ | create | GET  | display the form to create a new _                 | =/resource/create= |
+ | store  | POST | save new resources to the db                       | =/resource=        |
+ | show   | GET  | show something (but not a full page, that's index) | =/resource/{id}=   |
 
  POST requests automatically include CSRF protection. So any route that modifies server
  state should be a POST request
