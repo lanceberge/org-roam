@@ -1,0 +1,13 @@
+:PROPERTIES:
+:ID:       8678BE13-8A13-4818-9CEA-D39087D49BCC
+:END:
+#+title: LSM Tree
+#+filetags: Programming
+
+* ELI5
+
+  - Optimized for writes
+  - [[id:237AAE85-C261-4743-861D-2B9A2908D1FB][B-Trees]] are optimized for writes
+  - Writes are saved in-memory in a Memtable - a balanced binary tree
+  - As memory fills up, we flush them to disk in a SSTable
+  - We repeatedly run compaction algs in the background to clear up deleted tombstones and merge SSTables
