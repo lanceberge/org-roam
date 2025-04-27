@@ -37,3 +37,11 @@ POST /persons/123
 {
   "itemid": 456
 }
+
+* Endpoint setup
+
+  | Update   | PUT  | =/resource/{id}= |
+  | Create   | POST | =/resource=      |
+  | Read all | GET  | =/resource=      |
+  | Read one | GET  | =/resource/{id}= |
+  |          |      |                |

@@ -17,3 +17,9 @@ A balanced tree structure where each node can have multiple children
 
   - Once you insert, if the node is too big (>4 in this example), split it up into two nodes
     and push the extra node to the parent. If the parent is too big, repeat
+
+* How it Interacts With the Hardware
+
+  - Each node is stored in a disk block
+  - When interacting with a node, we store it in-memory
+  - Frequently accessed nodes stay in-memory with Buffer Pools

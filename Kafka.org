@@ -12,4 +12,12 @@
 * Kafka vs. [[id:3DAEAED2-F8E1-41DD-BC46-585F940A4467][AWS]] SQS
 
   - SQS uses HTTPS
-  - SQS can use various encodings (JSON, binary, plain text)
+
+* Brokers
+
+  - Cluster - multiple brokers
+  - Broker - individual servers
+  - Partitions - a sequence of messages that's appended to. These are split up by key
+    - Each partition has a leader to handle writes
+  - Messages are written to a WAL on disk
+  - Data is replicated across brokers

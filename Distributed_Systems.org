@@ -161,7 +161,7 @@ We use Redis to store data, since it's fast and has INCR - increment and EXPIRE
     Basic Technique: hash(=server_key=) % n
     This fails, however, when servers are added and removed
 
-  - Instead, let's picture a hash ring, where the hash space from 0 to 2^160 - 1 is connected in a circle
+  - Instead, let's picture a hash ring, where the hash space from 0 to 2^16 - 1 is connected in a circle
   - Now, we put our servers evenly spaced out on the ring
   - To determine which server a key goes to, we start at the hash position and go forward until a key is found
 

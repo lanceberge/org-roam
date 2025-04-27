@@ -11,3 +11,17 @@
 - Filtering data
 - Good for unstructured data
 - Create reverse- indexes on fields in the DB to search for them
+
+* Elasticsearch stores documents, indexes, mappings, and fields
+
+  - Documents are docs, JSON objects, etc.
+  - Indexes - Like a database table. It's a collection of searchable documents
+  - Mapping - which fields need to be searched for efficiently. You can also specify the data types here for range queries, etc.
+  - Elasticsearch maps terms (words, numbers) to document IDs
+
+* Reverse Indexes
+
+  - Features that we want to quickly search for - e.g. Tweets, usernames
+  - You can use something like CDC - change data capture which can update [[id:a170dd65-f2d2-43aa-aff0-322f1edc1fc4][Elasticsearch]] whenever content in the db changes
+
+* Geospatial indexes

@@ -4,3 +4,83 @@
 #+title: C++
 #+filetags: Programming
 =priority_queue= - max heap by default
+
+* TODO Templates
+
+  #+BEGIN_SRC cpp
+template <typename T>
+class myArray {
+};
+  #+END_SRC
+
+* Vectors
+
+  #+BEGIN_SRC cpp
+vector<int> vec(5, 1); // vec of size 5 with default value of 1
+  #+END_SRC
+
+* Queues
+
+  #+BEGIN_SRC C++
+queue<int> q;
+q.top();
+q.push(1);
+  #+END_SRC
+
+* Maps
+
+  #+BEGIN_SRC cpp
+unordered_map<string, int> map;
+map.count("elem"); // 1 if it's in the map and 0 otherwise
+
+if (map.find("val") != map.end()) {
+}
+// or
+
+if (map.count("val")) {
+
+}
+  #+END_SRC
+
+* Sets
+
+  #+BEGIN_SRC cpp
+std::unordered_set set;
+set.insert(1);
+set.erase(1);
+
+if (set.count("val")) {
+
+}
+  #+END_SRC
+
+* Stacks
+
+  #+BEGIN_SRC cpp
+std::stack stack;
+
+if (stack.empty()) {
+
+}
+  #+END_SRC
+
+* Strings
+
+  #+BEGIN_SRC cpp
+std::isalnum(c);
+std::tolower(c);
+  #+END_SRC
+
+* Finding a value in an array
+
+  #+BEGIN_SRC cpp
+ .
+  #+END_SRC
+
+* Reversing stuff
+
+  #+BEGIN_SRC cpp
+std::reverse(str.begin(), str.end());
+  #+END_SRC
+
+* Compiling and running
