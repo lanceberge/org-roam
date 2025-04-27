@@ -1,0 +1,10 @@
+:PROPERTIES:
+:ID:       6B4877C3-0CFF-4A8A-A27E-77C0E5D9B1DE
+:END:
+#+title: Kahn's Algorithm
+#+category: Kahn's Algorithm
+
+Add all vertices with indegree 0 to the queue
+
+Pop them and BFS, reducing the indegree of every node you visit
+Add new nodes with an indegree of 0 to the queue

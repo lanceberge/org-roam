@@ -1,0 +1,8 @@
+:PROPERTIES:
+:ID:       A060254D-8AFF-4D26-B078-3B37BBA4DD84
+:END:
+#+title: Cassandra
+#+category: Cassandra
+
+- Batches writes - it maintains them into memory then flushes them to a write to disk
+- Writes are essentially just appends to a file

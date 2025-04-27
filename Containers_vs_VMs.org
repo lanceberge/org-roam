@@ -1,0 +1,8 @@
+:PROPERTIES:
+:ID:       F06D2349-68BE-442A-A454-A8073C9915BA
+:END:
+#+title: Containers vs. VMs
+#+category: Containers vs. VMs
+
+- VMs run the entire OS on them
+- VMs have a cold start issue

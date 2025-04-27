@@ -1,0 +1,8 @@
+:PROPERTIES:
+:ID:       51996F59-4810-4B44-AEE7-72B98E39A467
+:END:
+#+title: Web Crawler
+#+category: Web Crawler
+
+- Store pages in S3
+- Database will store s3 links, depth (to avoid crawler traps)

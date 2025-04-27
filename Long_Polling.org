@@ -1,0 +1,7 @@
+:PROPERTIES:
+:ID:       4E4B3716-5556-4B33-8FAC-19C93F50D830
+:END:
+#+title: Long Polling
+#+category: Long Polling
+
+- The client keeps the connection open until the server has data to send

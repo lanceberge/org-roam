@@ -1,0 +1,14 @@
+:PROPERTIES:
+:ID:       DEEB6FAC-A9A2-4425-BF03-8F12673BCCE0
+:END:
+#+title: Web Sockets
+#+category: Web Sockets
+
+Persistent bidirectional communication between server-client or client-client
+
+- You need to establish an HTTP handshake then negotiate the HTTP upgrade.
+  - This gets tricky if you have proxies, load balancers, because each will need to negotiate the upgrade
+
+* Vs. SSE
+
+  Server-side-events are unidirectional, but persistent messages from server-client

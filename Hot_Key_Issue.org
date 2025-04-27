@@ -1,0 +1,14 @@
+:PROPERTIES:
+:ID:       9FFF9AFB-2E7E-4F77-965F-0C3BCDAC1C42
+:END:
+#+title: Hot Key Issue
+#+category: Hot Key Issue
+
+[[id:5A1C593C-55D4-4760-B85A-A7112FB017A9][Distributed Systems]]
+
+Hot keys in [[id:5A1C593C-55D4-4760-B85A-A7112FB017A9][Distributed Systems]] are keys that are frequently used
+
+We can resolve these by:
+
+1. Making the keys composite. E.g. adding additional data to hot keys such as a user id
+2. Adding read replicas
