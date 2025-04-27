@@ -1,0 +1,130 @@
+:PROPERTIES:
+:ID:       078C7D83-319A-4F8D-AD76-410533B2A7A6
+:END:
+#+title: CUDA
+#+filetags: Programming
+
+* Hello World
+
+#+BEGIN_SRC C
+#include <stdio.h>
+#include <cuda.h>
+
+__global__ void helloWorldKernel()
+{
+        // store the index of the thread
+        int t = threadIdx.x;
+
+        // index of the block
+        int b = blockIdx.x;
+
+        // total number of blocks
+        int B = blockDim.x;
+
+        printf("Hello world from thread %d and block %d out of %d\n", t, b, B);
+}
+
+int main()
+{
+        printf("Hello World\n");
+
+        // add kernel to queue on GPU, executing over 64 threads on four cores (thread blocks)
+        helloWorldKernel <<< 4, 64 >>> ();
+
+        // block until kernel has run
+        cudaDeviceSynchronize();
+        return 0;
+}
+#+END_SRC
+
+* Asynchronously filling an array
+
+  - GPU has a volatile structure distinct from that of the CPU
+  - Thus you can't directly share data from CPU to GPU. You have to send it over
+  - This means that the speedup of the GPU must offset the time to send the data over
+
+#+BEGIN_SRC C
+#include "cuda.h"
+#include <stdio.h>
+
+__global__ void fillKernel(int N, float val, float *c_x)
+{
+    int t = threadIdx.x;
+    int b = blockIdx.x;
+    int B = blockDim.x;
+
+    // map t, b, and B to a unique index
+    int n = t + b*B;
+    if (n < N)
+        c_x[n] = val;
+}
+
+int main(int argc, char *argv[])
+{
+    if (argc < 2)
+    {
+        printf("usage: ./array N\n");
+    }
+
+    int N = atoi(argv[1]);
+
+    // allocate and fill an array on CPU (HOST)
+    // h_ preceding host pointers
+    float *h_x = (float*)malloc(N * sizeof(float));
+    float val = 1.234;
+
+    for (int i = 0; i < N; ++i)
+    {
+        h_x[i] = val;
+    }
+
+    float *c_x;
+
+    cudaMalloc(&c_x, N*sizeof(float));
+
+    int B = 256;
+
+    // guarantees that B divides the numerator
+    // rounds up to the smallest number equivalent to ceil(G + B/B)
+    int G = (B + N - 1)/B;
+
+    fillKernel <<< G , B >>> (N, val, c_x);
+
+    // copy data from c_x to h_x
+        // cudaMemcpy already forces a sync
+    cudaMemcpy(h_x, c_x, N*sizeof(float), cudaMemcpyDeviceToHost);
+
+    for (int i = 0; i < N; ++i) {
+        printf("h_x[%d] = %g\n", i, h_x[i]);
+    }
+
+    printf("N = %d, G = %d, B = %d, G*B=%d\n", N, G, B, G*B);
+
+    return 0;
+}
+#+END_SRC
+
+
+* Timing
+
+  - Queuing up jobs is very expensive, and may not be worth the opportunity cost of just running code on CPU
+  - Remedy this by queuing up jobs over various kernels
+
+* Cuda Debugging
+
+#+BEGIN_SRC bash
+cuda-memcheck <./program args>
+nvcc -g -G # debugging info
+
+cuda-gdb ./program
+  set cuda memcheck on
+
+cuda thread 2 # switch to thread 2
+cuda block 6 # switch to block
+
+l
+where # view where the error is
+
+nvprof --metrics dram_read_throughput,dram_write_throughput ./cudaAddVectors args # gives timings for kernels
+nvprof --query --metrics # view all metrics
+#+END_SRC
