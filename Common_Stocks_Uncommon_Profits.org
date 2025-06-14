@@ -44,3 +44,9 @@
 
 - Is management candid with shareholders during good and bad news?
 - Does the company have management of unquestionable integrity?
+
+* Diversification
+
+  - <= 20% (any one stock) in large entrenched stalwarts
+  - <= 10% in fast-growers but larger stocks
+  - Smaller fast-growers, never more than 5%
