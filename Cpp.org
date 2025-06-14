@@ -5,7 +5,13 @@
 #+filetags: Programming
 =priority_queue= - max heap by default
 
-* TODO Templates
+* TODO Priority Queue
+  #+BEGIN_SRC cpp
+priority_queue<int, vector<int>, greater<int>> min_heap;
+  #+END_SRC
+
+
+* Templates
 
   #+BEGIN_SRC cpp
 template <typename T>
@@ -84,3 +90,15 @@ std::reverse(str.begin(), str.end());
   #+END_SRC
 
 * Compiling and running
+* Lambdas / functions as types
+
+  #+BEGIN_SRC cpp
+sort(arr.begin(), arr.end(), [](const int a, const int b) {
+        return a > b;
+});
+  #+END_SRC
+* DP
+
+  #+BEGIN_SRC cpp
+  int dp[10][20] = {0};
+  #+END_SRC
