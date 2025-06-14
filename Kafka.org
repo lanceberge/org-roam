@@ -17,7 +17,13 @@
 
   - Cluster - multiple brokers
   - Broker - individual servers
-  - Partitions - a sequence of messages that's appended to. These are split up by key
+  - Partitions - a sequence of messages that's appended to. These are split up by key. Basically the partitions are like individual queues
     - Each partition has a leader to handle writes
   - Messages are written to a WAL on disk
   - Data is replicated across brokers
+  - Topics - a grouping of messages. Topics can be split across brokers
+  - You can assign keys to messages to specify which partition they get appended to
+
+* Consumer Groups
+
+  - You can have multiple consumers, but each event is guaranteed to be processed by only one consumer

@@ -1,0 +1,116 @@
+:PROPERTIES:
+:ID:       C4152D63-936A-498A-BD73-68F6C7A8D0FF
+:END:
+#+title: Competitive Programmer's Handbook
+#+category: Competitive Programmer's Handbook
+
+* Basics
+
+** Key Types
+   Basic Types
+
+   long long - always 64 bits
+   long double - 80 bits
+
+   Compare floats with:
+
+ #+BEGIN_SRC cpp
+if (abs(a - b) < 1e-9) {
+ #+END_SRC
+
+** Tricks
+
+   #+BEGIN_SRC cpp
+   typedef long long ll
+   #+END_SRC
+
+** Math
+
+   sum(i..n) = n(n+1) / 2
+
+   sum(i)
+
+** Time Complexity
+
+   - O(2^n) means you iterate through each subarray of an array of size n
+   - O(n!) means you iterate through all permutations of an array of size n
+
+* Data Structures
+
+  #+BEGIN_SRC cpp
+string s = "abde";
+cout << s.substr(1, 2); // substring from index 1 with length 2
+  #+END_SRC
+
+** Sets
+
+   #+BEGIN_SRC cpp
+set s;
+s.insert(5);
+set.erase(5);
+
+bitset<10> s; // bitset with 10 elements
+
+bitset<10> s(string("01100101"));
+   #+END_SRC
+
+** Maps
+
+  #+BEGIN_SRC cpp
+// uses a balanced binary tree. Access take O(log n)
+map<string, int> m;
+
+// uses hashing. O(1) access
+unordered_map<string, int> m;
+  #+END_SRC
+
+** Using Iterators
+
+   #+BEGIN_SRC cpp
+reverse(v.begin(), v.end());
+
+for (auto it = s.begin(); it != s.end(); it++) {
+        cout << *it << "\n";
+}
+
+if (s.find(el) != s.end()); // ...
+
+
+auto it = s.find(el);
+cout << *it << "\n";
+   #+END_SRC
+
+** Deque
+
+   #+BEGIN_SRC cpp
+deque<int> d;
+d.push_back(5);
+d.pop_back();
+   #+END_SRC
+
+** Priority Queues
+
+   #+BEGIN_SRC cpp
+priority_queue<int, vector<int>, greater<int>> q;
+   #+END_SRC
+
+* Brute Force - Complete Search
+
+  #+BEGIN_SRC cpp
+void search(int k) {
+  if (k == n) {
+    // process subset
+  } else {
+    search(k + 1);
+    subset.push_back(k);
+    search(k + 1);
+    subset.pop_back();
+  }
+}
+  #+END_SRC
+
+* Backtracking
+
+  Begin with an empty solution and extend it step-by-step with possible solutions
+
+  - This is for when you want all possible solutions

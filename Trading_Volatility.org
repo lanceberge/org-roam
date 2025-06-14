@@ -1,0 +1,42 @@
+:PROPERTIES:
+:ID:       55794188-7C67-488F-AAFD-585109177961
+:END:
+#+title: Trading Volatility
+
+[[https://www.trading-volatility.com/][Book]]
+
+Term Structure - Longer-dated has higher IV
+Skew - Far OTM and ITM options have higher IV
+Being short skew - betting that the differential between OTM options at ATM options will decrease
+
+* Greeks
+** Volga
+
+   - dVega / dIV
+
+* Vanna
+
+  - dDelta / dIV
+
+* Variance vs Vol Swaps
+
+  - Variance swaps have more exposure to skew (far OTM options)
+
+* Vol Overpricing
+
+  Due to:
+  - Demand for hedges
+  - People buying OTM lottery tickets
+  - Bids from structured products e.g. variable annuities
+
+* Volatility
+
+  - Vol is standard deviation of returns. So if a stock is always going up with a constant slope,
+    it's vol is still 0
+  - Vol of vol is underpriced
+  - Futures on vol indices are short vol of vol
+  - Volatility futures are generally overpriced because realized < IV
+
+* VIX
+
+  - Pricing is based on 1/S^2 weighted (S is strike price) therefore it's exposed to the price of deep OTM puts

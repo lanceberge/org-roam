@@ -1,0 +1,465 @@
+:PROPERTIES:
+:ID:       0443206F-E979-4514-A266-952EA7054DC7
+:END:
+#+title: OpenMP
+#+filetags: Programming
+
+** OpenMP
+
+- Uses a fork-join model with parallel regions
+- Threads (CPU processes) have access to the same memory
+
+ #+BEGIN_SRC C
+#include <omp.h>
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+  omp_set_num_threads(4); // number of threads to fork in parallel regions
+
+// fork a parallel region
+#pragma omp parallel
+  {
+    int threadNumber = omp_get_thread_num();
+
+    /* each forked thread will do this */
+    if (threadNumber % 2 == 0)
+      printf("hello world\n");
+    else
+      printf("bye World!\n");
+  }
+  return 0;
+}
+ #+END_SRC
+
+*** Timing and multithreaded for loops
+
+#+BEGIN_SRC c
+   double ompStart = omp_get_wtim();
+   double omp_end = omp_get_wtime();
+   double secsToRun = omp_end - omp_start;
+#+END_SRC
+
+* Private and Shared Variables
+
+#+BEGIN_SRC C
+/* specify which variables have a shared stack and which are private */
+#pragma omp parallel default(none) private(n) shared(N,v)
+
+/* combine the above for for loops */
+#pragma omp parallel for default(none) private(n) shared(N,v)
+#+END_SRC
+
+** Syncing threads
+
+#+BEGIN_SRC C
+// slow approach
+#pragma omp parallel for shared(s)
+for(int i=0; i<N; ++i) {
+#pragma omp critical
+// forces all threads to wait for this one
+    {
+      s = s + a[n];
+    }
+}
+
+// this is faster using atomics
+#pragma omp parallel for shared(s)
+for(int n=0; n<N; ++n) {
+#pragma omp atomic
+// a region only accessible to one thread at a time
+    {
+      s = s + a[n];
+    }
+}
+
+// reduction, best
+#pragma omp parallel for reduction(+:s)
+for(int n=0; n<N; ++n) {
+    s = s + a[n];
+}
+#+END_SRC
+
+* 16    :: MPI
+
+OpenMP vs. MPI
+
+- OpenMP   :: uses a shared memory model
+  - fork regions then rejoin
+- MPI :: each process has its own memory space, which allows us to use larger problem sizes
+  - processes don't need to run on the same computer
+  - Processes pass messages to other processes
+  - information organized in ranks, the only piece of information every process has is the ability to share information
+
+#+BEGIN_SRC C
+  #include <mpi.h>
+  #include <stdio.h>
+
+  int main(int argc, char *argv[])
+  {
+      MPI_INIT(&argc, &argv);
+
+      /* this is run independently on however many processes we run code with */
+
+      // specify rank and communicator type
+      int rank, n_procs;
+      MPI_Comm_rank(MPI_COMM_WORLD, &rank);    // current rank
+      MPI_Comm_size(MPI_COMM_WORLD, &n_procs); // number of current processes
+
+      printf("This is process: %d out of %d\n", rank, n_procs);
+
+      // thread divergence
+      if (rank % 2 == 0) printf("blah\n");
+
+      MPI_Finalize();
+      return 0;
+  }
+#+END_SRC
+
+** Point to point messaging
+
+#+BEGIN_SRC C
+  #include <mpi.h>
+
+  int main(int argc, char *argv[])
+  {
+      int rank;
+      MPI_Comm_rank(MPI_COMM_WORLD, &rank); // find rank of current process
+
+      int N = 10;       // length of messages to exchange
+      int n, tag = 999; // message tag
+
+      if (rank == 0) // sends message to rank 2
+      {
+          int *outBuffer = (int *)calloc(N, sizeof(int));
+          for (n = 0; n < N; ++n)
+          {
+              MPI_Send(outBuffer, N, MPI_INT, dest, tag, MPI_COMM_WORLD);
+          }
+      }
+
+      if (rank == 1) // receives messages from rank 0
+      {
+          MPI_Status status;
+          int *inBuffer = (int *)calloc(N, sizeof(int));
+          int source = 0;
+
+          MPI_Recv(inBuffer, N, MPI_INT, source, tag, MPI_COMM_WORLD, &status);
+
+          for (n = 0; n < N; ++n)
+          {
+              printf("received: inBuffer[%d]=%d\n", n, inBuffer[n]);
+          }
+      }
+
+      MPI_Finalize();
+      return 0;
+  }
+#+END_SRC
+
+* 17    :: MPI Point-to-Point Communication
+
+** Barriers
+
+- Enforces synchronization. Causes a process to wait until all processes in a communicator hit the barrier
+- Expensive
+
+#+BEGIN_SRC C
+  #include <mpi.h>
+  #include <stdio.h>
+
+  int main(int argc, char *argv[])
+  {
+      int n_procs, rank;
+
+      MPI_Init(&argc, &argc);
+
+      MPI_Comm_size(MPI_COMM_WORLD, &n_procs);
+
+      MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+      int i;
+      for (i = 0; i < n_procs; ++i) {
+          if (i == rank) printf("%d of %d processes\n", rank, n_procs);
+          MPI_Barrier(MPI_COMM_WORLD); // processes have to get to here before moving on
+      }
+
+      MPI_Finalize();
+      return 0;
+  }
+
+#+END_SRC
+
+#+RESULTS:
+
+** Communication between ranks
+
+#+BEGIN_SRC C
+err = MPI_Send(&data, n_data, MPI_FLOAT, dest_rank, tag, MPI_COMM_WORLD);
+err = MPI_Recv(&data, n_data, MPI_FLOAT, src_rank, tag, MPI_COMM_WORLD, &status);
+#+END_SRC
+
+#+BEGIN_SRC C
+  #include <mpi.h>
+  #include <stdio.h>
+
+  int main(int argc, char *argv[])
+  {
+      MPI_Init(&argc, &argv);
+      MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+      int tag = 0;
+      int send_data = 7;
+      int recv_data = -1;
+      MPI_Status status;
+
+      printf("Rank %d before: send = %d, recv = %d\n", rank, send_data, recv_data);
+
+      if (rank == 0) MPI_Send(&send_data, 1, MPI_INT, 1, tag, MPI_COMM_WORLD);
+      if (rank == 1) MPI_Recv(&recv_data, 1, MPI_INT, 0, tag, MPI_COMM_WORLD, &status);
+
+      printf("Rank %d after: send = %d, recv = %d\n", rank, send_data, recv_data);
+
+      MPI_Finalize();
+      return 0;
+  }
+#+END_SRC
+
+* 18    :: Parallelization with p-p Communication
+
+- Deadlock :: Multiple processes are trying to synchronize with each other
+  - i.e. communicate at the same time
+
+#+BEGIN_SRC C
+  #include <mpi.h>
+
+  int main(int argc, char *argv[])
+  {
+      int rank;
+
+      MPI_Init(&argc, &argv);
+
+      MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+      // barrier expects that every rank gets to this line, but rank 0 wont, causing deadlocl
+      if (rank != 0) MPI_Barrier(MPI_COMM_WORLD);
+
+      MPI_Finalize();
+      return 0;
+  }
+#+END_SRC
+
+* 19    :: MPI Broadcast
+
+** Definitions
+
+- Broadcast :: One process sends a message to others                   (MPI_BCast)
+- Sum Reduction :: all processes collaborate to sum up a value         (MPI_Reduce)
+- Barrier :: All processes enter before they can leave                 (MPI_Barrier)
+- All to all :: All processes send a same length message to all others (MPI_ALLtoall)
+
+** Broadcast
+
+- A process (root process) will send a message to all the other processes
+- Each process that has the data will send it to another, rather than data being sent to each rank by one rank
+
+#+BEGIN_SRC C
+int msgRoot = 0; // should be the root value for every rank involved in the broadcast
+MPI_Bcast(msgOut, msgN, MPI_INT, msgRoot, MPI_COMM_WORLD);
+#+END_SRC
+
+#+BEGIN_SRC C
+  #include <mpi.h>
+
+  int data = -1;
+  int myRoot = 0;
+
+  MPI_Bcast(&data, 1, MPI_INT, myRoot, MPI_COMM_WORLD);
+#+END_SRC
+* 20    :: MPI Reduce
+
+- Reduce operation :: Values are accumulated from all ranks and the reduced result is deposited at the end of the root process
+
+#+BEGIN_SRC C
+#include <mpi.h>
+
+err = MPI_Reduce(&data, &reduced_data, n_data, MPI_FLOAT, MPI_SUM, root, MPI_COMM_WORLD);
+#+END_SRC
+
+List of Operations
+- MPI_Sum
+- MPI_PROD
+- MPI_MIN
+- MPI_MAX
+- MPI_MINLOC :: location of minimum (rank and index)
+- MPI_MAXLOC
+* 21    :: Overview of MPI Collective Communications
+
+** MPI_Scatter    :: Similar to Bcast, a root sends data to all processes
+  - Chunks of an array are sent to different processes
+  - Spread N pieces of data from root into N/P size arrays across P processes
+
+#+BEGIN_SRC C
+MPI_Scatter(send_data, send_count, MPI_Datatype, recv_data, recv_count, recv_datatype, root, MPI_comm);
+#+END_SRC
+
+** MPI_Gather     :: inverse of scatter
+
+#+BEGIN_SRC C
+MPI_Gather(send_data, send_count, send_datatype, recv_data, recv_count, recv_datatype, root, MPI_Comm);
+#+END_SRC
+
+
+- MPI_ALLgather   :: a gather followed by a broadcast, sends chunks of data to all ranks
+
+** MPI_Allreduce :: Reduce all, a blocking function (sets up a barrier)
+
+- A reduce followed by a Bcast
+#+BEGIN_SRC C
+err = MPI_Allreduce(&data, &reduced_data, n_data, MPI_FLOAT, MPI_SUM, MPI_COMM_WORLD);
+#+END_SRC
+** MPI_Alltoall
+
+- Takes $i^{th}$ chunk of data from process j, sends it to process i, which stores it as $j^{th}$ chunk of data
+- Blocking operation
+
+#+BEGIN_SRC C
+MPI_Alltoall(&sendbuf, send_count, sendtype, &recvbuf, recvcount, recvtype, MPI_Comm);
+#+END_SRC
+* 22    :: Domain Decomposition and Ghost Regions
+* 23    :: MPI Isend Irecv
+
+- Isend and Irecv :: Nonblocking, (unlike Send and Recv)
+
+- Test the status with MPI_Test, or wait with MPI_Waitany or MPI_Waitall
+
+- Multiple communications can be queued
+
+- MPI_Wait :: Blocks until a specific requested communication is complete
+- MPI_Waitall :: Blocks until all requested communications are complete
+- MPI_Waitany :: Blocks until one completes
+
+#+BEGIN_SRC C
+MPI_Request request;
+err = MPI_Isend(&data, nuumData, MPI_FLOAT, dest_rank, tag, MPI_COMM_WORLD, &request);
+err = MPI_Irecv(&data, numData, MPI_FLOAT, source_rank, tag, MPI_Comm, &request);
+
+err = MPI_Waitall(n_requests, *requests, *statuses);
+#+END_SRC
+
+** Best practices
+
+- Queue the receives first, sends second
+- Initialize requests array to MPI_REQUEST_NULL, MPI_Wait ignores null requests
+- Distinct tag for communication pairs
+* 24    :: Targeting Parallelism
+** Amdahl's law
+- $T_P$ :: parallel run time
+- $T_S$ :: sequential run time
+- P :: number of processes
+- $S_P$ :: $\frac{T_S}{T_P}$, parallel speedup time
+
+- Serial Fraction :: The part of every calculation that doesn't benefit from more processors $s\in[0,1]$
+- Time P processors takes is: $$T_P=sT_1+\frac{1-s}{P}T_1$$
+- The parallel speed $$S_P=\frac{T_1}{T_P}=\frac{1}{s+\frac{1-s}{P}}$$
+  - s=0 :: Perfectly parallelizable $S_P=P$
+  - s=1 :: Purely serial, $S_P=1$
+  - s=0.5 :: Speed up approaches 2 as $P\rightarrow\infty$
+  - s=0.1 :: Max speed up you can get is 10
+
+Ex.
+Speedup of 20 on 10% of time
+$$\frac{1}{.9 + \frac{0.1}{20}}$$
+
+Ex.
+Speedup of 2x on 90%, slow down the rest by 10x
+
+$$S_P = \frac{1}{\frac{0.1}{0.1} + \frac{0.9}{2}}$$
+** Gustafson's law
+
+- For larger scale computing with many processors
+- Work performed by P processors is:
+$$W_P=sW_0+P(1-s)W_0$$
+$$S_P=s+(1-s)P$$
+* 25    :: Binary IO
+
+#+BEGIN_SRC C
+FILE *file = fopen(filename, "rb"); // rb - read binary
+fseek(file, start_byte, reference_keyword); // reference keyword: SEEK_SET, SEEK_CUR, SEEK_END
+int *data;
+fread(data, sizeof(int), numEntries, file); // read the data into data arr
+fwrite(data, sizeof(int), numEntries, file);
+fclose(file);
+#+END_SRC
+
+** MPI Equiv
+
+#+BEGIN_SRC C
+MPI_File *file;
+MPI_File_open(MPI_Comm, file, amode, MPI_Info, MPI_File); // amode: MPI_MODE_APPEND, MPI_MODE_CREATE, MPI_MODE_RDONLY, MPI_MODE_WRONLY
+MPI_File_seek(file, offset, whence); // whence: MPI_SEEK_SET, MPI_SEEK_CUR, MPI_SEEK_END
+MPI_File_read(file, data, count, MPI_Datatype, MPI_Status);
+MPI_File_write(file, data, count, MPI_Dattaype, MPI_Status);
+MPI_File_close(file);
+#+END_SRC
+* 27&28 :: Intro to GPUs
+
+Single Instruction Multiple Data
+
+The CPU and GPU have separate memory, so we need to move the memory in some way
+
+#+BEGIN_SRC C
+  #include <cuda.h>
+  #include <cuda_runtime_api.h>
+  #include <stdio.h>
+
+  int main(int argc, char *argv[])
+  {
+      __global__ void axpy(float a, float *xVec, float *yVec)
+      {
+      }
+      int N = atoi(argv[1]);
+      float a = 0.5;
+
+      float *x_host = (float *)malloc(N * sizeof(float));
+
+      clock_t startTime = clock();
+      clock_t endTime = clock();
+      float cpuTime = float(endTime - startTime) / (float)(nReps * CLOCKS_PER_SEC);
+
+      int i;
+      for (i = 0; i < N, ++i)
+      {
+          x_host[i] = (float)i;
+      }
+
+      float *x_device;
+      cudaMalloc((void **)&x_device, N * sizeof(float));
+
+      int n_threads_per_block = 16;
+      int n_blocks = N / n_threads_per_block;
+
+      axpy<<<n_blocks, n_threads_per_block>>>(a, x_device, y_device);
+
+      cudaMemcpy(x_device, x_host, N * sizeof(float), cudaMemcpyHostToDevice);
+
+      // copy back to CPU
+
+      cudaFree(x_device);
+      return 0;
+  }
+#+END_SRC
+
+* openMP cheat sheet
+
+- omp_get_num_threads() - get number of threadsin a parallel region
+- omp_get_thread_num() - current thread number
+- omp_set_num_threads(4) - only use 4 threads
+- #pragma omp for - parallelize for loop
+- #pragma omp parallel private(n) shared(N) - parallel region with n local to each thread and N shared
+- #pragma omp sections - open a region of sections
+  - #pragma omp section - one thread handles the enclosed code
+- #pragma omp critical - within a shared block, ensures the enclosed code occurs one thread at a time
+- #pragma omp atomic - also happens one at a time
+- #pragma omp parallel for reduction(+:s)
+  - an addition reduction is occurring on variable s
+- omp_get_wtime() - time

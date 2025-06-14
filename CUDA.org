@@ -4,6 +4,10 @@
 #+title: CUDA
 #+filetags: Programming
 
+* Project Ideas
+
+  - Black scholes
+
 * Hello World
 
 #+BEGIN_SRC C

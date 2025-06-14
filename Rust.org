@@ -1,0 +1,31 @@
+:PROPERTIES:
+:ID:       F03EE02C-E363-491C-A33C-48B87CE657B4
+:END:
+#+title: Rust
+#+category: Rust
+
+* Project Ideas
+
+  - Web server
+  - Mandlebrot set visualizer
+  - Git TUI
+
+* Ownership
+
+  - Each variable has only one owner at a time
+  - When the owner goes out of scope, the value will be dropped
+  - This is why you need to pass as a reference through borrowing. Because if you pass a heap-allocated
+    var to a function then it's owner becomes the function
+
+* Borrowing
+
+  - At any given time, you can have either one mutable reference or any number of immutable references
+    - i.e. only one reference can mutate a heap variable at a time
+
+* Misc
+
+  - Use =Result= for functions that can return an error
+  - Match =Ok(res)= or =Err(E)=
+
+* TODO advent of code in rust and zig
+* TODO LSP setup

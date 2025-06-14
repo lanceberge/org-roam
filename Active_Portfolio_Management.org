@@ -1,0 +1,12 @@
+:PROPERTIES:
+:ID:       E5BE50DC-0711-4AA7-8A77-5A0DBE177AFC
+:END:
+#+title: Active Portfolio Management
+
+* Basics
+
+  - Information Ratio - active management opportunities
+    - sqrt(information ratio) - our ability to add value
+  - IR = IC * sqrt(breadth)
+    - breadth is the number of trades
+    - IC - our ability to forecast asset's returns

@@ -1,0 +1,35 @@
+:PROPERTIES:
+:ID:       95C7ED81-87B1-493D-897B-5E859CEA7CBE
+:END:
+#+title: Computer Systems a Programmer's Perspective
+#+category: Computer Systems a Programmer's Perspective
+* 1. Basics
+
+  - Main Memory: a temporary storage device that holds the data of a program. It's a collection of DRAM chips
+
+** CPUs
+
+   - Composed or Arithmetic Logic Units and registers
+   - CPUs run processes concurrently by saving and restoring context via /context switching/
+     - This is managed by the system kernel which always resides in memory
+
+** Virtual Memory
+
+   - Main memory is segmented such that independent processes have their own isolated memory
+
+** Kernel
+
+   - Manages processes
+   - Allocates memory
+   - Performs sys calls
+
+* 2. Information Storage
+** Hex
+
+   A - 1010
+   C - 1100
+   F - 1111
+
+** Binary
+
+   For powers of 2, i.e. x = 2^n, the binary of x is just 1 followed by n zeros

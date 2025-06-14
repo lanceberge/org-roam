@@ -1,0 +1,18 @@
+:PROPERTIES:
+:ID:       8683818E-BB0E-4A15-802A-DD0BCC7AA8E0
+:END:
+#+title: Futures
+
+Futures are an agreement to sell an asset
+- Cash-settled
+
+* Pricing
+
+  Futures are priced as S x ( 1 + r x t) - dividends
+  S - spot
+  r - risk free interest rate (5%)
+  t - time to expiration
+
+* Margin
+
+  - Losses and gains are credited/debited daily

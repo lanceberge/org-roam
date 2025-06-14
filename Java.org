@@ -5,3 +5,26 @@
 #+filetags: Programming
 
 - Objects, by default, go in the heap
+
+
+Builders
+
+** Enums
+
+public enum Days = {
+  MONDAY, TUESDAY, WEDNESDAY, THURSDAY, ...
+}
+
+--------------------------------------------------------------------------------
+
+public enum Cereals = {
+  FRUIT_LOOPS(10, 2.9), COCOA_PUFFS(20, 3);
+}
+
+final int tasteLevel;
+final double price;
+
+Cereals(int tasteLevel, double price) {
+    this.tasteLevel = tasteLevel;
+    this.price = price;
+}

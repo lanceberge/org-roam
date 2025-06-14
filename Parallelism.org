@@ -1,0 +1,9 @@
+:PROPERTIES:
+:ID:       5F3C47F6-D4A2-4EF3-962E-70E0C8C130A8
+:END:
+#+title: Parallelism
+#+category: Parallelism
+
+* Mutex
+
+  - Ensures that only one thread can access a section of code at a time

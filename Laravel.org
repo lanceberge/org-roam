@@ -240,18 +240,28 @@ Auth::login($user);
   2. Go to name in the top right -> Security Credentials -> get an access key
   3. Generate one
 
+     Copy them into passwords and github actions.
+
+ Add =EC2_HOST= to Github Actions. It's the IP in the ssh command
+ Add =EC2_SSH_KEY=. It's the full ssh .pem
+
      #+BEGIN_SRC sh
 aws configure --profile <name>
-aws-profile
-     #+END_SRC
+aws-profile <name>
+
+
+20 mins
 
   4. Launch an EC2 instance
 
      #+BEGIN_SRC sh
-terraform init # in project root
+# Update the terraform config with whatever ami
+cd terraform
+terraform init
 terraform plan
 terraform apply
      #+END_SRC
+
 
   5. SSH into ec2
 
@@ -271,15 +281,9 @@ rm tmp
 # back to ec2
 sudo yum install git -y
 git clone git@github.com:lanceberge/<name>.git
-
-cd <proj>
-./scripts/setup_ec2
      #+END_SRC
 
-  6. Add CI/CD
-
-     =EC2_HOST= secret is in the ssh command
-     Add the full ssh key
+40 mins
 
   7. Buy the domain namecheap.com
 
@@ -297,8 +301,11 @@ cd <proj>
 
       #+BEGIN_SRC sh
 sudo certbot --nginx -d <domain.com> -d www.<domain.com>
-
-rm nginx/nginx.conf
-sudo mv /etc/nginx/nginx.conf nginx/nginx.conf
-sudo ln -s "/home/ec2-user/$PROJ_NAME/nginx/nginx.conf" /etc/nginx/nginx.conf
+sudo chown -R $(whoami) .git/
+# git commit, push
       #+END_SRC
+
+* Adding Oauth
+
+  1. Go to https://console.developers.google.com
+  2. Credentials -> create credentials -> oauth client ID
