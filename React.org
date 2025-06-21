@@ -3,3 +3,26 @@
 :END:
 #+title: React
 #+category: React
+
+* Reactivity
+
+  - Local variables don't persist between renders
+
+    #+BEGIN_SRC js
+const [index, setIndex] = useState(0)
+    #+END_SRC
+
+* Keys
+
+  - Any component can be passed a key prop which will force it to reload the state if the key changes
+
+* Hooks
+** useReducer
+
+   - specify a function that handles changes to state objects and you can dispatch change messages
+
+** useContext
+
+   - pass state to all children components
+
+* TODO zustand and tanstack query
