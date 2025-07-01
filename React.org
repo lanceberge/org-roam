@@ -26,3 +26,5 @@ const [index, setIndex] = useState(0)
    - pass state to all children components
 
 * TODO zustand and tanstack query
+
+* Reducers

@@ -1,0 +1,74 @@
+:PROPERTIES:
+:ID:       3EDD71C0-7F43-47EB-A551-7E08BBB7A9AC
+:END:
+#+title: Elixir
+#+category: Elixir
+
+* Strings
+** Concatenation
+
+   #+BEGIN_SRC elixir
+   "hello " <> "world"
+   #+END_SRC
+
+** Interpolation
+
+   #+BEGIN_SRC elixir
+"hello #{world}"
+   #+END_SRC
+
+* IO
+
+  #+BEGIN_SRC elixir
+IO.puts("hello world")
+  #+END_SRC
+
+* Types
+
+  #+BEGIN_SRC elixir
+[1, 2, 3] # list
+{1, 2, 3} # tuple
+  #+END_SRC
+
+* Functions
+
+* Logic
+
+  #+BEGIN_SRC elixir
+true and true
+true or true
+  #+END_SRC
+
+* Data Structures
+** Lists
+
+   #+BEGIN_SRC elixir
+[1, 2, 3] ++ [4, 5, 6] # concatenation
+hd(list) # head of the list
+tl(list) # the rest of the list
+   #+END_SRC
+
+Lists & tuples can hold multiple values with different types
+
+Lists are stored as singly-linked lists
+
+** Tuples
+
+   #+BEGIN_SRC elixir
+elem(tuple, 1) # first element
+   #+END_SRC
+
+** Semantics
+
+   - the function size is used if the value is stored in the data structure (linear time)
+     - Or named length if it needs to be computed
+
+* Atoms
+
+  - Constants whose value is it's name
+
+    #+BEGIN_SRC elixir
+:apple
+    #+END_SRC
+
+* Pattern Matching
