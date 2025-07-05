@@ -72,3 +72,77 @@ elem(tuple, 1) # first element
     #+END_SRC
 
 * Pattern Matching
+
+  The equals sign operator is the match operator
+
+  x = 1 returns true and then so will 1 = x
+
+** Destructuring
+
+  #+BEGIN_SRC elixir
+{a, b, c} = {:hello, :world, 42}
+
+# assigns result if :ok
+{:ok, result} = func
+
+[head | tail] = [1, 2, 3]
+
+# use this to prepend
+list = [0 | list]
+  #+END_SRC
+
+** Pin Operator
+
+   #+BEGIN_SRC elixir
+x = 1
+^x = 2 # no match
+   #+END_SRC
+
+** Case
+
+   #+BEGIN_SRC elixir
+x = 4
+case {1, 2, 3} do
+  {^x, 2, 3} ->
+    "no match because x is pinned"
+  {1, x, 3} ->
+    "x gets reassigned to 2"
+
+   _ when x > 0 ->
+    "extra condition"
+end
+   #+END_SRC
+
+
+Errors in guards don't get thrown. They just don't match
+
+* Logic
+** Cond
+
+   #+BEGIN_SRC elixir
+cond do
+  2 + 2 == 5 ->
+    "This will not be true"
+  2 * 2 == 3 ->
+    "Nor this"
+  1 + 1 == 2 ->
+    "But this will"
+  true ->
+    "default"
+end
+   #+END_SRC
+* Functions
+** Anonymous Functions
+
+   #+BEGIN_SRC elixir
+add = fn a, b -> a + b end
+add.(1, 2)
+   #+END_SRC
+
+** Capture Operator
+
+   =&= captures functions. =&1= references the first parameter
+
+   #+BEGIN_SRC elixir
+fun = &(&1 + 2)
+   #+END_SRC
