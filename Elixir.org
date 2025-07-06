@@ -146,3 +146,37 @@ add.(1, 2)
    #+BEGIN_SRC elixir
 fun = &(&1 + 2)
    #+END_SRC
+* Maps
+
+  #+BEGIN_SRC elixir
+m = %{:a => 1}
+Map.get(m, :a)
+
+# Updating keys:
+m = %{m | :a: 3}
+  #+END_SRC
+* Naming Conventions
+
+  Postfix in =?= if it returns a bool
+* Recursion, reductions
+
+  #+BEGIN_SRC elixir
+  defmodule Math do
+  def sum_list([head | tail], accumulator) do
+    sum_list(tail, head + accumulator)
+  end
+
+  # pattern match the base case
+  def sum_list([], accumulator) do
+    accumulator
+  end
+end
+
+IO.puts Math.sum_list([1, 2, 3], 0)
+
+Enum.map([1, 2, 3], &(&1 * 2))
+Enum.reduce([1, 2, 3], &+/2)
+  #+END_SRC
+* Streams vs. Enums
+
+  - streams are lazy
