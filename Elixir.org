@@ -32,6 +32,18 @@ IO.puts("hello world")
 
 * Functions
 
+  oneline functions
+
+  #+BEGIN_SRC elixir
+def area(a, b) do: a * b
+  #+END_SRC
+
+** Default Values
+
+   #+BEGIN_SRC elixir
+def area(a, b \\ 0) do: a * b
+   #+END_SRC
+
 * Logic
 
   #+BEGIN_SRC elixir
@@ -46,22 +58,64 @@ true or true
 [1, 2, 3] ++ [4, 5, 6] # concatenation
 hd(list) # head of the list
 tl(list) # the rest of the list
+
+5 in list # if an elem is in a list
+
+List.replace_at(list, 0, 1)
+
+List.insert_at(list, 0, 1)
    #+END_SRC
 
 Lists & tuples can hold multiple values with different types
 
 Lists are stored as singly-linked lists
 
+Generally add only to the front of a list
+
+*** Modifying Lists
+
+    - When you modify a list, the new version contains a shallow copy of the first n - 1 entries
+      with the tail after that shared
+
 ** Tuples
 
    #+BEGIN_SRC elixir
-elem(tuple, 1) # first element
+elem(tup, 1) # first element
+
+tup = put_elem(tup, 1, 26) # update index 1 to 26
    #+END_SRC
+
+*** Modifying Tuple
+
+    When you modify a tuple, it returns a shallow copy of the old tuple with the modification
 
 ** Semantics
 
    - the function size is used if the value is stored in the data structure (linear time)
      - Or named length if it needs to be computed
+
+** Maps
+
+   #+BEGIN_SRC elixir
+map = %{:a => 1, :b => 2}
+
+# This is equivalent to:
+map = %{a => 1, b => 2}
+
+map[:a]
+# or
+Map.get(map, :a, default)
+#or
+map.a # works for atom keys
+
+Map.fetch(:a)
+# returns {:ok, 1} or :error
+
+Map.put(map, :c, 3)
+
+# Updating a field
+map = %{map | c: 10}
+   #+END_SRC
 
 * Atoms
 
@@ -180,3 +234,31 @@ Enum.reduce([1, 2, 3], &+/2)
 * Streams vs. Enums
 
   - streams are lazy
+
+* Modules
+
+  #+BEGIN_SRC elixir
+defmodule Circle do
+  @pi 3.14 # compile time constant
+end
+  #+END_SRC
+* Type Hints
+
+  - Called type specs
+
+    #+BEGIN_SRC elixir
+@spec area(number) :: number
+def area(r) do: r * r * @pi
+    #+END_SRC
+
+* BEAM
+
+  - BEAM is built to abstract away processes inside of the main Erlang process. It abstracts away server-server communication
+    as if it was process-process communication
+    - e.g. instead of using a message queue and in-memory cache, everything can just be Elixir
+    - the BEAM still doesn't replace the horizontally scalability you get from tools like K8s
+
+* Misc
+
+  - Integer division: =div(5, 2)=
+  - Remainder: =rem(3, 2)=
