@@ -15,6 +15,24 @@
 
    #+BEGIN_SRC elixir
 "hello #{world}"
+"5 + 10 = #{5 + 10}"
+   #+END_SRC
+
+
+** Sigils
+
+   #+BEGIN_SRC elixir
+~s("Includes quotes")
+~S("raw backslash char: \") # doesn't escape
+   #+END_SRC
+
+** Charlists
+
+   Lists of ASCII codepoints (range 0-127 I think)
+
+   #+BEGIN_SRC elixir
+[65, 66, 67]
+# ~c"ABC"
    #+END_SRC
 
 * IO
@@ -55,7 +73,7 @@ true or true
 ** Lists
 
    #+BEGIN_SRC elixir
-[1, 2, 3] ++ [4, 5, 6] # concatenation
+[1, 2, 3] ++ [4, 5, 6] # concatenation (O(n) bc linked lists)
 hd(list) # head of the list
 tl(list) # the rest of the list
 
@@ -77,6 +95,20 @@ Generally add only to the front of a list
     - When you modify a list, the new version contains a shallow copy of the first n - 1 entries
       with the tail after that shared
 
+*** Keyword Lists
+
+    Linked list of key value pairs. Useful for smaller maps
+
+    #+BEGIN_SRC elixir
+[monday: 1, tuesday: 2] # equals a list of Tuples with atom keys
+    #+END_SRC
+
+    These are often used for named arguments, so often that you can omit the square brackets
+
+    #+BEGIN_SRC elixir
+IO.inspect([100, 200, 300], width: 3, limit: 1)
+    #+END_SRC
+
 ** Tuples
 
    #+BEGIN_SRC elixir
@@ -85,7 +117,7 @@ elem(tup, 1) # first element
 tup = put_elem(tup, 1, 26) # update index 1 to 26
    #+END_SRC
 
-*** Modifying Tuple
+*** Modifying Tuples
 
     When you modify a tuple, it returns a shallow copy of the old tuple with the modification
 
@@ -117,6 +149,22 @@ Map.put(map, :c, 3)
 map = %{map | c: 10}
    #+END_SRC
 
+** MapSets
+
+   Use as your default for sets
+   #+BEGIN_SRC elixir
+MapSet.new([:monday, :tuesday, :wednesday])
+MapSet.member?(days, :monday)
+# true
+   #+END_SRC
+
+** Datetimes
+
+   #+BEGIN_SRC elixir
+date = ~D[2023-01-31]
+date.year
+   #+END_SRC
+
 * Atoms
 
   - Constants whose value is it's name
@@ -143,9 +191,23 @@ map = %{map | c: 10}
 
 # use this to prepend
 list = [0 | list]
+
+# matching maps
+%{name: name, age: age} = bob
+
+# matching binaries
+<<b1, b2, b3>> = "ABC"
+
+<<b1, rest :: binary>> = binary
+
+# chaining matches
+a = (b = 1 + 3) # parens are optional
+# a = 4
   #+END_SRC
 
 ** Pin Operator
+
+   Does a match without assignment
 
    #+BEGIN_SRC elixir
 x = 1
@@ -173,18 +235,61 @@ Errors in guards don't get thrown. They just don't match
 * Logic
 ** Cond
 
+   Use cond to handle branching conditionals
    #+BEGIN_SRC elixir
 cond do
   2 + 2 == 5 ->
-    "This will not be true"
-  2 * 2 == 3 ->
-    "Nor this"
+    "won't match"
   1 + 1 == 2 ->
-    "But this will"
+    "but this will"
   true ->
     "default"
 end
    #+END_SRC
+** Guards
+
+   #+BEGIN_SRC elixir
+def sign(x) when is_number(x) and x < 0 do
+  :negative
+end
+
+def sign(x) when is_number(x) and x > 0 do
+  :positive
+end
+
+def test(0) do
+  :zero
+end
+   #+END_SRC
+** Guards with Lambdas
+
+   #+BEGIN_SRC elixir
+test_num = fn
+  x when is_number(x) and x < 0 -> :negative
+  x when is_number(x) and x > 0 -> :positive
+  0 -> :zero
+end
+   #+END_SRC
+
+** unless keyword
+
+   #+BEGIN_SRC elixir
+unless result == :error do: # ...
+   #+END_SRC
+
+** with
+
+   with is useful for having chaining expressions returning {:ok, result} or {:error, reason}
+
+   Once it encounters an {:error, reason}, it'll return {:error, reason}
+
+   #+BEGIN_SRC elixir
+with {:ok, login} <- get_login(),
+     {:ok, email} <- get_email(),
+     {:ok, password} <- get_password(),
+{:ok, %{login: login, email: email, password: password}}
+   #+END_SRC
+
 * Functions
 ** Anonymous Functions
 
@@ -199,23 +304,20 @@ add.(1, 2)
 
    #+BEGIN_SRC elixir
 fun = &(&1 + 2)
+
+fun = &(&1 + &2) # 2-arity function
    #+END_SRC
-* Maps
-
-  #+BEGIN_SRC elixir
-m = %{:a => 1}
-Map.get(m, :a)
-
-# Updating keys:
-m = %{m | :a: 3}
-  #+END_SRC
 * Naming Conventions
 
   Postfix in =?= if it returns a bool
+
 * Recursion, reductions
 
+  You can match the parameters of a function. But this will iterate over each instance that matches the arity.
+
+  e.g. if you provide three matches for area/1 it won't iterate over them for a call to area() with 2 parameters
   #+BEGIN_SRC elixir
-  defmodule Math do
+defmodule Math do
   def sum_list([head | tail], accumulator) do
     sum_list(tail, head + accumulator)
   end
@@ -231,9 +333,30 @@ IO.puts Math.sum_list([1, 2, 3], 0)
 Enum.map([1, 2, 3], &(&1 * 2))
 Enum.reduce([1, 2, 3], &+/2)
   #+END_SRC
+
+ Elixir compiles =head | tail= recursions to something resembling gotos (e.g. in a traditional for loop)
+ This is true for all tail recursive calls - where the last thing in the function is the recursive call
+
+
 * Streams vs. Enums
 
   - streams are lazy
+
+    #+BEGIN_SRC elixir
+Enum.to_list(stream)
+
+Enum.take(stream, 10) # get the first 10 results
+
+Enum.each(stream, func)
+    #+END_SRC
+
+* Enums
+
+  #+BEGIN_SRC elixir
+Enum.each(list, func)
+
+Enum.map(list, func)
+  #+END_SRC
 
 * Modules
 
@@ -242,6 +365,7 @@ defmodule Circle do
   @pi 3.14 # compile time constant
 end
   #+END_SRC
+
 * Type Hints
 
   - Called type specs
@@ -251,6 +375,71 @@ end
 def area(r) do: r * r * @pi
     #+END_SRC
 
+* Binaries, Bitstrings
+
+  - Binary - a collection of bytes
+
+    #+BEGIN_SRC elixir
+<<255>> # 255
+<<256>> # overflows to 0
+
+<<255::16>> # specify to use 16 bits for 255
+# <<0, 255>>
+
+<<257::16>>
+# <<1, 1>> because this represents 0x01 0x01
+    #+END_SRC
+
+  - The result of a binary is comma-separated sequences of 8 bits
+  - If the result isn't in a multiple of 8 bits, it's a bitstring
+
+* Comprehensions
+
+  Iterates over the input list and returns the list w/ the function applied
+  #+BEGIN_SRC elixir
+for x <- [1, 2, 3] do
+    x * x
+end
+
+# can use ranges
+for x <- 1..3 do
+end
+
+multiplication_table =
+    for x <- 1..9,
+      y <- 1..9,
+      x <= y, # filter
+  into: %{} do
+        {{x, y}, x * y}
+    end
+
+  #+END_SRC
+
+* Structs
+
+  #+BEGIN_SRC elixir
+%Fraction{fraction | b : 4} # replace a field
+  #+END_SRC
+
+* Protocols
+
+  - Analogous to interfaces
+
+    #+BEGIN_SRC elixir
+defprotocol String.Chars do
+  def to_string(term)
+end
+
+# for can be Tuple, Atom, List, Map, BitString, Integer, Float, Function
+defimpl String.Chars, for: Integer do
+  def to_string(term) do
+    res
+  end
+end
+    #+END_SRC
+
+  Base protocols to implement include =Enumerable, Collectable=
+
 * BEAM
 
   - BEAM is built to abstract away processes inside of the main Erlang process. It abstracts away server-server communication
@@ -258,6 +447,14 @@ def area(r) do: r * r * @pi
     - e.g. instead of using a message queue and in-memory cache, everything can just be Elixir
     - the BEAM still doesn't replace the horizontally scalability you get from tools like K8s
 
+* Ranges
+
+#+BEGIN_SRC elixir
+range = 1..2
+2 in range # true
+
+Enum.each(1..2, func)
+#+END_SRC
 * Misc
 
   - Integer division: =div(5, 2)=
