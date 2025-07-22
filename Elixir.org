@@ -267,6 +267,8 @@ end
 
 ** unless keyword
 
+   if not
+
    #+BEGIN_SRC elixir
 unless result == :error do: # ...
    #+END_SRC
@@ -300,6 +302,9 @@ add.(1, 2)
 fun = &(&1 + 2)
 
 fun = &(&1 + &2) # 2-arity function
+
+# use for function references
+&add/2
    #+END_SRC
 * Naming Conventions
 
@@ -310,6 +315,7 @@ fun = &(&1 + &2) # 2-arity function
   You can match the parameters of a function. But this will iterate over each instance that matches the arity.
 
   e.g. if you provide three matches for area/1 it won't iterate over them for a call to area() with 2 parameters
+
   #+BEGIN_SRC elixir
 defmodule Math do
   def sum_list([head | tail], accumulator) do
@@ -322,7 +328,7 @@ defmodule Math do
   end
 end
 
-IO.puts Math.sum_list([1, 2, 3], 0)
+IO.puts(Math.sum_list([1, 2, 3], 0))
 
 Enum.map([1, 2, 3], &(&1 * 2))
 Enum.reduce([1, 2, 3], &+/2)
@@ -367,7 +373,7 @@ end
     #+BEGIN_SRC elixir
 @spec area(number) :: number
 def area(r) do: r * r * @pi
-    #+END_SRC
+#+END_SRC
 
 * Binaries, Bitstrings
 
@@ -390,6 +396,7 @@ def area(r) do: r * r * @pi
 * Comprehensions
 
   Iterates over the input list and returns the list w/ the function applied
+
   #+BEGIN_SRC elixir
 for x <- [1, 2, 3] do
     x * x
