@@ -8,7 +8,7 @@
 ** Concatenation
 
    #+BEGIN_SRC elixir
-   "hello " <> "world"
+"hello " <> "world"
    #+END_SRC
 
 ** Interpolation
@@ -73,7 +73,7 @@ true or true
 ** Lists
 
    #+BEGIN_SRC elixir
-[1, 2, 3] ++ [4, 5, 6] # concatenation (O(n) bc linked lists)
+[1, 2, 3] ++ [4, 5, 6] # concatenation (O(len(first list)) bc linked lists)
 hd(list) # head of the list
 tl(list) # the rest of the list
 
@@ -135,6 +135,7 @@ map = %{:a => 1, :b => 2}
 map = %{a => 1, b => 2}
 
 map[:a]
+
 # or
 Map.get(map, :a, default)
 #or
@@ -151,7 +152,8 @@ map = %{map | c: 10}
 
 ** MapSets
 
-   Use as your default for sets
+   Use as your default set implementation
+
    #+BEGIN_SRC elixir
 MapSet.new([:monday, :tuesday, :wednesday])
 MapSet.member?(days, :monday)
@@ -164,14 +166,6 @@ MapSet.member?(days, :monday)
 date = ~D[2023-01-31]
 date.year
    #+END_SRC
-
-* Atoms
-
-  - Constants whose value is it's name
-
-    #+BEGIN_SRC elixir
-:apple
-    #+END_SRC
 
 * Pattern Matching
 
@@ -225,7 +219,7 @@ case {1, 2, 3} do
     "x gets reassigned to 2"
 
    _ when x > 0 ->
-    "extra condition"
+    "default"
 end
    #+END_SRC
 

@@ -2,9 +2,9 @@ name: Convert to HTML and Push to S3
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
   workflow_dispatch:
 
