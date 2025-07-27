@@ -305,6 +305,9 @@ fun = &(&1 + &2) # 2-arity function
 
 # use for function references
 &add/2
+
+# note that this is still creating an anonymous function, thus this is valid
+Enum.each(1..5, &fun(&1 + 2))
    #+END_SRC
 * Naming Conventions
 
@@ -447,6 +450,86 @@ end
     as if it was process-process communication
     - e.g. instead of using a message queue and in-memory cache, everything can just be Elixir
     - the BEAM still doesn't replace the horizontally scalability you get from tools like K8s
+
+** Concurrency
+
+   - Processes are managed by schedulers. By default, the BEAM allocates one scheduler for each available CPU thread
+
+* Concurrency
+
+  #+BEGIN_SRC elixir
+pid = spawn(fn -> ...)
+# create a process, this returns the PID
+
+send(pid, variable)
+
+# on the receiver
+receive do
+  pattern_1 -> func()
+  pattern_2 -> func2()
+after
+  5000 -> IO.puts("no message found after 5000 secs")
+end
+
+pid = self() # get the current process's PID
+
+get_result =
+fn ->
+  receive do
+    {:query_result, result} -> result
+  end
+end
+
+Enum.each(1..5, fn _ -> get_result.() end)
+  #+END_SRC
+
+** Server Processes
+
+   - Long-running server processes
+
+     #+BEGIN_SRC elixir
+defmodule DatabaseServer do
+  def start do
+    spawn(&loop/0)
+  end
+
+  defp loop do
+    receive do
+      ...
+    end
+
+    loop() # tail recurse to loop
+  end
+end
+     #+END_SRC
+
+** Stateful Processes
+
+   #+BEGIN_SRC elixir
+def start do
+  spawn(fn ->
+    initial_state = ...
+    loop(initial_state)
+  end)
+end
+
+defp loop(state) do
+  ...
+  loop(state)
+end
+   #+END_SRC
+
+** Managing Several Processes
+
+   Register names with:
+
+   #+BEGIN_SRC elixir
+Process.register(self(), :some_name)
+   #+END_SRC
+
+** Misc
+
+   Make sure to match all in a =receive= block, otherwise they sit in the processes input queue
 
 * Ranges
 
