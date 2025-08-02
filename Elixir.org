@@ -543,3 +543,30 @@ Enum.each(1..2, func)
 
   - Integer division: =div(5, 2)=
   - Remainder: =rem(3, 2)=
+* Phoenix
+** LiveView
+*** Url Params, Sessions
+
+    The session info comes from a signed cookie
+
+   #+BEGIN_SRC elixir
+def mount(%{"house" => house}, _session, socket) do
+  Thermostat.get_house_temp(house)
+end
+
+# in the router:
+live("/thermostat/:house")
+   #+END_SRC
+***  Templates
+
+    #+BEGIN_SRC html
+<section :for={post <- @posts} :key={post.id}>
+  <h1>{expand_title(post.title)}</h1>
+</section>
+    #+END_SRC
+
+Reactive variables:
+
+#+BEGIN_SRC elixir
+assign(assigns, sum: assigns.x + assigns.y)
+#+END_SRC
