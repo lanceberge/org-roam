@@ -570,3 +570,22 @@ Reactive variables:
 #+BEGIN_SRC elixir
 assign(assigns, sum: assigns.x + assigns.y)
 #+END_SRC
+*** Components
+
+    Create components with functions
+
+    #+BEGIN_SRC elixir
+  def button2(assigns) do
+    ~H"""
+    <button>
+      {@text}
+    </button>
+    """
+  end
+    #+END_SRC
+
+Use them with:
+
+#+BEGIN_SRC html
+<.button text="hey"/>
+#+END_SRC
