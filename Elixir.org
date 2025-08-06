@@ -54,13 +54,13 @@ IO.puts("hello world")
 
   #+BEGIN_SRC elixir
 def area(a, b) do: a * b
-  #+END_SRC
+#+END_SRC
 
 ** Default Values
 
    #+BEGIN_SRC elixir
 def area(a, b \\ 0) do: a * b
-   #+END_SRC
+#+END_SRC
 
 * Logic
 
@@ -135,7 +135,6 @@ map = %{:a => 1, :b => 2}
 map = %{a => 1, b => 2}
 
 map[:a]
-
 # or
 Map.get(map, :a, default)
 #or
@@ -223,7 +222,6 @@ case {1, 2, 3} do
 end
    #+END_SRC
 
-
 Errors in guards don't get thrown. They just don't match
 
 * Logic
@@ -263,14 +261,6 @@ test_num = fn
   x when is_number(x) and x > 0 -> :positive
   0 -> :zero
 end
-   #+END_SRC
-
-** unless keyword
-
-   if not
-
-   #+BEGIN_SRC elixir
-unless result == :error do: # ...
    #+END_SRC
 
 ** with
@@ -337,9 +327,8 @@ Enum.map([1, 2, 3], &(&1 * 2))
 Enum.reduce([1, 2, 3], &+/2)
   #+END_SRC
 
- Elixir compiles =head | tail= recursions to something resembling gotos (e.g. in a traditional for loop)
+ Elixir compiles =head | tail= recursions to something resembling gotos (equivalent to a traditional for loop)
  This is true for all tail recursive calls - where the last thing in the function is the recursive call
-
 
 * Streams vs. Enums
 
@@ -370,8 +359,6 @@ end
   #+END_SRC
 
 * Type Hints
-
-  - Called type specs
 
     #+BEGIN_SRC elixir
 @spec area(number) :: number
@@ -425,11 +412,12 @@ multiplication_table =
 %Fraction{fraction | b : 4} # replace a field
   #+END_SRC
 
-* Protocols
+* Polymorphism
+** Protocols
 
-  - Analogous to interfaces
+   - Analogous to interfaces
 
-    #+BEGIN_SRC elixir
+     #+BEGIN_SRC elixir
 defprotocol String.Chars do
   def to_string(term)
 end
@@ -440,10 +428,33 @@ defimpl String.Chars, for: Integer do
     res
   end
 end
-    #+END_SRC
+     #+END_SRC
 
-  Base protocols to implement include =Enumerable, Collectable=
+   Base protocols to implement include =Enumerable, Collectable=
 
+** Behaviors
+
+  #+BEGIN_SRC elixir
+# The contract
+defmodule URI.Parser do
+  @doc "Defines a default port"
+  @callback default_port() :: integer
+
+  @doc "Parses the given URL"
+  @callback parse(uri_info :: URI.t()) :: URI.t()
+end
+
+# The implementation
+defmodule URI.HTTP do
+  @behaviour URI.Parser
+
+  @impl true
+  def default_port(), do: 80
+
+  @impl true
+  def parse(info), do: info
+end
+  #+END_SRC
 * BEAM
 
   - BEAM is built to abstract away processes inside of the main Erlang process. It abstracts away server-server communication
@@ -539,10 +550,13 @@ range = 1..2
 
 Enum.each(1..2, func)
 #+END_SRC
+
 * Misc
 
   - Integer division: =div(5, 2)=
   - Remainder: =rem(3, 2)=
+  - Module names are atoms so you can store them in variables
+
 * Phoenix
 ** LiveView
 *** Url Params, Sessions
@@ -557,7 +571,7 @@ end
 # in the router:
 live("/thermostat/:house")
    #+END_SRC
-***  Templates
+*** Templates
 
     #+BEGIN_SRC html
 <section :for={post <- @posts} :key={post.id}>
@@ -589,3 +603,33 @@ Use them with:
 #+BEGIN_SRC html
 <.button text="hey"/>
 #+END_SRC
+
+* GenServers
+
+  #+BEGIN_SRC elixir
+defmodule KeyValueStore do
+  use GenServer
+  def init(_) do
+    {:ok, %{}}
+  end
+
+  @impl GenServer
+  def handle_cast({:put, key, value}, state) do
+    {:noreply, Map.put(state, key, value)}
+  end
+
+  def handle_call({:get, key}, _, state) do
+    {:reply, Map.get(state, key), state}
+  end
+end
+  #+END_SRC
+
+** OTP Processes
+
+   - Use =Task= for one-off processes
+   - =Agent= if it's just a data structure
+
+** Cast vs. Call
+
+   - Casts are asynchronous, messages to them get queued up
+   - calls are synchronous - the caller waits for a response
