@@ -48,6 +48,10 @@ IO.puts("hello world")
 {1, 2, 3} # tuple
   #+END_SRC
 
+** Atoms
+
+   - Atoms are never garbage collected
+
 * Functions
 
   oneline functions
@@ -272,8 +276,15 @@ end
    #+BEGIN_SRC elixir
 with {:ok, login} <- get_login(),
      {:ok, email} <- get_email(),
-     {:ok, password} <- get_password(),
-{:ok, %{login: login, email: email, password: password}}
+     {:ok, password} <- get_password() do
+  {:ok, %{login: login, email: email, password: password}}
+
+with {:ok, json} <- Jason.decode(param),
+    # ...
+
+else
+  {:error, reason} ->
+  {:error_404, reason} ->
    #+END_SRC
 
 * Functions
@@ -299,9 +310,12 @@ fun = &(&1 + &2) # 2-arity function
 # note that this is still creating an anonymous function, thus this is valid
 Enum.each(1..5, &fun(&1 + 2))
    #+END_SRC
+
 * Naming Conventions
 
   Postfix in =?= if it returns a bool
+
+  Use paths corresponding to module names. E.g. Todo.Server should go in lib/todo/server
 
 * Recursion, reductions
 
@@ -497,6 +511,7 @@ Enum.each(1..5, fn _ -> get_result.() end)
 ** Server Processes
 
    - Long-running server processes
+   - Use Process.monitor to receive messages about the state of a process
 
      #+BEGIN_SRC elixir
 defmodule DatabaseServer do
@@ -603,8 +618,27 @@ Use them with:
 #+BEGIN_SRC html
 <.button text="hey"/>
 #+END_SRC
+*** Contexts
+
+    - Use to model interactions with the db
+*** Plugs
+
+    - Plugs get executed on every render
+*** Mount/3
+
+    - gets executed on every render
+
+*** Sessions
+
+    - essentially a genserver per user
+
+*** Conn
+
+    - connections are ephemeral state stored per request
 
 * GenServers
+
+  =:reply= - can be sent by calls to give them a return value
 
   #+BEGIN_SRC elixir
 defmodule KeyValueStore do
@@ -622,6 +656,20 @@ defmodule KeyValueStore do
     {:reply, Map.get(state, key), state}
   end
 end
+
+# Using the genserver
+# Start the server
+{:ok, pid} = GenServer.start_link(KeyValueStore, _)
+
+GenServer.cast(pid, {:put, :name, "Lance"})
+#=> :ok
+
+GenServer.call(pid, {:get, Lance})
+
+## Or register a name
+{:ok, _} = GenServer.start_link(Stack, "hello", name: MyStack)
+
+GenServer.call(MyStack, :pop)
   #+END_SRC
 
 ** OTP Processes
@@ -633,3 +681,180 @@ end
 
    - Casts are asynchronous, messages to them get queued up
    - calls are synchronous - the caller waits for a response
+     - Calls have a default timeout of 5 seconds
+     - When a call times out, it remains in the mailbox
+     - Note that calls block casts and other non-blocking operations
+
+** Continues
+
+   You can split a blocking operation (init, call) into blocking and non-blocking segments by having =init/1= return
+   ={:ok, initial_state, {:continue, some_arg}}=
+
+   Then implement:
+
+   #+BEGIN_SRC elixir
+def handle_continue(:init, {name, nil}) do
+  val = # ...
+{:noreply, {name, val}}
+end
+   #+END_SRC
+
+** Use Case of GenServers
+
+   - Managing long-living state
+   - A critical segment of the code needs to be synchronized
+
+* Ecto
+
+  - Repos are the abstraction for databases
+  - Schemas represent the db structure
+    - schemas create struct
+  - Changesets - migrations
+
+** Queries
+
+:distinct
+:where
+:order_by
+:offset
+:limit
+:lock
+:group_by
+:having
+:join
+:select
+:preload
+
+** Associations
+
+   #+BEGIN_SRC elixir
+defmodule Post do
+  use Ecto.Schema
+
+  schema "posts" do
+    has_many :comments, Comment
+  end
+end
+
+defmodule Comment do
+  use Ecto.Schema
+
+  schema "comments" do
+    field :title, :string
+    belongs_to :post, Post
+  end
+end
+
+Repo.all from p in Post, preload: [:comments]
+   #+END_SRC
+
+** Changesets
+
+   - Changesets provide validation rules for updating an entry
+
+     #+BEGIN_SRC elixir
+defmodule User do
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  schema "users" do
+    field :name
+    field :email
+    field :age, :integer
+  end
+
+  def changeset(user, params \\ %{}) do
+    user
+    |> cast(params, [:name, :email, :age]) # the fields allowed to be updated
+    |> validate_required([:name, :email]) # these fields must always be non nil
+    |> validate_format(:email, ~r/@/)
+    |> validate_inclusion(:age, 18..100)
+    |> unique_constraint(:email)
+  end
+end
+
+explain the syntax of this changeset
+     #+END_SRC
+
+** Contexts
+
+   When you have a file =users/user.ex= you should have a file up a dir =users.ex= that includes all of the interactions with =User= schemas
+
+     #+BEGIN_SRC sh
+mix phx.gen.context Things Thing thing name:string description:text
+     #+END_SRC
+
+** Scopes
+
+   Scopes let you build queries step by step
+
+   #+BEGIN_SRC elixir
+# scope.ex file
+defmodule App.Scope do
+  import Ecto.Query
+  alias App.Blog.Post
+
+  def published(query \\ Post) do
+    from p in query, where: p.published == true
+  end
+
+  def by_author(query \\ Post, author_id) do
+    from p in query, where: p.author_id == ^author_id
+  end
+
+  def with_comments(query \\ Post) do
+    from p in query, preload: [:comments]
+  end
+
+  def created_after(query \\ Post, date) do
+    from p in query, where: p.inserted_at > ^date
+  end
+end
+   #+END_SRC
+
+Usage:
+
+#+BEGIN_SRC elixir
+Post
+|> Scope.published()
+|> Scope.by_author(author)
+|> Scope.with_comments()
+|> Repo.all()
+#+END_SRC
+
+* Error Handling
+
+  - BEAM has three types of errors: =errors=, =exits=, and =throws=
+  - Errors are generally meant to be thrown, not caught. The process should just restart in these cases
+
+** Raises
+
+   - use =raise=, postfix the function with =!=
+
+** Exits
+
+   - Terminate the process
+
+     #+BEGIN_SRC elixir
+exit("Reason")
+     #+END_SRC
+
+** Throws
+
+   - can be caught with try-catch
+
+* Linked Processes
+
+  - If an error happens in the linked process, it's link crashes too
+  - Start with =spawn_link=
+
+** Exit Traps
+
+   Prevent exit signals
+   #+BEGIN_SRC elixir
+spawn(fn ->
+  Process.flag(:trap_exit, true)
+)
+   #+END_SRC
+
+**

@@ -1,0 +1,24 @@
+:PROPERTIES:
+:ID:       D5C0FB0C-C381-4CAE-8921-34E34745DB9C
+:END:
+#+title: Kalman Filtering
+#+category: Kalman Filtering
+
+* 2 Phases
+
+  - Update and predict
+  - Prediction - make estimates about the state
+  - $$B_k$$ - represents how much each param (LLA) is expected to change
+  - Signa is uncertainty about your position
+  - Control inputs - any additional variables that can affect the state variables
+    - state variables - e.g. lat lon alt -- the variables you want to measure
+  - state transition matrix - represents how the state variables change at each iteration.
+    - e.g. you would have delta t to represent the change in position relative to velocity
+
+* Parameters
+
+  - q :: process noise
+    - too small of a q leads to causes a lag error
+    - too high q leads to noisy estimations
+
+* Definition

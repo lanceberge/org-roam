@@ -7,6 +7,7 @@
 #+BEGIN_SRC bash
 jq '.fruit.color,.fruit.price' fruit.json
 #+END_SRC
+
 * Iterating over arrays
 
   #+BEGIN_SRC sh
