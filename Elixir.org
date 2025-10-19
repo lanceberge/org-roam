@@ -751,6 +751,18 @@ Repo.all from p in Post, preload: [:comments]
 ** Changesets
 
    - Changesets provide validation rules for updating an entry
+   - Changesets are essentially a builder for queries. You pass attributes to them and they go through each of the validation steps
+     then you can pipe it into Repo.insert() and it will fail if it's invalid
+   - You can pipe changesets into other changesets to add additional rules. The common pattern is to have in your model something like
+     ~User.email_changeset~ that provides validation just for the emails. Then your context would execute the query, e.g.:
+
+     #+BEGIN_SRC elixir
+def add_email(attrs) do
+  User{}
+  |> User.email_changeset(attrs)
+  |> # additional validation
+  |> Repo.insert()
+     #+END_SRC
 
      #+BEGIN_SRC elixir
 defmodule User do
@@ -772,8 +784,6 @@ defmodule User do
     |> unique_constraint(:email)
   end
 end
-
-explain the syntax of this changeset
      #+END_SRC
 
 ** Contexts
